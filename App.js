@@ -24,11 +24,15 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
+/* Sampleのコンポーネントをimportする。App内にSampleタグを追加する。*/
+import Sample from './src/components/sample'
+
 const App: () => React$Node = () => {
   return (
     <>
       <StatusBar barStyle="dark-content" />
       <SafeAreaView>
+      <Sample />
         <ScrollView
           contentInsetAdjustmentBehavior="automatic"
           style={styles.scrollView}>
@@ -40,7 +44,7 @@ const App: () => React$Node = () => {
           )}
           <View style={styles.body}>
             <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Step Pow</Text>
+              <Text style={styles.sectionTitle}>Step AAA</Text>
               <Text style={styles.sectionDescription}>
                 Edit <Text style={styles.highlight}>App.js</Text> to change this
                 screen and then come back to see your edits.
@@ -90,7 +94,7 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 24,
     fontWeight: '600',
-    color: Colors.black,
+    color: Colors.dark,
   },
   sectionDescription: {
     marginTop: 8,
@@ -111,4 +115,5 @@ const styles = StyleSheet.create({
   },
 });
 
+// App.jsの中でexport default class hogehoge とすることで、このクラスがアプリのトップにレンダリングされます。
 export default App;
