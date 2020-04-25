@@ -29,6 +29,11 @@ export class LandscapeButton extends Component {
         ).start();
     }
 
+    componentWillUnmount() {
+        this.state.expandWidth.stopAnimation();
+        this.state.fadeIn.stopAnimation();
+    }
+
     render() {
         let width = this.state.expandWidth;
         let opacity = this.state.fadeIn;

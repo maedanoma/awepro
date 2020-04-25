@@ -25,6 +25,10 @@ export default class Icon extends Component {
         ).start()
     }
 
+    componentWillUnmount() {
+        this.state.jumpOut.stopAnimation();
+    }
+
     render() {
         let scale = this.state.jumpOut;
         const {

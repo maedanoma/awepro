@@ -8,19 +8,26 @@
 
 import React from 'react';
 import {
-  SafeAreaView,
   StyleSheet,
 } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
-import Login from './src/components/Login';
+import LoginScreen from './src/screen/LoginScreen';
 
 const App: () => React$Node = () => {
+
+  const Stack = createStackNavigator();
   
   return (
     <>
-      <SafeAreaView>
-        <Login />
-      </SafeAreaView>
+      <NavigationContainer>
+        <Stack.Navigator
+          initialRouteName='Login'
+          headerMode='none'>
+          <Stack.Screen name="Login" component={LoginScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
     </>
   );
 };
