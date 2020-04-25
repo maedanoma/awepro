@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {
     StyleSheet,
+    View,
     Text,
     TouchableOpacity,
     Animated,
@@ -58,6 +59,29 @@ export class LandscapeButton extends Component {
     }
 }
 
+export class MiniLandscapeButton extends Component {
+    render() {
+        const {
+            // ボタンが押された時の処理
+            onPressButton,
+            // レイアウト
+            text,
+            color,
+            backgroundColor,
+            borderColor,
+        } = this.props;
+        return (
+            <View style={[styles.miniLandButton, { backgroundColor, borderColor }]} >
+                <TouchableOpacity style={styles.landTouchArea} onPress={onPressButton}>
+                    <Text style={[styles.miniLandText, { color }]}>
+                        {text}
+                    </Text>
+                </TouchableOpacity>
+            </View>
+        );
+    }
+}
+
 export class LinkButton extends Component {
     render() {
         const {
@@ -93,6 +117,15 @@ const styles = StyleSheet.create({
     },
     landButton: {
         height: 50,
+        borderRadius: 30,
+        borderWidth: 1,
+    },
+    miniLandText: {
+        fontSize: 13,
+    },
+    miniLandButton: {
+        width: 100,
+        height: 25,
         borderRadius: 30,
         borderWidth: 1,
     },

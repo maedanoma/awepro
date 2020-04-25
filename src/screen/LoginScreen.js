@@ -20,7 +20,7 @@ export default class LoginScreen extends Component {
     };
 
     _loginAsGuest = () => {
-        Alert.alert('You tapped login as guest!')
+        this.props.navigation.navigate('TeamNews')
     };
 
     _signUp = () => {

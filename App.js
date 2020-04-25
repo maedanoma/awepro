@@ -14,6 +14,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import LoginScreen from './src/screen/LoginScreen';
+import TeamNewsScreen from './src/screen/TeamNewsScreen';
 
 const App: () => React$Node = () => {
 
@@ -26,6 +27,7 @@ const App: () => React$Node = () => {
           initialRouteName='Login'
           headerMode='none'>
           <Stack.Screen name="Login" component={LoginScreen} />
+          <Stack.Screen name="TeamNews" component={TeamNewsScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </>
