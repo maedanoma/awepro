@@ -102,6 +102,25 @@ export class LinkButton extends Component {
     }
 }
 
+export class HamburgerButton extends Component {
+    render() {
+        const {
+            // ボタンが押された時の処理
+            onPressButton,
+            backgroundColor,
+        } = this.props;
+        return (
+            <TouchableOpacity
+                style={styles.hamburgerArea}
+                onPress={onPressButton}>
+                <View style={[styles.hamburgerLine, {backgroundColor}]} />
+                <View style={[styles.hamburgerLine, {backgroundColor}]} />
+                <View style={[styles.hamburgerLine, {backgroundColor}]} />
+            </TouchableOpacity>
+        );
+    }
+}
+
 const styles = StyleSheet.create({
     linkText: {
         fontSize: 16,
@@ -129,4 +148,16 @@ const styles = StyleSheet.create({
         borderRadius: 30,
         borderWidth: 1,
     },
+    hamburgerArea: {
+        width: 30,
+        height: 30,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    hamburgerLine: {
+        width: 25,
+        height: 3,
+        margin: 2,
+        borderRadius: 2,
+    }
 });

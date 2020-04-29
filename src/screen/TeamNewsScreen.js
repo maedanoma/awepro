@@ -17,6 +17,10 @@ import {
 import { CardHeader } from '../components/Header'
 
 const gomesImage = { uri: 'https://media.gettyimages.com/photos/kurt-zouma-of-everton-celebrates-after-scoring-his-teams-first-goal-picture-id1081775044?s=2048x2048' }
+// const header = {uri: 'https://media.gettyimages.com/photos/richarlison-of-everton-celebrates-with-teammates-after-scoring-his-picture-id1208180963?s=2048x2048'}
+// const header = {uri: 'https://media.gettyimages.com/photos/dan-gosling-of-everton-is-congratulated-by-teammate-leighton-baines-picture-id84650304?s=2048x2048'}
+// const header = {uri: 'https://media.gettyimages.com/photos/dominic-calvertlewin-of-everton-celebrates-with-teammates-after-his-picture-id1192480863?s=2048x2048'}
+const header = {uri: 'https://media.gettyimages.com/photos/dominic-calvertlewin-and-richarlison-of-everton-celebrate-only-for-picture-id1209910938?s=2048x2048'}
 
 export default class TeamNewsScreen extends Component {
     UNSAFE_componentWillMount() {
@@ -36,7 +40,7 @@ export default class TeamNewsScreen extends Component {
     render() {
         return (
             <View>
-                <CardHeader />
+                <CardHeader headerImage={header} />
                 <View>
                     <View style={styles.matches}>
                         <Text style={[styles.titleText, { marginLeft: 10 }]} >
@@ -73,10 +77,10 @@ export default class TeamNewsScreen extends Component {
 
 const styles = StyleSheet.create({
     matches: {
-        height: Dimensions.get('window').height * 0.23
+        height: Dimensions.get('window').height * 0.20
     },
     news: {
-        height: Dimensions.get('window').height * 0.67
+        height: Dimensions.get('window').height * 0.7
     },
     titleText: {
         height: 25,

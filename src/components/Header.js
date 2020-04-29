@@ -5,9 +5,9 @@ import {
     Animated,
     ImageBackground,
     Dimensions,
+    Easing,
 } from 'react-native';
-
-const bagro = require('../res/login_gomes.jpg');
+import { HamburgerButton } from '../components/Button'
 
 export class CardHeader extends Component {
     state = {
@@ -17,8 +17,9 @@ export class CardHeader extends Component {
     componentDidMount() {
         Animated.timing(this.state.headerImageOpacity,
             {
-                toValue: 0.8,
-                duration: 2000,
+                toValue: 1,
+                duration: 2500,
+                easing: Easing.quad,
             }
         ).start();
     }
@@ -28,13 +29,28 @@ export class CardHeader extends Component {
     }
 
     render() {
+        const {
+            onPressHbg,
+            headerImage,
+        } = this.props;
+
+        const HbgButton = () => (
+            <View style={[{margin: 10}]}>
+                <HamburgerButton
+                    onPressButton={onPressHbg}
+                    backgroundColor='#F4F4F4' />
+            </View>
+        );
+
         let opacity = this.state.headerImageOpacity;
         return (
             <View style={styles.header}>
                 <Animated.View style={[styles.headerImage, { opacity }]}>
                     <ImageBackground
                         style={styles.headerImage}
-                        source={bagro} />
+                        source={headerImage} >
+                        <HbgButton />
+                    </ImageBackground>
                 </Animated.View>
                 <View style={styles.headerCard} />
             </View>
@@ -56,4 +72,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#F4F4F4',
         translateY: -(Dimensions.get('screen').height * 0.04),
     },
+    center: {
+        alignItems: 'center',
+        justifyContent: 'center',
+    }
 });
