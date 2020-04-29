@@ -13,11 +13,10 @@ import {
 import {
     MatchesCard,
     NewsCard,
-    HeaderCard,
 } from '../components/Card'
+import { CardHeader } from '../components/Header'
 
-const everton = require('../res/login_everton.jpg')
-const liverpool = require('../res/liverpool_logo.jpg')
+const gomesImage = { uri: 'https://media.gettyimages.com/photos/kurt-zouma-of-everton-celebrates-after-scoring-his-teams-first-goal-picture-id1081775044?s=2048x2048' }
 
 export default class TeamNewsScreen extends Component {
     UNSAFE_componentWillMount() {
@@ -30,14 +29,14 @@ export default class TeamNewsScreen extends Component {
         // TODO プログレスアイコンを消す
     }
 
-    _details() {
+    _match() {
         Alert.alert('This function under construction!')
     }
 
     render() {
         return (
             <View>
-                <HeaderCard />
+                <CardHeader />
                 <View>
                     <View style={styles.matches}>
                         <Text style={[styles.titleText, { marginLeft: 10 }]} >
@@ -47,13 +46,11 @@ export default class TeamNewsScreen extends Component {
                             horizontal={true}
                             showsHorizontalScrollIndicator={false}>
                             <MatchesCard
-                                onPressDetails={this._details}
+                                onPressMatch={this._match}
                                 matchDay='2020/04/12'
                                 homeTeamName='EVE'
-                                homeTeamLogo={everton}
                                 homeTeamGoals='2'
                                 awayTeamName='LIV'
-                                awayTeamLogo={liverpool}
                                 awayTeamGoals='2' />
                             <MatchesCard />
                         </ScrollView>
@@ -63,7 +60,7 @@ export default class TeamNewsScreen extends Component {
                             NEWS
                     </Text>
                         <ScrollView>
-                            <NewsCard />
+                            <NewsCard newsImage={gomesImage} />
                             <NewsCard />
                         </ScrollView>
                     </View>
@@ -76,10 +73,10 @@ export default class TeamNewsScreen extends Component {
 
 const styles = StyleSheet.create({
     matches: {
-        height: Dimensions.get('window').height * 0.25
+        height: Dimensions.get('window').height * 0.23
     },
     news: {
-        height: Dimensions.get('window').height * 0.65
+        height: Dimensions.get('window').height * 0.67
     },
     titleText: {
         height: 25,

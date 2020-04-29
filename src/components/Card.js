@@ -5,132 +5,52 @@ import {
     View,
     Image,
     Dimensions,
-    Animated,
-    ImageBackground
 } from 'react-native';
 import { MiniLandscapeButton } from '../components/Button'
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
-const bagro = require('../res/login_gomes.jpg');
-
-export class HeaderCard extends Component {
-    state = {
-        headerImageOpacity: new Animated.Value(0),
-    }
-
-    componentDidMount() {
-        Animated.timing(this.state.headerImageOpacity,
-            {
-                toValue: 0.8,
-                duration: 2000,
-            }
-        ).start();
-    }
-
-    componentWillUnmount() {
-        this.state.headerImageOpacity.stopAnimation();
-    }
-
-    render() {
-        let opacity = this.state.headerImageOpacity;
-        return (
-            <View style={styles.header}>
-                <Animated.View style={[styles.headerImage, { opacity }]}>
-                    <ImageBackground
-                        style={styles.headerImage}
-                        source={bagro} />
-
-                </Animated.View>
-                <View style={styles.headerCard} />
-            </View>
-        );
-    }
-}
+const everton = {uri: 'https://media.gettyimages.com/photos/the-everton-logo-is-seen-outside-the-stadium-prior-to-the-premier-picture-id870497804?s=2048x2048'}
+const liverpool = {uri: 'https://media.gettyimages.com/photos/wall-with-liverpool-fc-logo-during-the-uefa-champions-league-round-of-picture-id1125794244?s=2048x2048'}
 
 export class MatchesCard extends Component {
     render() {
         const {
-            onPressDetails,
+            onPressMatch,
             matchDay,
             homeTeamName,
-            homeTeamLogo,
             homeTeamGoals,
             awayTeamName,
-            awayTeamLogo,
             awayTeamGoals,
         } = this.props;
 
-        const DetailsButton = () => (
-            <MiniLandscapeButton
-                onPressButton={onPressDetails}
-                text='DETAIL'
-                backgroundColor='#FFFFFF'
-                borderColor='#004095'
-                color='#004095' />
-        );
-
         const GoalsText = () => (
-            <View style={[{
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'center',
-                margin: 10,
-            }]}>
-                <Text style={[{ width: 20, fontSize: 40 }]}>
-                    {homeTeamGoals}
-                </Text>
-                <Text style={[{ width: 10, fontSize: 40, margin: 5 }]}>
-                    -
-                </Text>
-                <Text style={[{ width: 20, fontSize: 40 }]}>
-                    {awayTeamGoals}
-                </Text>
+            <View style={styles.goal}>
+                <Text style={styles.teamGoal}>{homeTeamGoals}</Text>
+                <View style={styles.devider} />
+                <Text style={styles.teamGoal}>{awayTeamGoals}</Text>
             </View>
         )
 
         return (
-            <View style={styles.matchCard}>
+            <TouchableOpacity style={styles.matchCard} onPress={onPressMatch}>
                 <View style={[styles.horizontal, { width: 100, marginTop: 10 }]}>
-                    <Team style={styles.team} logo={homeTeamLogo} name={homeTeamName} />
-                    <GoalsText />
-                    <Team style={styles.team} logo={awayTeamLogo} name={awayTeamName} />
-                </View>
-                <View style={[styles.horizontal, { margin: 10 }]}>
-                    <View style={[styles.details, { marginLeft: 15 }]}>
-                        <DetailsButton />
+                    <View style={styles.center}>
+                        <Text style={styles.teamName}>{homeTeamName}</Text>
                     </View>
-                    <Text style={[styles.day, { width: 140, textAlign: 'right' }]}>
-                        {matchDay}
-                    </Text>
+                    <Image source={everton} style={styles.teamLogo} />
+                    <GoalsText />
+                    <Image source={liverpool} style={styles.teamLogo} />
+                    <View style={styles.center}>
+                        <Text style={styles.teamName}>{awayTeamName}</Text>
+                    </View>
                 </View>
-            </View>
+                <View style={[styles.center, {width: 260,}]}>
+                    <Text style={styles.day}>{matchDay}</Text>
+                </View>
+            </TouchableOpacity>
         );
     }
 }
-
-class Team extends Component {
-    render() {
-        const {
-            logo,
-            name,
-        } = this.props;
-        return (
-            <View style={[{
-                width: '100%',
-                alignItems: 'center',
-                justifyContent: 'center',
-            }]}>
-                <Image
-                    source={logo}
-                    style={[{ width: 50, height: 50, }]} />
-                <Text style={[styles.center, { fontSize: 15, }]}>
-                    {name}
-                </Text>
-            </View>
-        );
-    }
-}
-
-const gomesImage = { uri: 'https://media.gettyimages.com/photos/kurt-zouma-of-everton-celebrates-after-scoring-his-teams-first-goal-picture-id1081775044?s=2048x2048' }
 
 export class NewsCard extends Component {
     render() {
@@ -155,8 +75,7 @@ export class NewsCard extends Component {
                 <View style={styles.center}>
                     <Image
                         style={styles.newsImage}
-                        // source={newsImage} />
-                        source={gomesImage} />
+                        source={newsImage} />
                 </View>
                 <Text
                     style={[styles.newsTitleText, { margin: 5 }]}
@@ -177,26 +96,40 @@ export class NewsCard extends Component {
 }
 
 const styles = StyleSheet.create({
-    header: {
-        height: Dimensions.get('screen').height * 0.075,
-    },
-    headerImage: {
-        height: Dimensions.get('screen').height * 0.1,
-    },
-    headerCard: {
-        height: Dimensions.get('screen').height * 0.1,
-        width: Dimensions.get('screen').width,
-        borderRadius: 20,
-        backgroundColor: '#F4F4F4',
-        translateY: -(Dimensions.get('screen').height * 0.04),
-    },
+    // Mathces
     matchCard: {
-        width: 290,
-        height: 150,
+        width: 260,
+        height: 115,
         borderRadius: 20,
         backgroundColor: '#FFFFFF',
         padding: 10,
         margin: 10,
+    },
+    teamLogo: {
+        width: 45,
+        height: 45,
+        margin: 5,
+        borderRadius: 45,
+    },
+    teamName: {
+        fontSize: 20,
+    },
+    goal: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: 50,
+    },
+    teamGoal: {
+        width: 20,
+        fontSize: 36,
+        margin: 5,
+        color: "#000000"
+    },
+    devider: {
+        height: 40,
+        width: 1,
+        backgroundColor: '#A9A9A9'
     },
     newsCard: {
         height: 340,
@@ -219,8 +152,7 @@ const styles = StyleSheet.create({
     },
     day: {
         fontSize: 18,
-        color: '#a9a9a9',
-        justifyContent: 'flex-end'
+        color: '#A9A9A9',
     },
     detailAndDay: {
         width: Dimensions.get('screen').width * 0.91,
