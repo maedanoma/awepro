@@ -8,17 +8,18 @@ import {
     Text,
     ScrollView,
     Alert,
+    Dimensions,
 } from 'react-native';
-import {MatchesCard} from '../components/Card'
+import {
+    MatchesCard,
+    NewsCard,
+    HeaderCard,
+} from '../components/Card'
 
 const everton = require('../res/login_everton.jpg')
 const liverpool = require('../res/liverpool_logo.jpg')
 
 export default class TeamNewsScreen extends Component {
-    _details() {
-        Alert.alert('This function under construction!')
-    }
-    
     UNSAFE_componentWillMount() {
         // TODO APIで試合結果をとりに行く
         // TODO チーム名を元にロゴを取得する
@@ -29,44 +30,61 @@ export default class TeamNewsScreen extends Component {
         // TODO プログレスアイコンを消す
     }
 
-    render() {
+    _details() {
+        Alert.alert('This function under construction!')
+    }
 
+    render() {
         return (
-            <View style={styles.container} >
-                <Text style={[styles.titleText, {marginLeft: 10}]} >
-                    MATCHES
-                </Text>
-                <ScrollView
-                    style={styles.matches}
-                    horizontal={true}
-                    showsHorizontalScrollIndicator={false}>
-                    <MatchesCard
-                        onPressDetails={this._details}
-                        matchDay='2020/04/12'
-                        homeTeamName='EVE'
-                        homeTeamLogo={everton}
-                        homeTeamGoals='2'
-                        awayTeamName='CRY'
-                        awayTeamLogo={everton}
-                        awayTeamGoals='2'/>
-                    <MatchesCard />
-                </ScrollView>
+            <View>
+                <HeaderCard />
+                <View>
+                    <View style={styles.matches}>
+                        <Text style={[styles.titleText, { marginLeft: 10 }]} >
+                            MATCHES
+                        </Text>
+                        <ScrollView
+                            horizontal={true}
+                            showsHorizontalScrollIndicator={false}>
+                            <MatchesCard
+                                onPressDetails={this._details}
+                                matchDay='2020/04/12'
+                                homeTeamName='EVE'
+                                homeTeamLogo={everton}
+                                homeTeamGoals='2'
+                                awayTeamName='LIV'
+                                awayTeamLogo={liverpool}
+                                awayTeamGoals='2' />
+                            <MatchesCard />
+                        </ScrollView>
+                    </View>
+                    <View style={styles.news}>
+                        <Text style={[styles.titleText, { marginLeft: 10 }]} >
+                            NEWS
+                    </Text>
+                        <ScrollView>
+                            <NewsCard />
+                            <NewsCard />
+                        </ScrollView>
+                    </View>
+                </View>
             </View>
         );
     }
 }
 
+
 const styles = StyleSheet.create({
-    container: {
-        width: '100%',
-        padding: 10
+    matches: {
+        height: Dimensions.get('window').height * 0.25
+    },
+    news: {
+        height: Dimensions.get('window').height * 0.65
     },
     titleText: {
-        fontSize: 30,
+        height: 25,
+        fontSize: 20,
         fontWeight: 'bold',
         color: '#004095',
     },
-    matches: {
-        width: '100%',
-    }
 });
