@@ -52,9 +52,9 @@ export default class TeamNewsScreen extends Component {
                             <MatchesCard
                                 onPressMatch={this._match}
                                 matchDay='2020/04/12'
-                                homeTeamName='EVE'
+                                homeTeamName='EVERTON'
                                 homeTeamGoals='2'
-                                awayTeamName='LIV'
+                                awayTeamName='LIVERPOOL'
                                 awayTeamGoals='2' />
                             <MatchesCard />
                         </ScrollView>
@@ -77,10 +77,10 @@ export default class TeamNewsScreen extends Component {
 
 const styles = StyleSheet.create({
     matches: {
-        height: Dimensions.get('window').height * 0.20
+        height: Dimensions.get('window').height * 0.23
     },
     news: {
-        height: Dimensions.get('window').height * 0.7
+        height: Dimensions.get('window').height * 0.67
     },
     titleText: {
         height: 25,

@@ -9,43 +9,42 @@ import {
 import { MiniLandscapeButton } from '../components/Button'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-const everton = {uri: 'https://media.gettyimages.com/photos/the-everton-logo-is-seen-outside-the-stadium-prior-to-the-premier-picture-id870497804?s=2048x2048'}
-const liverpool = {uri: 'https://media.gettyimages.com/photos/wall-with-liverpool-fc-logo-during-the-uefa-champions-league-round-of-picture-id1125794244?s=2048x2048'}
+const everton = { uri: 'https://media.gettyimages.com/photos/the-everton-logo-is-seen-outside-the-stadium-prior-to-the-premier-picture-id870497804?s=2048x2048' }
+const liverpool = { uri: 'https://media.gettyimages.com/photos/wall-with-liverpool-fc-logo-during-the-uefa-champions-league-round-of-picture-id1125794244?s=2048x2048' }
 
 export class MatchesCard extends Component {
     render() {
         const {
             onPressMatch,
             matchDay,
+            matchTag,
             homeTeamName,
             homeTeamGoals,
             awayTeamName,
             awayTeamGoals,
         } = this.props;
 
-        const GoalsText = () => (
-            <View style={styles.goal}>
-                <Text style={styles.teamGoal}>{homeTeamGoals}</Text>
-                <View style={styles.devider} />
-                <Text style={styles.teamGoal}>{awayTeamGoals}</Text>
+        const TeamInfo = (props) => (
+            <View>
+                <View style={[styles.horizontal, { height: 30, width: 240, alignItems: 'center' }]}>
+                    <Image source={props.image} style={styles.teamLogo} />
+                    <Text style={[styles.teamName, { marginLeft: 5 }]}>{props.name}</Text>
+                    <Text style={styles.teamGoal}>{props.goal}</Text>
+                </View>
             </View>
         )
 
         return (
             <TouchableOpacity style={styles.matchCard} onPress={onPressMatch}>
-                <View style={[styles.horizontal, { width: 100, marginTop: 10 }]}>
-                    <View style={styles.center}>
-                        <Text style={styles.teamName}>{homeTeamName}</Text>
+                <TeamInfo image={everton} name={homeTeamName} goal={homeTeamGoals} />
+                <View style={[{ marginTop: 5 }]} />
+                <TeamInfo image={liverpool} name={awayTeamName} goal={awayTeamGoals} />
+                <View style={[{ marginTop: 5, alignItems: 'center' }]}>
+                    <View style={styles.horizontal}>
+                        <Text style={[styles.matchTag]}>{matchTag}PL</Text>
+                        <View style={[{ marginLeft: 10 }]} />
+                        <Text style={styles.day}>{matchDay}</Text>
                     </View>
-                    <Image source={everton} style={styles.teamLogo} />
-                    <GoalsText />
-                    <Image source={liverpool} style={styles.teamLogo} />
-                    <View style={styles.center}>
-                        <Text style={styles.teamName}>{awayTeamName}</Text>
-                    </View>
-                </View>
-                <View style={[styles.center, {width: 260,}]}>
-                    <Text style={styles.day}>{matchDay}</Text>
                 </View>
             </TouchableOpacity>
         );
@@ -98,7 +97,7 @@ export class NewsCard extends Component {
 const styles = StyleSheet.create({
     // Mathces
     matchCard: {
-        width: 260,
+        width: 220,
         height: 115,
         borderRadius: 20,
         backgroundColor: '#FFFFFF',
@@ -106,30 +105,31 @@ const styles = StyleSheet.create({
         margin: 10,
     },
     teamLogo: {
-        width: 45,
-        height: 45,
-        margin: 5,
+        width: 30,
+        height: 30,
         borderRadius: 45,
     },
     teamName: {
-        fontSize: 20,
-    },
-    goal: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-        height: 50,
+        width: 140,
+        fontSize: 15,
     },
     teamGoal: {
         width: 20,
-        fontSize: 36,
-        margin: 5,
-        color: "#000000"
+        fontSize: 25,
     },
-    devider: {
-        height: 40,
-        width: 1,
-        backgroundColor: '#A9A9A9'
+    matchTag: {
+        height: 22,
+        width: 30,
+        borderRadius: 10,
+        borderWidth: 1,
+        borderColor: '#4B0082',
+        fontSize: 15,
+        textAlign: 'center',
+        color: '#4B0082',
+    },
+    day: {
+        fontSize: 18,
+        color: '#A9A9A9',
     },
     newsCard: {
         height: 340,
