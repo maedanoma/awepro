@@ -10,18 +10,25 @@ import {
 import { HamburgerButton } from '../components/Button'
 
 export class CardHeader extends Component {
-    state = {
-        headerImageOpacity: new Animated.Value(0),
+    /**
+     * @param props
+     *  (Required)
+     *      onPressHbg:     ボタン押下時の動作
+     *      headerImage:    ヘッダー画像
+     */
+    constructor(props) {
+        super(props)
+        this.state = {
+            headerImageOpacity: new Animated.Value(0),
+        }
     }
 
     componentDidMount() {
-        Animated.timing(this.state.headerImageOpacity,
-            {
-                toValue: 1,
-                duration: 2500,
-                easing: Easing.quad,
-            }
-        ).start();
+        Animated.timing(this.state.headerImageOpacity, {
+            toValue: 1,
+            duration: 2500,
+            easing: Easing.quad,
+        }).start();
     }
 
     componentWillUnmount() {
@@ -29,26 +36,17 @@ export class CardHeader extends Component {
     }
 
     render() {
-        const {
-            onPressHbg,
-            headerImage,
-        } = this.props;
-
+        let opacity = this.state.headerImageOpacity
         const HbgButton = () => (
             <View style={[{margin: 10}]}>
-                <HamburgerButton
-                    onPressButton={onPressHbg}
-                    backgroundColor='#F4F4F4' />
+                <HamburgerButton onPressButton={this.props.onPressHbg} />
             </View>
         );
-
-        let opacity = this.state.headerImageOpacity;
         return (
             <View style={styles.header}>
                 <Animated.View style={[styles.headerImage, { opacity }]}>
-                    <ImageBackground
-                        style={styles.headerImage}
-                        source={headerImage} >
+                    <ImageBackground style={styles.headerImage}
+                        source={this.props.headerImage} >
                         <HbgButton />
                     </ImageBackground>
                 </Animated.View>

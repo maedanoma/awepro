@@ -7,9 +7,6 @@
  */
 
 import React from 'react';
-import {
-  StyleSheet,
-} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -17,9 +14,7 @@ import LoginScreen from './src/screen/LoginScreen';
 import TeamNewsScreen from './src/screen/TeamNewsScreen';
 
 const App: () => React$Node = () => {
-
   const Stack = createStackNavigator();
-  
   return (
     <>
       <NavigationContainer>
@@ -33,8 +28,5 @@ const App: () => React$Node = () => {
     </>
   );
 };
-
-const styles = StyleSheet.create({
-});
 
 export default App;

@@ -15,55 +15,53 @@ import {
 import Icon from '../components/Icon'
 
 export default class LoginScreen extends Component {
-    _login = () => {
+    /**
+     * @param props
+     *      navigation: 画面遷移のオブジェクト
+     *          (遷移先) 
+     *              'TeamNews': チームニュース画面
+     */
+    constructor(props) {
+        super(props)
+    }
+    _login() {
         Alert.alert('This function under construction!')
     };
 
-    _loginAsGuest = () => {
+    _loginAsGuest() {
         this.props.navigation.navigate('TeamNews')
     };
 
-    _signUp = () => {
+    _signUp() {
         Alert.alert('This function under construction!')
     };
 
     render() {
-        const LoginButton = () => (
-            <LandscapeButton
-                onPressButton={this._login}
-                text='Login'
-                backgroundColor='#004095'
-                borderColor='#004095'
-                color='#FFFFFF' />
-        );
-        const GuestButton = () => (
-            <LandscapeButton
-                onPressButton={this._loginAsGuest}
-                text='Guest'
-                backgroundColor='#FFFFFF'
-                borderColor='#004095'
-                color='#004095' />
-        );
-        const SignUpButton = () => (
-            <LinkButton
-                onPressButton={this._signUp}
-                text='Sign Up'
-                color='#004095' />
-        );
         return (
             <View style={styles.container} >
                 <View style={{marginTop: 170}}>
-                    <Icon style/>
+                    <Icon />
                 </View>
                 <View style={[styles.button, { marginTop: 70}]}>
-                    <LoginButton />
+                    <LandscapeButton
+                        onPressButton={this._login.bind(this)}
+                        buttonName='Login'
+                        buttonNameColor='#FFFFFF'
+                        buttonColor='#004095'
+                        buttonBorderColor='#004095'
+                        buttonExpandInitialWidth={40} />
                 </View>
                 <View style={[styles.button, { marginTop: 10}]}>
-                    <GuestButton />
+                    <LandscapeButton
+                        onPressButton={this._loginAsGuest.bind(this)}
+                        buttonName='Guest'
+                        buttonExpandInitialWidth={40} />
                 </View>
                 <View style={[styles.button, { marginTop: 30 }]}>
                     <Text>アカウントを持っていませんか？</Text>
-                    <SignUpButton />
+                    <LinkButton
+                        onPressButton={this._signUp.bind(this)}
+                        buttonName='Sign Up' />
                 </View>
             </View>
         );

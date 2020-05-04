@@ -11,18 +11,18 @@ import {
 const backImage = require('../res/login_everton.jpg')
 
 export default class Icon extends Component {
-    state = {
-        jumpOut: new Animated.Value(0.5),
+    constructor(props) {
+        super(props)
+        this.state = {
+            jumpOut: new Animated.Value(0.5),
+        }
     }
 
     componentDidMount() {
-        Animated.spring(
-            this.state.jumpOut,
-            {
+        Animated.spring(this.state.jumpOut, {
                 toValue: 1,
                 friction: 1
-            }
-        ).start()
+        }).start()
     }
 
     componentWillUnmount() {
@@ -31,15 +31,10 @@ export default class Icon extends Component {
 
     render() {
         let scale = this.state.jumpOut;
-        const {
-            marginTop,
-            opacity,
-        } = this.props;
         return (
-            <View style={[styles.container, { marginTop, opacity }]}>
-                <Animated.Image
-                    source={backImage}
-                    style={[styles.image, { opacity, transform:[{scale}] }]} />
+            <View style={styles.container}>
+                <Animated.Image source={backImage}
+                    style={[styles.image, {transform:[{scale}]}]} />
             </View>
         );
     }

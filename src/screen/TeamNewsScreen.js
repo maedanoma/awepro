@@ -23,6 +23,12 @@ const gomesImage = { uri: 'https://media.gettyimages.com/photos/kurt-zouma-of-ev
 const header = {uri: 'https://media.gettyimages.com/photos/dominic-calvertlewin-and-richarlison-of-everton-celebrate-only-for-picture-id1209910938?s=2048x2048'}
 
 export default class TeamNewsScreen extends Component {
+    /**
+     * @param props
+     *      navigation: 画面遷移のオブジェクト
+     *          (遷移先) 
+     *              'Login': ログイン画面
+     */
     UNSAFE_componentWillMount() {
         // TODO APIで試合結果をとりに行く
         // TODO チーム名を元にロゴを取得する
@@ -33,7 +39,11 @@ export default class TeamNewsScreen extends Component {
         // TODO プログレスアイコンを消す
     }
 
-    _match() {
+    _onPressedMatch() {
+        Alert.alert('This function under construction!')
+    }
+
+    _onPressedSeeMore() {
         Alert.alert('This function under construction!')
     }
 
@@ -50,7 +60,7 @@ export default class TeamNewsScreen extends Component {
                             horizontal={true}
                             showsHorizontalScrollIndicator={false}>
                             <MatchesCard
-                                onPressMatch={this._match}
+                                onPressMatch={this._onPressedMatch.bind(this)}
                                 matchDay='2020/04/12'
                                 homeTeamName='EVERTON'
                                 homeTeamGoals='2'
@@ -64,7 +74,11 @@ export default class TeamNewsScreen extends Component {
                             NEWS
                     </Text>
                         <ScrollView>
-                            <NewsCard newsImage={gomesImage} />
+                            <NewsCard
+                                onPressDetail={this._onPressedSeeMore.bind(this)}
+                                newsImage={gomesImage}
+                                title='アンドレ・ゴメスが esports の大会でスターリングに敗退！ああああああああああああああああああああああああああ'
+                                newsDay='2019/20/20' />
                             <NewsCard />
                         </ScrollView>
                     </View>

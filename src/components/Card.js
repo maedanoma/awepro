@@ -6,24 +6,31 @@ import {
     Image,
     Dimensions,
 } from 'react-native';
-import { MiniLandscapeButton } from '../components/Button'
+import { LandscapeButton } from '../components/Button'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const everton = { uri: 'https://media.gettyimages.com/photos/the-everton-logo-is-seen-outside-the-stadium-prior-to-the-premier-picture-id870497804?s=2048x2048' }
 const liverpool = { uri: 'https://media.gettyimages.com/photos/wall-with-liverpool-fc-logo-during-the-uefa-champions-league-round-of-picture-id1125794244?s=2048x2048' }
 
+/**
+ * 試合結果を表示するカード
+ */
 export class MatchesCard extends Component {
+    /**
+     * @param props
+     *  (Required)
+     *      onPressMatch:   試合カード押下時の動作
+     *      matchDay:       試合日
+     *      matchTag:       試合のタグ(e.g. PL, FA)
+     *      homeTeamName:   ホームチーム名
+     *      homeTeamGoals:  ホームチームのゴール数
+     *      awayTeamName:   アウェイチーム名
+     *      awayTeamGoals:  アウェイチームのゴール数
+     */
+    constructor(props) {
+        super(props)
+    }
     render() {
-        const {
-            onPressMatch,
-            matchDay,
-            matchTag,
-            homeTeamName,
-            homeTeamGoals,
-            awayTeamName,
-            awayTeamGoals,
-        } = this.props;
-
         const TeamInfo = (props) => (
             <View>
                 <View style={[styles.horizontal, { height: 30, width: 240, alignItems: 'center' }]}>
@@ -33,17 +40,16 @@ export class MatchesCard extends Component {
                 </View>
             </View>
         )
-
         return (
-            <TouchableOpacity style={styles.matchCard} onPress={onPressMatch}>
-                <TeamInfo image={everton} name={homeTeamName} goal={homeTeamGoals} />
+            <TouchableOpacity style={styles.matchCard} onPress={this.props.onPressMatch}>
+                <TeamInfo image={everton} name={this.props.homeTeamName} goal={this.props.homeTeamGoals} />
                 <View style={[{ marginTop: 5 }]} />
-                <TeamInfo image={liverpool} name={awayTeamName} goal={awayTeamGoals} />
+                <TeamInfo image={liverpool} name={this.props.awayTeamName} goal={this.props.awayTeamGoals} />
                 <View style={[{ marginTop: 5, alignItems: 'center' }]}>
                     <View style={styles.horizontal}>
-                        <Text style={[styles.matchTag]}>{matchTag}PL</Text>
+                        <Text style={[styles.matchTag]}>{this.props.matchTag}PL</Text>
                         <View style={[{ marginLeft: 10 }]} />
-                        <Text style={styles.day}>{matchDay}</Text>
+                        <Text style={styles.day}>{this.props.matchDay}</Text>
                     </View>
                 </View>
             </TouchableOpacity>
@@ -51,42 +57,45 @@ export class MatchesCard extends Component {
     }
 }
 
+/**
+ * ニュース概要を表示するカード
+ */
 export class NewsCard extends Component {
+    /**
+     * @param props
+     *  (Required)
+     *      onPressDetails: see moreボタン押下時の動作
+     *      newsImage:      ニュースの画像
+     *      title:          ニュースのタイトル
+     *      newsDay:        ニュースの日付
+     */
+    constructor(props) {
+        super(props)
+    }
     render() {
-        const {
-            onPressDetails,
-            newsImage,
-            title,
-            newsDay,
-        } = this.props;
-
         const DetailsButton = () => (
-            <MiniLandscapeButton
-                onPressButton={onPressDetails}
-                text='DETAIL'
-                backgroundColor='#FFFFFF'
-                borderColor='#004095'
-                color='#004095' />
+            <LandscapeButton
+                onPressButton={this.props.onPressDetails}
+                buttonName='see more'
+                buttonWidth={100}
+                buttonExpandInitialWidth={100}
+                buttonHeight={25} />
         );
 
         return (
             <View style={[styles.newsCard]}>
                 <View style={styles.center}>
-                    <Image
-                        style={styles.newsImage}
-                        source={newsImage} />
+                    <Image style={styles.newsImage} source={this.props.newsImage} />
                 </View>
-                <Text
-                    style={[styles.newsTitleText, { margin: 5 }]}
-                    numberOfLines={2}>
-                    {title}アンドレ・ゴメスが esports の大会でスターリングに敗退！ああああああああああああああああああああああああああ
+                <Text style={[styles.newsTitleText, { margin: 5 }]} numberOfLines={2}>
+                    {this.props.title}
                 </Text>
                 <View style={[styles.horizontal, styles.detailAndDay, { margin: 10 }]}>
                     <View style={[styles.details, { marginLeft: 15 }]}>
                         <DetailsButton />
                     </View>
                     <Text style={[styles.day, { marginLeft: 130 }]}>
-                        {newsDay}2019/20/20
+                        {this.props.newsDay}
                     </Text>
                 </View>
             </View>
@@ -95,7 +104,6 @@ export class NewsCard extends Component {
 }
 
 const styles = StyleSheet.create({
-    // Mathces
     matchCard: {
         width: 220,
         height: 115,
@@ -146,6 +154,7 @@ const styles = StyleSheet.create({
         margin: 10,
     },
     newsTitleText: {
+        height: 45,
         fontSize: 16,
         fontWeight: 'bold',
         color: '#000000',
