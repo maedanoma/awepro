@@ -21,7 +21,8 @@ export default class Icon extends Component {
     componentDidMount() {
         Animated.spring(this.state.jumpOut, {
                 toValue: 1,
-                friction: 1
+                friction: 1,
+                useNativeDriver: false
         }).start()
     }
 
