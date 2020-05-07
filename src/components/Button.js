@@ -3,6 +3,7 @@ import {
     StyleSheet,
     View,
     Text,
+    Image,
     TouchableOpacity,
     Animated,
     Easing,
@@ -52,16 +53,18 @@ export class LandscapeButton extends Component {
             toValue: this.props.buttonWidth,
             duration: 500,
             easing: Easing.quad,
+            useNativeDriver: false
         }).start();
         Animated.timing(this.state.fadeIn, {
             toValue: 1,
             duration: 1200,
+            useNativeDriver: false
         }).start();
     }
 
     componentWillUnmount() {
-        this.state.expandWidth.stopAnimation();
-        this.state.fadeIn.stopAnimation();
+        Animated.timing(this.state.expandWidth).stop();
+        Animated.timing(this.state.fadeIn).stop();
     }
 
     render() {
@@ -139,7 +142,7 @@ export class HamburgerButton extends Component {
         buttonColor: PropTypes.string,
     }
     static defaultProps = {
-        buttonColor: '#F4F4F4'
+        buttonColor: '#FFFFFF'
     }
     render() {
         let backgroundColor = this.props.buttonColor
@@ -148,6 +151,44 @@ export class HamburgerButton extends Component {
                 <View style={[styles.hamburgerLine, {backgroundColor}]} />
                 <View style={[styles.hamburgerLine, {backgroundColor}]} />
                 <View style={[styles.hamburgerLine, {backgroundColor}]} />
+            </TouchableOpacity>
+        );
+    }
+}
+
+export class MenuButton extends Component {
+    /**
+     * (Required)
+     * @param props.onPressButton   ボタン押下時の動作
+     * @param props.buttonName      ボタン名
+     * @param props.iconImage       アイコン画像
+     * (Options)
+     * @param props.buttonHeight    ボタンの縦幅
+     * @param props.buttonNameColor ボタン名の色
+     */
+    constructor(props) {
+        super(props)
+    }
+    static propTypes = {
+        buttonHeight: PropTypes.number,
+        buttonNameColor: PropTypes.string,        
+    }
+    static defaultProps = {
+        buttonHeight: 25,
+        buttonNameColor: '#F4F4F4'
+    }
+    render() {
+        let text = this.props.buttonName
+        let color = this.props.buttonNameColor
+        let height = this.props.buttonHeight
+        let width = this.props.buttonHeight
+        let fontSize = this.props.buttonHeight * 0.9
+        return (
+            <TouchableOpacity style={[{height, width: 100}]} onPress={this.props.onPressButton}>
+                <View style={styles.horizontal}>
+                    <Image style={[{width, height}]} source={this.props.iconImage}/>
+                    <Text style={[{fontSize, color, fontWeight: 'bold'}]}>{text}</Text>
+                </View>
             </TouchableOpacity>
         );
     }
@@ -178,5 +219,8 @@ const styles = StyleSheet.create({
         height: 3,
         margin: 2,
         borderRadius: 2,
-    }
+    },
+    horizontal: {
+        flexDirection: 'row'
+    },
 });

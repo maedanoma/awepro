@@ -7,7 +7,26 @@ import {
     Dimensions,
     Easing,
 } from 'react-native';
-import { HamburgerButton } from '../components/Button'
+import {
+    HamburgerButton,
+    MenuButton,
+} from '../components/Button'
+
+const menuButtons = [
+    {
+        name: 'Home',
+        // iconImage: require('../res/icon_home.jpg')
+    },{
+        name: 'Matches',
+        // iconImage: require('../res/icon_match.jpg')
+    },{
+        name: 'News',
+        // iconImage: require('../res/icon_news.jpg')
+    },{
+        name: 'Other',
+        // iconImage: require('../res/icon_other.jpg')
+    }
+]
 
 export class CardHeader extends Component {
     /**
@@ -28,13 +47,14 @@ export class CardHeader extends Component {
             toValue: 1,
             duration: 2500,
             easing: Easing.quad,
+            useNativeDriver: false
         }).start();
     }
 
     componentWillUnmount() {
         this.state.headerImageOpacity.stopAnimation();
     }
-
+    
     render() {
         let opacity = this.state.headerImageOpacity
         const HbgButton = () => (
@@ -42,15 +62,19 @@ export class CardHeader extends Component {
                 <HamburgerButton onPressButton={this.props.onPressHbg} />
             </View>
         );
+        const menus = menuButtons.map((button) =>
+            <View style={[{margin: 7}]}>
+                <MenuButton buttonName={button.name} />
+            </View>
+        )
         return (
             <View style={styles.header}>
                 <Animated.View style={[styles.headerImage, { opacity }]}>
-                    <ImageBackground style={styles.headerImage}
-                        source={this.props.headerImage} >
+                    <ImageBackground style={styles.headerImage} source={this.props.headerImage} >
                         <HbgButton />
+                        {menus}
                     </ImageBackground>
                 </Animated.View>
-                <View style={styles.headerCard} />
             </View>
         );
     }
@@ -58,17 +82,10 @@ export class CardHeader extends Component {
 
 const styles = StyleSheet.create({
     header: {
-        height: Dimensions.get('screen').height * 0.075,
+        height: Dimensions.get('screen').height,
     },
     headerImage: {
-        height: Dimensions.get('screen').height * 0.1,
-    },
-    headerCard: {
-        height: Dimensions.get('screen').height * 0.1,
-        width: Dimensions.get('screen').width,
-        borderRadius: 20,
-        backgroundColor: '#F4F4F4',
-        translateY: -(Dimensions.get('screen').height * 0.04),
+        height: Dimensions.get('screen').height,
     },
     center: {
         alignItems: 'center',

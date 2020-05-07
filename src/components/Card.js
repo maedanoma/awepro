@@ -5,9 +5,9 @@ import {
     View,
     Image,
     Dimensions,
+    TouchableOpacity
 } from 'react-native';
 import { LandscapeButton } from '../components/Button'
-import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const everton = { uri: 'https://media.gettyimages.com/photos/the-everton-logo-is-seen-outside-the-stadium-prior-to-the-premier-picture-id870497804?s=2048x2048' }
 const liverpool = { uri: 'https://media.gettyimages.com/photos/wall-with-liverpool-fc-logo-during-the-uefa-champions-league-round-of-picture-id1125794244?s=2048x2048' }
@@ -64,7 +64,7 @@ export class NewsCard extends Component {
     /**
      * @param props
      *  (Required)
-     *      onPressDetails: see moreボタン押下時の動作
+     *      onPressSeeMore: see moreボタン押下時の動作
      *      newsImage:      ニュースの画像
      *      title:          ニュースのタイトル
      *      newsDay:        ニュースの日付
@@ -75,7 +75,7 @@ export class NewsCard extends Component {
     render() {
         const DetailsButton = () => (
             <LandscapeButton
-                onPressButton={this.props.onPressDetails}
+                onPressButton={this.props.onPressSeeMore}
                 buttonName='see more'
                 buttonWidth={100}
                 buttonExpandInitialWidth={100}
@@ -83,7 +83,7 @@ export class NewsCard extends Component {
         );
 
         return (
-            <View style={[styles.newsCard]}>
+            <TouchableOpacity style={[styles.newsCard]} onPress={this.props.onPressSeeMore}>
                 <View style={styles.center}>
                     <Image style={styles.newsImage} source={this.props.newsImage} />
                 </View>
@@ -98,7 +98,7 @@ export class NewsCard extends Component {
                         {this.props.newsDay}
                     </Text>
                 </View>
-            </View>
+            </TouchableOpacity>
         );
     }
 }
@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
         borderRadius: 35,
         backgroundColor: '#FFFFFF',
         padding: 10,
-        margin: 10,
+        margin: Dimensions.get('screen').width * 0.02,
     },
     newsImage: {
         height: 200,
