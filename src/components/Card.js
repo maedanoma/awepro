@@ -17,15 +17,14 @@ const liverpool = { uri: 'https://media.gettyimages.com/photos/wall-with-liverpo
  */
 export class MatchesCard extends Component {
     /**
-     * @param props
-     *  (Required)
-     *      onPressMatch:   試合カード押下時の動作
-     *      matchDay:       試合日
-     *      matchTag:       試合のタグ(e.g. PL, FA)
-     *      homeTeamName:   ホームチーム名
-     *      homeTeamGoals:  ホームチームのゴール数
-     *      awayTeamName:   アウェイチーム名
-     *      awayTeamGoals:  アウェイチームのゴール数
+     * (Required)
+     * @param props.onPressMatch    試合カード押下時の動作
+     * @param props.matchDay        試合日
+     * @param props.matchTag        試合のタグ(e.g. PL, FA)
+     * @param props.homeTeamName    ホームチーム名
+     * @param props.homeTeamGoals   ホームチームのゴール数
+     * @param props.awayTeamName    アウェイチーム名
+     * @param props.awayTeamGoals   アウェイチームのゴール数
      */
     constructor(props) {
         super(props)
@@ -62,12 +61,11 @@ export class MatchesCard extends Component {
  */
 export class NewsCard extends Component {
     /**
-     * @param props
-     *  (Required)
-     *      onPressSeeMore: see moreボタン押下時の動作
-     *      newsImage:      ニュースの画像
-     *      title:          ニュースのタイトル
-     *      newsDay:        ニュースの日付
+     * (Required)
+     * @param props.onPressSeeMore  see moreボタン押下時の動作
+     * @param props.newsImage       ニュースの画像
+     * @param props.title           ニュースのタイトル
+     * @param props.newsDay         ニュースの日付
      */
     constructor(props) {
         super(props)

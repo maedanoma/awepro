@@ -12,17 +12,17 @@ import PropTypes from 'prop-types'
 
 export class LandscapeButton extends Component {
     /**
-     * @param props
-     *  (Required)
-     *      onPressButton:              ボタン押下時の動作
-     *      buttonName:                 ボタン名
-     *  (Options) def→propDefaults
-     *      buttonExpandInitialWidth:   ボタンの横幅の初期値  
-     *      buttonWidth:                ボタンの横幅        
-     *      buttonHeight:               ボタンの縦幅
-     *      buttonNameColor:            ボタン名の色
-     *      buttonColor:                ボタンの色
-     *      buttonBorderColor:          ボタンの枠の色
+     * (Required)
+     * @param props.onPressButton               ボタン押下時の動作
+     * @param props.buttonName                  ボタン名
+     * 
+     * (Options) def→propDefaults
+     * @param props.buttonExpandInitialWidth    ボタンの横幅の初期値  
+     * @param props.buttonWidth                 ボタンの横幅        
+     * @param props.buttonHeight                ボタンの縦幅
+     * @param props.buttonNameColor             ボタン名の色
+     * @param props.buttonColor                 ボタンの色
+     * @param props.buttonBorderColor           ボタンの枠の色
      */
     constructor(props) {
         super(props)
@@ -91,14 +91,13 @@ export class LandscapeButton extends Component {
 
 export class LinkButton extends Component {
     /**
-     * @param props
-     *  (Required)
-     *      onPressButton:      ボタン押下時の動作
-     *      buttonName:         ボタン名
-     *  (Options) def→propDefaults
-     *      buttonWidth:        ボタンの横幅        
-     *      buttonHeight:       ボタンの縦幅
-     *      buttonNameColor:    ボタン名の色
+     * (Required)
+     * @param props.onPressButton   ボタン押下時の動作
+     * @param props.buttonName      ボタン名
+     * (Options) def→propDefaults
+     * @param props.buttonWidth     ボタンの横幅        
+     * @param props.buttonHeight    ボタンの縦幅
+     * @param props.buttonNameColor ボタン名の色
      */
     constructor(props) {
         super(props)
@@ -129,11 +128,10 @@ export class LinkButton extends Component {
 
 export class HamburgerButton extends Component {
     /**
-     * @param props
-     *  (Required)
-     *      onPressButton:  ボタン押下時の動作
-     *  (Options) def→propDefaults 
-     *      buttonColor:    ボタンの色
+     * (Required)
+     * @param props.onPressButton   ボタン押下時の動作
+     * (Options) def→propDefaults 
+     * @param props.buttonColor     ボタンの色
      */
     constructor(props) {
         super(props)

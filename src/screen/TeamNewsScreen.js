@@ -27,10 +27,8 @@ const header = { uri: 'https://media.gettyimages.com/photos/dominic-calvertlewin
 
 export default class TeamNewsScreen extends Component {
     /**
-     * @param props
-     *      navigation: 画面遷移のオブジェクト
-     *          (遷移先) 
-     *              'Login': ログイン画面
+     * @param props.navigation  画面遷移のオブジェクト
+     *                          - 'Login': ログイン画面
      */
     constructor(props) {
         super(props)

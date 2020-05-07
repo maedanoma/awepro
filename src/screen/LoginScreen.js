@@ -16,10 +16,8 @@ import Icon from '../components/Icon'
 
 export default class LoginScreen extends Component {
     /**
-     * @param props
-     *      navigation: 画面遷移のオブジェクト
-     *          (遷移先) 
-     *              'TeamNews': チームニュース画面
+     * @param props.navigation: 画面遷移のオブジェクト
+     *                          - 'TeamNews': チームニュース画面
      */
     constructor(props) {
         super(props)

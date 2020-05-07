@@ -14,15 +14,19 @@ import {
 
 const menuButtons = [
     {
+        id: 1,
         name: 'Home',
         // iconImage: require('../res/icon_home.jpg')
     },{
+        id: 2,
         name: 'Matches',
         // iconImage: require('../res/icon_match.jpg')
     },{
+        id: 3,
         name: 'News',
         // iconImage: require('../res/icon_news.jpg')
     },{
+        id: 4,
         name: 'Other',
         // iconImage: require('../res/icon_other.jpg')
     }
@@ -30,10 +34,9 @@ const menuButtons = [
 
 export class CardHeader extends Component {
     /**
-     * @param props
-     *  (Required)
-     *      onPressHbg:     ボタン押下時の動作
-     *      headerImage:    ヘッダー画像
+     * (Required)
+     * @param props.onPressHbg  ボタン押下時の動作
+     * @param props.headerImage ヘッダー画像
      */
     constructor(props) {
         super(props)
@@ -63,7 +66,7 @@ export class CardHeader extends Component {
             </View>
         );
         const menus = menuButtons.map((button) =>
-            <View style={[{margin: 7}]}>
+            <View key={button.id} style={[{margin: 7}]}>
                 <MenuButton buttonName={button.name} />
             </View>
         )
