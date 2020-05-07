@@ -1,6 +1,3 @@
-/**
- * Login UI
- */
 import React, { Component } from 'react';
 import {
     StyleSheet,
@@ -9,11 +6,14 @@ import {
     Alert,
 } from 'react-native';
 import {
-    LandscapeButton,
+    RoundedButton,
     LinkButton
 } from '../components/Button'
 import Icon from '../components/Icon'
 
+/**
+ * 最初に表示されるログイン画面
+ */
 export default class LoginScreen extends Component {
     /**
      * @param props.navigation: 画面遷移のオブジェクト
@@ -22,14 +22,23 @@ export default class LoginScreen extends Component {
     constructor(props) {
         super(props)
     }
+    /**
+     * LoginCardを表示する
+     */
     _login() {
         Alert.alert('This function under construction!')
     };
 
+    /**
+     * ゲストユーザーとしてホームに遷移する
+     */
     _loginAsGuest() {
-        this.props.navigation.navigate('TeamNews')
+        this.props.navigation.navigate('Home')
     };
 
+    /**
+     * SignUpCardを表示する
+     */
     _signUp() {
         Alert.alert('This function under construction!')
     };
@@ -41,7 +50,7 @@ export default class LoginScreen extends Component {
                     <Icon />
                 </View>
                 <View style={[styles.button, { marginTop: 70}]}>
-                    <LandscapeButton
+                    <RoundedButton
                         onPressButton={this._login.bind(this)}
                         buttonName='Login'
                         buttonNameColor='#FFFFFF'
@@ -50,7 +59,7 @@ export default class LoginScreen extends Component {
                         buttonExpandInitialWidth={40} />
                 </View>
                 <View style={[styles.button, { marginTop: 10}]}>
-                    <LandscapeButton
+                    <RoundedButton
                         onPressButton={this._loginAsGuest.bind(this)}
                         buttonName='Guest'
                         buttonExpandInitialWidth={40} />
