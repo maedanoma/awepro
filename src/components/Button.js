@@ -10,7 +10,10 @@ import {
 } from 'react-native';
 import PropTypes from 'prop-types'
 
-export class LandscapeButton extends Component {
+/**
+ * 角が丸いボタン
+ */
+export class RoundedButton extends Component {
     /**
      * (Required)
      * @param props.onPressButton               ボタン押下時の動作
@@ -89,6 +92,9 @@ export class LandscapeButton extends Component {
     }
 }
 
+/**
+ * 文字だけのボタン
+ */
 export class LinkButton extends Component {
     /**
      * (Required)
@@ -98,6 +104,7 @@ export class LinkButton extends Component {
      * @param props.buttonWidth     ボタンの横幅        
      * @param props.buttonHeight    ボタンの縦幅
      * @param props.buttonNameColor ボタン名の色
+     * @param props.buttonBold      ボタン名のボールドの有無
      */
     constructor(props) {
         super(props)
@@ -106,11 +113,13 @@ export class LinkButton extends Component {
         buttonWidth: PropTypes.number,
         buttonHeight: PropTypes.number,
         buttonNameColor: PropTypes.string,
+        buttonBold: PropTypes.bool,
     }
     static defaultProps = {
         buttonWidth: 100,
         buttonHeight: 20,
-        buttonNameColor: '#004095'
+        buttonNameColor: '#004095',
+        buttonBold: false,
     }
     render() {
         let text = this.props.buttonName
@@ -118,14 +127,18 @@ export class LinkButton extends Component {
         let width = this.props.buttonWidth
         let height = this.props.buttonHeight
         let fontSize = this.props.buttonHeight * 0.9
+        let fontWeight = this.props.buttonBold? 'bold': 'normal'
         return (
             <TouchableOpacity style={[{width, height}]} onPress={this.props.onPressButton}>
-                <Text style={[styles.linkText, {fontSize, color}]}>{text}</Text>
+                <Text style={[styles.linkText, {fontSize, fontWeight, color}]}>{text}</Text>
             </TouchableOpacity>
         );
     }
 }
 
+/**
+ * ハンバーガーボタン
+ */
 export class HamburgerButton extends Component {
     /**
      * (Required)
@@ -149,44 +162,6 @@ export class HamburgerButton extends Component {
                 <View style={[styles.hamburgerLine, {backgroundColor}]} />
                 <View style={[styles.hamburgerLine, {backgroundColor}]} />
                 <View style={[styles.hamburgerLine, {backgroundColor}]} />
-            </TouchableOpacity>
-        );
-    }
-}
-
-export class MenuButton extends Component {
-    /**
-     * (Required)
-     * @param props.onPressButton   ボタン押下時の動作
-     * @param props.buttonName      ボタン名
-     * @param props.iconImage       アイコン画像
-     * (Options)
-     * @param props.buttonHeight    ボタンの縦幅
-     * @param props.buttonNameColor ボタン名の色
-     */
-    constructor(props) {
-        super(props)
-    }
-    static propTypes = {
-        buttonHeight: PropTypes.number,
-        buttonNameColor: PropTypes.string,        
-    }
-    static defaultProps = {
-        buttonHeight: 25,
-        buttonNameColor: '#F4F4F4'
-    }
-    render() {
-        let text = this.props.buttonName
-        let color = this.props.buttonNameColor
-        let height = this.props.buttonHeight
-        let width = this.props.buttonHeight
-        let fontSize = this.props.buttonHeight * 0.9
-        return (
-            <TouchableOpacity style={[{height, width: 100}]} onPress={this.props.onPressButton}>
-                <View style={styles.horizontal}>
-                    <Image style={[{width, height}]} source={this.props.iconImage}/>
-                    <Text style={[{fontSize, color, fontWeight: 'bold'}]}>{text}</Text>
-                </View>
             </TouchableOpacity>
         );
     }

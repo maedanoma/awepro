@@ -11,7 +11,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import LoginScreen from './src/screen/LoginScreen';
-import TeamNewsScreen from './src/screen/TeamNewsScreen';
+import DrawerNavigator from './src/screen/DrawerNavigator';
 
 const App: () => React$Node = () => {
   const Stack = createStackNavigator();
@@ -20,9 +20,12 @@ const App: () => React$Node = () => {
       <NavigationContainer>
         <Stack.Navigator
           initialRouteName='Login'
-          headerMode='none'>
+          headerMode='none'
+          screenOptions={{
+            animationEnabled: false
+          }}>
           <Stack.Screen name="Login" component={LoginScreen} />
-          <Stack.Screen name="TeamNews" component={TeamNewsScreen} />
+          <Stack.Screen name="Home" component={DrawerNavigator} />
         </Stack.Navigator>
       </NavigationContainer>
     </>

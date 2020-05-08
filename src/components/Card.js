@@ -7,7 +7,7 @@ import {
     Dimensions,
     TouchableOpacity
 } from 'react-native';
-import { LandscapeButton } from '../components/Button'
+import { RoundedButton } from '../components/Button'
 
 const everton = { uri: 'https://media.gettyimages.com/photos/the-everton-logo-is-seen-outside-the-stadium-prior-to-the-premier-picture-id870497804?s=2048x2048' }
 const liverpool = { uri: 'https://media.gettyimages.com/photos/wall-with-liverpool-fc-logo-during-the-uefa-champions-league-round-of-picture-id1125794244?s=2048x2048' }
@@ -72,7 +72,7 @@ export class NewsCard extends Component {
     }
     render() {
         const DetailsButton = () => (
-            <LandscapeButton
+            <RoundedButton
                 onPressButton={this.props.onPressSeeMore}
                 buttonName='see more'
                 buttonWidth={100}
