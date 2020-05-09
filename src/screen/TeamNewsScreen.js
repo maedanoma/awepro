@@ -3,20 +3,18 @@ import {
     StyleSheet,
     View,
     Text,
-    ScrollView,
     Alert,
     Easing,
     Animated,
     Dimensions,
 } from 'react-native';
+import { CardScrollView } from '../components/ScrollView'
 import {
     MatchesCard,
     NewsCard,
 } from '../components/Card'
 import { ProgressBar } from '../components/Progress'
-import {
-    updateAllMatchesInSeason
-} from '../http/MatchApis'
+import { updateAllMatchesInSeason } from '../http/MatchApis'
 
 const gomesImage = { uri: 'https://media.gettyimages.com/photos/kurt-zouma-of-everton-celebrates-after-scoring-his-teams-first-goal-picture-id1081775044?s=2048x2048' }
 
@@ -24,25 +22,13 @@ export default class TeamNewsScreen extends Component {
     /**
      * @param props.closeDrawer DrowerMenuを閉じる 
      * @param state.viewOpacity 遷移後にMainCardのopacity
-     * @param state.fixtures    MatchCardに表示する試合結果
      */
     constructor(props) {
         super(props)
         this.state = {
             viewOpacity: new Animated.Value(0),
-            fixtures: [],
         }
     }
-
-    UNSAFE_componentWillMount() {
-        // TODO APIで試合結果をとりに行く
-        updateAllMatchesInSeason(this._updateFixtures.bind(this))
-    }
-
-    _updateFixtures(allMatches) {
-        allMatches == null? null: this.setState({ fixtures: allMatches.reverse() })
-    }
-
     componentDidMount() {
         Animated.timing(this.state.viewOpacity, {
             toValue: 1,
@@ -51,11 +37,9 @@ export default class TeamNewsScreen extends Component {
             useNativeDriver: false
         }).start()
     }
-
     componentWillUnmount() {
         Animated.timing(this.state.viewOpacity).stop()
     }
-
     /**
      * MatchCardを押された時にMatchの詳細を表示する
      * 
@@ -65,7 +49,6 @@ export default class TeamNewsScreen extends Component {
         this.props.closeDrawer()
         Alert.alert('This function under construction!')
     }
-
     /**
      * NewsCardまたはSeeMoreが押された時にNewsの詳細を表示する
      * 
@@ -75,65 +58,98 @@ export default class TeamNewsScreen extends Component {
         this.props.closeDrawer()
         Alert.alert('This function under construction!')
     }
-
-    _onContentSizeChange() {
-        let matchCardWidth = 240
-        this.scrollView.scrollTo({ x: 0 * matchCardWidth, y: 0, animated: false });
-    }
-
     render() {
         let opacity = this.state.viewOpacity
-        let fixtures = this.state.fixtures
-        const displayMatches = fixtures.map((fixture) => {
-            let homeLogo = { uri: fixture.homeTeam.logo }
-            let awayLogo = { uri: fixture.awayTeam.logo }
-            return (
-                <MatchesCard
-                    key={fixture.fixture_id}
-                    onPressMatch={this._onPressMatch.bind(this)}
-                    matchDay={fixture.event_date.substring(0, 10)}
-                    homeTeamName={fixture.homeTeam.team_name}
-                    homeTeamLogo={homeLogo}
-                    homeTeamGoals={fixture.goalsHomeTeam}
-                    awayTeamName={fixture.awayTeam.team_name}
-                    awayTeamLogo={awayLogo}
-                    awayTeamGoals={fixture.goalsAwayTeam} />
-            )
-        })
-
         return (
             <Animated.View style={[{ opacity }]}>
                 <View style={styles.matches}>
-                    <Text style={styles.titleText}>FIXTURES</Text>
-                    {fixtures.length == 0 ?
-                        <View style={styles.matchesArea}>
-                            <ProgressBar message='fetch fixtures...' />
-                        </View> :
-                        <ScrollView
-                            horizontal={true}
-                            showsHorizontalScrollIndicator={false}
-                            decelerationRate={0}
-                            snapToInterval={240}
-                            snapToAlignment={"left"}
-                            ref={scrollView => this.scrollView = scrollView}
-                            onContentSizeChange={this._onContentSizeChange.bind(this)}>
-                            {displayMatches}
-                        </ScrollView>
-                    }
+                    <Fixtures onPressMatch={this._onPressMatch.bind(this)} />
                 </View>
                 <View style={styles.news}>
                     <Text style={styles.titleText}>NEWS</Text>
-                    <ScrollView>
+                    <CardScrollView
+                        cardHeight={355} >
                         <NewsCard
                             onPressSeeMore={this._onPressSeeMore.bind(this)}
                             newsImage={gomesImage}
                             title='アンドレ・ゴメスが esports の大会でスターリングに敗退！ああああああああああああああああああああああああああ'
                             newsDay='2019/20/20' />
                         <NewsCard />
-                    </ScrollView>
+                        <NewsCard />
+                        <NewsCard />
+                        <NewsCard />
+                        <NewsCard />
+                        <NewsCard />
+                    </CardScrollView>
                 </View>
             </Animated.View>
         );
+    }
+}
+
+class Fixtures extends Component {
+    /**
+     * @param props.onPressMatch    MatchCardが押下された時の動作
+     * @param state.fixtures        MatchCardに表示する試合結果
+     */
+    constructor(props) {
+        super(props)
+        this.state = {
+            fixtures: []
+            // fixtures: [
+            //     {
+            //         event_date: "2019-08-10T14:00:00+00:00",
+            //         league: {
+            //             name: "Premier League"
+            //         },
+            //         homeTeam: {
+            //             team_name: "Crystal Palace",
+            //             logo: "https://media.api-sports.io/football/teams/52.png"
+            //         },
+            //         goalsHomeTeam: 0,
+            //         awayTeam: {
+            //             team_name: "Everton",
+            //             logo: "https://media.api-sports.io/football/teams/45.png"
+            //         },
+            //         goalsAwayTeam: 0,
+            //     }
+            // ],
+        }
+    }
+    UNSAFE_componentWillMount() {
+        // API-Football で試合結果を取る
+        updateAllMatchesInSeason(this._updateFixtures.bind(this))
+    }
+    _updateFixtures(allMatches) {
+        allMatches == null ? null : this.setState({ fixtures: allMatches.reverse() })
+    }
+    render() {
+        let fixtures = this.state.fixtures
+        const displayMatches = fixtures.map(fixture => (
+            <MatchesCard
+                key={fixture.fixture_id}
+                onPressMatch={this.props.onPressMatch}
+                fixture={fixture} />
+        ))
+        return (
+            <View>
+                <Text style={styles.titleText}>FIXTURES</Text>
+                {
+                    fixtures.length == 0 ?
+                        <View style={styles.matchesArea}>
+                            <ProgressBar message='fetch fixtures...' />
+                        </View>
+                        :
+                        <CardScrollView
+                            initialCardPosition={0}
+                            horizontal={true}
+                            cardWidth={240}
+                            cardAlign='left'>
+                            { displayMatches }
+                        </CardScrollView>
+                }
+            </View>
+        )
     }
 }
 
@@ -150,6 +166,12 @@ const styles = StyleSheet.create({
     },
     news: {
         height: Dimensions.get('window').height * 0.66
+    },
+    news: {
+        height: Dimensions.get('window').height * 0.66 - 25,
+        width: Dimensions.get('window').width,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     titleText: {
         height: 25,

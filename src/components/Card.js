@@ -9,6 +9,56 @@ import {
     TouchableOpacity
 } from 'react-native';
 import { RoundedButton } from '../components/Button'
+/**
+ * {
+api: {
+results: 38
+fixtures: [
+{
+fixture_id: 157019
+league_id: 524
+league: {
+name: "Premier League"
+country: "England"
+logo: "https://media.api-sports.io/football/leagues/39.png"
+flag: "https://media.api-sports.io/flags/gb.svg"
+}
+event_date: "2019-08-10T14:00:00+00:00"
+event_timestamp: 1565445600
+firstHalfStart: 1565445600
+secondHalfStart: 1565449200
+round: "Regular Season - 1"
+status: "Match Finished"
+statusShort: "FT"
+elapsed: 90
+venue: "Selhurst Park"
+referee: "J. Moss"
+homeTeam: {
+team_id: 52
+team_name: "Crystal Palace"
+logo: "https://media.api-sports.io/football/teams/52.png"
+}
+awayTeam: {
+team_id: 45
+team_name: "Everton"
+logo: "https://media.api-sports.io/football/teams/45.png"
+}
+goalsHomeTeam: 0
+goalsAwayTeam: 0
+score: {
+halftime: "0-0"
+fulltime: "0-0"
+extratime: null
+penalty: null
+}
+},
+{...}
+]
+ */
+const matchTags = [
+    {leagueName: "Premier League", tagName: 'PL'},
+    {leagueName: "", tagName: ''}
+]
 
 /**
  * 試合結果を表示するカード
@@ -16,16 +66,16 @@ import { RoundedButton } from '../components/Button'
 export class MatchesCard extends Component {
     /**
      * (Required)
-     * @param props.onPressMatch    試合カード押下時の動作
-     * @param props.matchDay        試合日
-     * @param props.matchTag        試合のタグ(e.g. PL, FA)
-     * @param props.homeTeamName    ホームチーム名
-     * @param props.homeTeamLogo    ホームチームのロゴ
-     * @param props.homeTeamGoals   ホームチームのゴール数
-     * @param props.awayTeamName    アウェイチーム名
-     * @param props.awayTeamLogo    アウェイチームのロゴ
-     * @param props.awayTeamGoals   アウェイチームのゴール数
-     * @param state.wholeOpacity    カード全体のopacity
+     * @param props.onPressMatch                試合カード押下時の動作
+     * @param props.fixture.event_date          試合日(e.g. "2019-08-10T14:00:00+00:00")
+     * @param props.fixture.league.name         試合の大会(e.g. "Premier League")
+     * @param props.fixture.homeTeam.team_name  ホームチーム名(e.g. "Crystal Palace")
+     * @param props.fixture.homeTeam.logo       ホームチームのロゴ(e.g. "https://media.api-sports.io/football/teams/52.png")
+     * @param props.fixture.goalsHomeTeam       ホームチームのゴール数(e.g. 0)
+     * @param props.fixture.awayTeam.team_name  アウェイチーム名(e.g. "Everton")
+     * @param props.fixture.awayTeam.logo       アウェイチームのロゴ(e.g. "https://media.api-sports.io/football/teams/45.png")
+     * @param props.fixture.goalsAwayTeam       アウェイチームのゴール数(e.g. 0)
+     * @param state.wholeOpacity                カード全体のopacity
      */
     constructor(props) {
         super(props)
@@ -44,6 +94,15 @@ export class MatchesCard extends Component {
         Animated.timing(this.state.wholeOpacity).stop()
     }
     render() {
+        let matchDay = this.props.fixture.event_date.substring(0, 10)
+        let matchTag = matchTags.find(tag => 
+            this.props.fixture.league.name.includes(tag.leagueName)).tagName
+        let homeTeamName = this.props.fixture.homeTeam.team_name
+        let homeTeamLogo = {uri: this.props.fixture.homeTeam.logo}
+        let homeTeamGoals = this.props.fixture.goalsHomeTeam
+        let awayTeamName = this.props.fixture.awayTeam.team_name
+        let awayTeamLogo = {uri: this.props.fixture.awayTeam.logo}
+        let awayTeamGoals = this.props.fixture.goalsAwayTeam
         let opacity = this.state.wholeOpacity
         const TeamInfo = (props) => (
             <View>
@@ -57,14 +116,14 @@ export class MatchesCard extends Component {
         return (
             <Animated.View style={[{ opacity }]}>
                 <TouchableOpacity style={styles.matchCard} onPress={this.props.onPressMatch}>
-                    <TeamInfo image={this.props.homeTeamLogo} name={this.props.homeTeamName} goal={this.props.homeTeamGoals} />
+                    <TeamInfo image={homeTeamLogo} name={homeTeamName} goal={homeTeamGoals} />
                     <View style={[{ marginTop: 5 }]} />
-                    <TeamInfo image={this.props.awayTeamLogo} name={this.props.awayTeamName} goal={this.props.awayTeamGoals} />
+                    <TeamInfo image={awayTeamLogo} name={awayTeamName} goal={awayTeamGoals} />
                     <View style={[{ marginTop: 5, alignItems: 'center' }]}>
                         <View style={styles.horizontal}>
-                            <Text style={[styles.matchTag]}>{this.props.matchTag}PL</Text>
+                            <Text style={[styles.matchTag]}>{matchTag}</Text>
                             <View style={[{ marginLeft: 10 }]} />
-                            <Text style={styles.day}>{this.props.matchDay}</Text>
+                            <Text style={styles.day}>{matchDay}</Text>
                         </View>
                     </View>
                 </TouchableOpacity>
