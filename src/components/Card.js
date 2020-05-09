@@ -4,13 +4,11 @@ import {
     Text,
     View,
     Image,
+    Animated,
     Dimensions,
     TouchableOpacity
 } from 'react-native';
 import { RoundedButton } from '../components/Button'
-
-const everton = { uri: 'https://media.gettyimages.com/photos/the-everton-logo-is-seen-outside-the-stadium-prior-to-the-premier-picture-id870497804?s=2048x2048' }
-const liverpool = { uri: 'https://media.gettyimages.com/photos/wall-with-liverpool-fc-logo-during-the-uefa-champions-league-round-of-picture-id1125794244?s=2048x2048' }
 
 /**
  * 試合結果を表示するカード
@@ -22,14 +20,31 @@ export class MatchesCard extends Component {
      * @param props.matchDay        試合日
      * @param props.matchTag        試合のタグ(e.g. PL, FA)
      * @param props.homeTeamName    ホームチーム名
+     * @param props.homeTeamLogo    ホームチームのロゴ
      * @param props.homeTeamGoals   ホームチームのゴール数
      * @param props.awayTeamName    アウェイチーム名
+     * @param props.awayTeamLogo    アウェイチームのロゴ
      * @param props.awayTeamGoals   アウェイチームのゴール数
+     * @param state.wholeOpacity    カード全体のopacity
      */
     constructor(props) {
         super(props)
+        this.state = {
+            wholeOpacity: new Animated.Value(0)
+        }
+    }
+    componentDidMount() {
+        Animated.timing(this.state.wholeOpacity, {
+            toValue: 1,
+            duration: 1000,
+            useNativeDriver: false
+        }).start()
+    }
+    componentWillUnmount() {
+        Animated.timing(this.state.wholeOpacity).stop()
     }
     render() {
+        let opacity = this.state.wholeOpacity
         const TeamInfo = (props) => (
             <View>
                 <View style={[styles.horizontal, { height: 30, width: 240, alignItems: 'center' }]}>
@@ -40,18 +55,20 @@ export class MatchesCard extends Component {
             </View>
         )
         return (
-            <TouchableOpacity style={styles.matchCard} onPress={this.props.onPressMatch}>
-                <TeamInfo image={everton} name={this.props.homeTeamName} goal={this.props.homeTeamGoals} />
-                <View style={[{ marginTop: 5 }]} />
-                <TeamInfo image={liverpool} name={this.props.awayTeamName} goal={this.props.awayTeamGoals} />
-                <View style={[{ marginTop: 5, alignItems: 'center' }]}>
-                    <View style={styles.horizontal}>
-                        <Text style={[styles.matchTag]}>{this.props.matchTag}PL</Text>
-                        <View style={[{ marginLeft: 10 }]} />
-                        <Text style={styles.day}>{this.props.matchDay}</Text>
+            <Animated.View style={[{ opacity }]}>
+                <TouchableOpacity style={styles.matchCard} onPress={this.props.onPressMatch}>
+                    <TeamInfo image={this.props.homeTeamLogo} name={this.props.homeTeamName} goal={this.props.homeTeamGoals} />
+                    <View style={[{ marginTop: 5 }]} />
+                    <TeamInfo image={this.props.awayTeamLogo} name={this.props.awayTeamName} goal={this.props.awayTeamGoals} />
+                    <View style={[{ marginTop: 5, alignItems: 'center' }]}>
+                        <View style={styles.horizontal}>
+                            <Text style={[styles.matchTag]}>{this.props.matchTag}PL</Text>
+                            <View style={[{ marginLeft: 10 }]} />
+                            <Text style={styles.day}>{this.props.matchDay}</Text>
+                        </View>
                     </View>
-                </View>
-            </TouchableOpacity>
+                </TouchableOpacity>
+            </Animated.View>
         );
     }
 }
