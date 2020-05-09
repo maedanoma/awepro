@@ -33,8 +33,8 @@ export class CardScrollView extends Component {
         cardAlign: '',
     }
     _onContentSizeChange() {
-        let x = this.initialCardPosition * this.cardWidth
-        let y = this.initialCardPosition * this.cardHeight
+        let x = this.props.initialCardPosition * this.props.cardWidth
+        let y = this.props.initialCardPosition * this.props.cardHeight
         this.scrollView.scrollTo({ x, y, animated: false });
     }
     render() {

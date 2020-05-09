@@ -23,12 +23,14 @@ async function fetchMatchesByTeam(teamId, leagueId = '') {
     let requestUrl = endPoint + teamId + league
     return await axios.get(requestUrl, {headers})
         .then(response => {
-            console.log("success http connection")
+            console.log("succeeded to connect by http.") 
+            if (response.data.api.error != null) {
+                console.log("error message: " + response.data.api.error)
+            }
             return response.data.api.fixtures
-            // return getFinishedMatches(response.data.api.fixtures)
         })
         .catch(error => {
-            console.log("error: " + error.api.error)
+            console.log("error: " + error.message)
             return Promise.reject(error);
         })
 }

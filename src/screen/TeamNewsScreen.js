@@ -60,6 +60,7 @@ export default class TeamNewsScreen extends Component {
     }
     render() {
         let opacity = this.state.viewOpacity
+        let cardHeight = 340 + Dimensions.get('screen').width * 0.04
         return (
             <Animated.View style={[{ opacity }]}>
                 <View style={styles.matches}>
@@ -68,7 +69,7 @@ export default class TeamNewsScreen extends Component {
                 <View style={styles.news}>
                     <Text style={styles.titleText}>NEWS</Text>
                     <CardScrollView
-                        cardHeight={355} >
+                        cardHeight={cardHeight} >
                         <NewsCard
                             onPressSeeMore={this._onPressSeeMore.bind(this)}
                             newsImage={gomesImage}
@@ -91,10 +92,14 @@ class Fixtures extends Component {
     /**
      * @param props.onPressMatch    MatchCardが押下された時の動作
      * @param state.fixtures        MatchCardに表示する試合結果
+     * @param state.initCardPos     Matchesで表示するデフォルトのMatchCardの位置
+     * @param state.isDisplayError  エラーを表示するかどうか
      */
     constructor(props) {
         super(props)
         this.state = {
+            isDisplayError: false,
+            initCardPos: 0,
             fixtures: []
             // fixtures: [
             //     {
@@ -121,7 +126,15 @@ class Fixtures extends Component {
         updateAllMatchesInSeason(this._updateFixtures.bind(this))
     }
     _updateFixtures(allMatches) {
-        allMatches == null ? null : this.setState({ fixtures: allMatches.reverse() })
+        allMatches == null ?
+            this.setState({ isDisplayError: true}) : 
+            initPos = allMatches.filter(match => {
+                return match.status == "Match Postponed"
+            }).length
+            this.setState({
+                fixtures: allMatches.reverse(),
+                initCardPos: initPos
+            })
     }
     render() {
         let fixtures = this.state.fixtures
@@ -135,18 +148,25 @@ class Fixtures extends Component {
             <View>
                 <Text style={styles.titleText}>FIXTURES</Text>
                 {
-                    fixtures.length == 0 ?
-                        <View style={styles.matchesArea}>
-                            <ProgressBar message='fetch fixtures...' />
-                        </View>
-                        :
+                    fixtures.length != 0 ?
                         <CardScrollView
-                            initialCardPosition={0}
+                            initialCardPosition={this.state.initCardPos}
                             horizontal={true}
                             cardWidth={240}
                             cardAlign='left'>
                             { displayMatches }
-                        </CardScrollView>
+                        </CardScrollView>:
+                        this.state.isDisplayError ?
+                            <View style={styles.matchesArea}>
+                                <Text style={[{
+                                    textAlign: 'center',
+                                    color: '#AAAAAA'}]}>
+                                    Failed to fetch fixtures
+                                </Text>
+                            </View>:
+                            <View style={styles.matchesArea}>
+                                <ProgressBar message='Fetch fixtures...' />
+                            </View>
                 }
             </View>
         )
@@ -167,7 +187,7 @@ const styles = StyleSheet.create({
     news: {
         height: Dimensions.get('window').height * 0.66
     },
-    news: {
+    newsArea: {
         height: Dimensions.get('window').height * 0.66 - 25,
         width: Dimensions.get('window').width,
         justifyContent: 'center',
