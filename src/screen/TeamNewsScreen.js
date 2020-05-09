@@ -14,6 +14,9 @@ import {
     NewsCard,
 } from '../components/Card'
 import { ProgressBar } from '../components/Progress'
+import {
+    updateAllMatchesInSeason
+} from '../http/MatchApis'
 
 const gomesImage = { uri: 'https://media.gettyimages.com/photos/kurt-zouma-of-everton-celebrates-after-scoring-his-teams-first-goal-picture-id1081775044?s=2048x2048' }
 
@@ -21,22 +24,23 @@ export default class TeamNewsScreen extends Component {
     /**
      * @param props.closeDrawer DrowerMenuを閉じる 
      * @param state.viewOpacity 遷移後にMainCardのopacity
+     * @param state.fixtures    MatchCardに表示する試合結果
      */
     constructor(props) {
         super(props)
         this.state = {
             viewOpacity: new Animated.Value(0),
-            fixtures: []
+            fixtures: [],
         }
     }
 
     UNSAFE_componentWillMount() {
         // TODO APIで試合結果をとりに行く
+        updateAllMatchesInSeason(this._updateFixtures.bind(this))
     }
 
     _updateFixtures(allMatches) {
-        allMatches == null? null:
-        this.setState({ fixtures: allMatches.reverse() })
+        allMatches == null? null: this.setState({ fixtures: allMatches.reverse() })
     }
 
     componentDidMount() {
@@ -96,12 +100,13 @@ export default class TeamNewsScreen extends Component {
                     awayTeamGoals={fixture.goalsAwayTeam} />
             )
         })
+
         return (
             <Animated.View style={[{ opacity }]}>
                 <View style={styles.matches}>
                     <Text style={styles.titleText}>FIXTURES</Text>
                     {fixtures.length == 0 ?
-                        <View style={styles.progress}>
+                        <View style={styles.matchesArea}>
                             <ProgressBar message='fetch fixtures...' />
                         </View> :
                         <ScrollView
@@ -137,7 +142,7 @@ const styles = StyleSheet.create({
         height: Dimensions.get('window').height * 0.23,
         marginTop: Dimensions.get('window').height * 0.015
     },
-    progress: {
+    matchesArea: {
         height: Dimensions.get('window').height * 0.23 - 25,
         width: Dimensions.get('window').width,
         justifyContent: 'center',
