@@ -3,16 +3,18 @@ import {
     StyleSheet,
     View,
     Text,
-    ScrollView,
     Alert,
     Easing,
     Animated,
     Dimensions,
 } from 'react-native';
+import { CardScrollView } from '../components/ScrollView'
 import {
     MatchesCard,
     NewsCard,
 } from '../components/Card'
+import { ProgressBar } from '../components/Progress'
+import { updateAllMatchesInSeason } from '../http/MatchApis'
 
 const gomesImage = { uri: 'https://media.gettyimages.com/photos/kurt-zouma-of-everton-celebrates-after-scoring-his-teams-first-goal-picture-id1081775044?s=2048x2048' }
 
@@ -27,15 +29,7 @@ export default class TeamNewsScreen extends Component {
             viewOpacity: new Animated.Value(0),
         }
     }
-
-    UNSAFE_componentWillMount() {
-        // TODO APIで試合結果をとりに行く
-        // TODO チーム名を元にロゴを取得する
-        // TODO プログレスアイコンを表示する
-    }
-
     componentDidMount() {
-        // TODO プログレスアイコンを消す
         Animated.timing(this.state.viewOpacity, {
             toValue: 1,
             duration: 500,
@@ -43,11 +37,9 @@ export default class TeamNewsScreen extends Component {
             useNativeDriver: false
         }).start()
     }
-
     componentWillUnmount() {
         Animated.timing(this.state.viewOpacity).stop()
     }
-
     /**
      * MatchCardを押された時にMatchの詳細を表示する
      * 
@@ -57,7 +49,6 @@ export default class TeamNewsScreen extends Component {
         this.props.closeDrawer()
         Alert.alert('This function under construction!')
     }
-
     /**
      * NewsCardまたはSeeMoreが押された時にNewsの詳細を表示する
      * 
@@ -67,39 +58,118 @@ export default class TeamNewsScreen extends Component {
         this.props.closeDrawer()
         Alert.alert('This function under construction!')
     }
-
     render() {
         let opacity = this.state.viewOpacity
+        let cardHeight = 340 + Dimensions.get('screen').width * 0.04
         return (
             <Animated.View style={[{ opacity }]}>
                 <View style={styles.matches}>
-                    <Text style={styles.titleText}>MATCHES</Text>
-                    <ScrollView
-                        horizontal={true}
-                        showsHorizontalScrollIndicator={false}>
-                        <MatchesCard
-                            onPressMatch={this._onPressMatch.bind(this)}
-                            matchDay='2020/04/12'
-                            homeTeamName='EVERTON'
-                            homeTeamGoals='2'
-                            awayTeamName='LIVERPOOL'
-                            awayTeamGoals='2' />
-                        <MatchesCard />
-                    </ScrollView>
+                    <Fixtures onPressMatch={this._onPressMatch.bind(this)} />
                 </View>
                 <View style={styles.news}>
                     <Text style={styles.titleText}>NEWS</Text>
-                    <ScrollView>
+                    <CardScrollView
+                        cardHeight={cardHeight} >
                         <NewsCard
                             onPressSeeMore={this._onPressSeeMore.bind(this)}
                             newsImage={gomesImage}
                             title='アンドレ・ゴメスが esports の大会でスターリングに敗退！ああああああああああああああああああああああああああ'
                             newsDay='2019/20/20' />
                         <NewsCard />
-                    </ScrollView>
+                        <NewsCard />
+                        <NewsCard />
+                        <NewsCard />
+                        <NewsCard />
+                        <NewsCard />
+                    </CardScrollView>
                 </View>
             </Animated.View>
         );
+    }
+}
+
+class Fixtures extends Component {
+    /**
+     * @param props.onPressMatch    MatchCardが押下された時の動作
+     * @param state.fixtures        MatchCardに表示する試合結果
+     * @param state.initCardPos     Matchesで表示するデフォルトのMatchCardの位置
+     * @param state.isDisplayError  エラーを表示するかどうか
+     */
+    constructor(props) {
+        super(props)
+        this.state = {
+            isDisplayError: false,
+            initCardPos: 0,
+            fixtures: []
+            // fixtures: [
+            //     {
+            //         event_date: "2019-08-10T14:00:00+00:00",
+            //         league: {
+            //             name: "Premier League"
+            //         },
+            //         homeTeam: {
+            //             team_name: "Crystal Palace",
+            //             logo: "https://media.api-sports.io/football/teams/52.png"
+            //         },
+            //         goalsHomeTeam: 0,
+            //         awayTeam: {
+            //             team_name: "Everton",
+            //             logo: "https://media.api-sports.io/football/teams/45.png"
+            //         },
+            //         goalsAwayTeam: 0,
+            //     }
+            // ],
+        }
+    }
+    UNSAFE_componentWillMount() {
+        // API-Football で試合結果を取る
+        updateAllMatchesInSeason(this._updateFixtures.bind(this))
+    }
+    _updateFixtures(allMatches) {
+        allMatches == null ?
+            this.setState({ isDisplayError: true}) : 
+            initPos = allMatches.filter(match => {
+                return match.status == "Match Postponed"
+            }).length
+            this.setState({
+                fixtures: allMatches.reverse(),
+                initCardPos: initPos
+            })
+    }
+    render() {
+        let fixtures = this.state.fixtures
+        const displayMatches = fixtures.map(fixture => (
+            <MatchesCard
+                key={fixture.fixture_id}
+                onPressMatch={this.props.onPressMatch}
+                fixture={fixture} />
+        ))
+        return (
+            <View>
+                <Text style={styles.titleText}>FIXTURES</Text>
+                {
+                    fixtures.length != 0 ?
+                        <CardScrollView
+                            initialCardPosition={this.state.initCardPos}
+                            horizontal={true}
+                            cardWidth={240}
+                            cardAlign='left'>
+                            { displayMatches }
+                        </CardScrollView>:
+                        this.state.isDisplayError ?
+                            <View style={styles.matchesArea}>
+                                <Text style={[{
+                                    textAlign: 'center',
+                                    color: '#AAAAAA'}]}>
+                                    Failed to fetch fixtures
+                                </Text>
+                            </View>:
+                            <View style={styles.matchesArea}>
+                                <ProgressBar message='Fetch fixtures...' />
+                            </View>
+                }
+            </View>
+        )
     }
 }
 
@@ -108,8 +178,20 @@ const styles = StyleSheet.create({
         height: Dimensions.get('window').height * 0.23,
         marginTop: Dimensions.get('window').height * 0.015
     },
+    matchesArea: {
+        height: Dimensions.get('window').height * 0.23 - 25,
+        width: Dimensions.get('window').width,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
     news: {
         height: Dimensions.get('window').height * 0.66
+    },
+    newsArea: {
+        height: Dimensions.get('window').height * 0.66 - 25,
+        width: Dimensions.get('window').width,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     titleText: {
         height: 25,
