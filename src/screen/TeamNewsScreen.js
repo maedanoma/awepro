@@ -60,7 +60,7 @@ export default class TeamNewsScreen extends Component {
     }
     render() {
         let opacity = this.state.viewOpacity
-        let cardHeight = 340 + Dimensions.get('screen').width * 0.04
+        let cardHeight = Dimensions.get('screen').height * 0.472
         return (
             <Animated.View style={[{ opacity }]}>
                 <View style={styles.matches}>
