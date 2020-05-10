@@ -60,28 +60,13 @@ export default class TeamNewsScreen extends Component {
     }
     render() {
         let opacity = this.state.viewOpacity
-        let cardHeight = 340 + Dimensions.get('screen').width * 0.04
         return (
             <Animated.View style={[{ opacity }]}>
                 <View style={styles.matches}>
                     <Fixtures onPressMatch={this._onPressMatch.bind(this)} />
                 </View>
                 <View style={styles.news}>
-                    <Text style={styles.titleText}>NEWS</Text>
-                    <CardScrollView
-                        cardHeight={cardHeight} >
-                        <NewsCard
-                            onPressSeeMore={this._onPressSeeMore.bind(this)}
-                            newsImage={gomesImage}
-                            title='アンドレ・ゴメスが esports の大会でスターリングに敗退！ああああああああああああああああああああああああああ'
-                            newsDay='2019/20/20' />
-                        <NewsCard />
-                        <NewsCard />
-                        <NewsCard />
-                        <NewsCard />
-                        <NewsCard />
-                        <NewsCard />
-                    </CardScrollView>
+                    <News onPressSeeMore={this._onPressSeeMore.bind(this)} />
                 </View>
             </Animated.View>
         );
@@ -100,25 +85,25 @@ class Fixtures extends Component {
         this.state = {
             isDisplayError: false,
             initCardPos: 0,
-            fixtures: []
-            // fixtures: [
-            //     {
-            //         event_date: "2019-08-10T14:00:00+00:00",
-            //         league: {
-            //             name: "Premier League"
-            //         },
-            //         homeTeam: {
-            //             team_name: "Crystal Palace",
-            //             logo: "https://media.api-sports.io/football/teams/52.png"
-            //         },
-            //         goalsHomeTeam: 0,
-            //         awayTeam: {
-            //             team_name: "Everton",
-            //             logo: "https://media.api-sports.io/football/teams/45.png"
-            //         },
-            //         goalsAwayTeam: 0,
-            //     }
-            // ],
+            // fixtures: []
+            fixtures: [
+                {
+                    event_date: "2019-08-10T14:00:00+00:00",
+                    league: {
+                        name: "Premier League"
+                    },
+                    homeTeam: {
+                        team_name: "Crystal Palace",
+                        logo: "https://media.api-sports.io/football/teams/52.png"
+                    },
+                    goalsHomeTeam: 0,
+                    awayTeam: {
+                        team_name: "Everton",
+                        logo: "https://media.api-sports.io/football/teams/45.png"
+                    },
+                    goalsAwayTeam: 0,
+                }
+            ],
         }
     }
     UNSAFE_componentWillMount() {
@@ -157,15 +142,77 @@ class Fixtures extends Component {
                             { displayMatches }
                         </CardScrollView>:
                         this.state.isDisplayError ?
-                            <View style={styles.matchesArea}>
+                            <View style={styles.loadingArea}>
                                 <Text style={[{
                                     textAlign: 'center',
                                     color: '#AAAAAA'}]}>
                                     Failed to fetch fixtures
                                 </Text>
                             </View>:
-                            <View style={styles.matchesArea}>
+                            <View style={styles.loadingArea}>
                                 <ProgressBar message='Fetch fixtures...' />
+                            </View>
+                }
+            </View>
+        )
+    }
+}
+
+class News extends Component {
+    /**
+     * @param props.onPressNews     NewsCardが押下された時の動作
+     * @param state.newsList        NewsCardに表示するニュース
+     * @param state.isDisplayError  エラーを表示するかどうか
+     */
+    constructor(props) {
+        super(props)
+        this.state = {
+            isDisplayError: false,
+            newsList: []
+            // newsList: [
+            //     {}, {}, {}, {}, {}, {}, {}, {}, {}, {},
+            // ]
+        }
+    }
+    UNSAFE_componentWillMount() {
+        // NewsAPI でニュースを取る
+        // updateNewsList(this._updateFixtures.bind(this))
+    }
+    _updateFixtures(newsList) {
+        newsList == null ?
+            this.setState({ isDisplayError: true}) : 
+            this.setState({ fixtures: newsList })
+    }
+    render() {
+        let cardHeight = Dimensions.get('screen').height * 0.422
+        let newsList = this.state.newsList
+        const displayNews = newsList.map(news => (
+            <NewsCard
+                // key={news.fixture_id}
+                onPressSeeMore={this.props.onPressNews}
+                // news={news}
+                newsImage={gomesImage}
+                title='アンドレ・ゴメスが esports の大会でスターリングに敗退！ああああああああああああああああああああああああああ'
+                newsDay='2019/20/20' />
+        ))
+        return (
+            <View>
+                <Text style={styles.titleText}>NEWS</Text>
+                {
+                    newsList.length != 0 ?
+                        <CardScrollView cardHeight={cardHeight}>
+                            { displayNews }
+                        </CardScrollView>:
+                        this.state.isDisplayError ?
+                            <View style={styles.loadingArea}>
+                                <Text style={[{
+                                    textAlign: 'center',
+                                    color: '#AAAAAA'}]}>
+                                    Failed to fetch news
+                                </Text>
+                            </View>:
+                            <View style={styles.loadingArea}>
+                                <ProgressBar message='Fetch news...' />
                             </View>
                 }
             </View>
@@ -178,17 +225,11 @@ const styles = StyleSheet.create({
         height: Dimensions.get('window').height * 0.23,
         marginTop: Dimensions.get('window').height * 0.015
     },
-    matchesArea: {
-        height: Dimensions.get('window').height * 0.23 - 25,
-        width: Dimensions.get('window').width,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
     news: {
-        height: Dimensions.get('window').height * 0.66
+        height: Dimensions.get('window').height * 0.62
     },
-    newsArea: {
-        height: Dimensions.get('window').height * 0.66 - 25,
+    loadingArea: {
+        height: Dimensions.get('window').height * 0.23 - 25,
         width: Dimensions.get('window').width,
         justifyContent: 'center',
         alignItems: 'center',

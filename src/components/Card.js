@@ -6,9 +6,8 @@ import {
     Image,
     Animated,
     Dimensions,
-    TouchableOpacity
+    TouchableOpacity,
 } from 'react-native';
-import { RoundedButton } from '../components/Button'
 /**
  * {
 api: {
@@ -106,7 +105,7 @@ export class MatchesCard extends Component {
         let opacity = this.state.wholeOpacity
         const TeamInfo = (props) => (
             <View>
-                <View style={[styles.horizontal, { height: 30, width: 240, alignItems: 'center' }]}>
+                <View style={[{ flexheight: 30, width: 240, alignItems: 'center', flexDirection: 'row' }]}>
                     <Image source={props.image} style={styles.teamLogo} />
                     <Text style={[styles.teamName, { marginLeft: 5 }]}>{props.name}</Text>
                     <Text style={styles.teamGoal}>{props.goal}</Text>
@@ -120,7 +119,7 @@ export class MatchesCard extends Component {
                     <View style={[{ marginTop: 5 }]} />
                     <TeamInfo image={awayTeamLogo} name={awayTeamName} goal={awayTeamGoals} />
                     <View style={[{ marginTop: 5, alignItems: 'center' }]}>
-                        <View style={styles.horizontal}>
+                        <View style={[{flexDirection: 'row'}]}>
                             <Text style={[styles.matchTag]}>{matchTag}</Text>
                             <View style={[{ marginLeft: 10 }]} />
                             <Text style={styles.day}>{matchDay}</Text>
@@ -139,39 +138,23 @@ export class NewsCard extends Component {
     /**
      * (Required)
      * @param props.onPressSeeMore  see moreボタン押下時の動作
+     * @param props.newsDay         ニュースの日付
      * @param props.newsImage       ニュースの画像
      * @param props.title           ニュースのタイトル
-     * @param props.newsDay         ニュースの日付
      */
     constructor(props) {
         super(props)
     }
     render() {
-        const DetailsButton = () => (
-            <RoundedButton
-                onPressButton={this.props.onPressSeeMore}
-                buttonName='see more'
-                buttonWidth={100}
-                buttonExpandInitialWidth={100}
-                buttonHeight={25} />
-        );
-
         return (
             <TouchableOpacity style={[styles.newsCard]} onPress={this.props.onPressSeeMore}>
-                <View style={styles.center}>
-                    <Image style={styles.newsImage} source={this.props.newsImage} />
-                </View>
-                <Text style={[styles.newsTitleText, { margin: 5 }]} numberOfLines={2}>
+                <Image style={styles.newsImage} source={this.props.newsImage} />
+                <Text style={[styles.newsDay, {margin: 4}]}>
+                    {this.props.newsDay}
+                </Text>
+                <Text style={[styles.newsTitleText]} numberOfLines={2}>
                     {this.props.title}
                 </Text>
-                <View style={[styles.horizontal, styles.detailAndDay, { margin: 10 }]}>
-                    <View style={[styles.details, { marginLeft: 15 }]}>
-                        <DetailsButton />
-                    </View>
-                    <Text style={[styles.day, { marginLeft: 130 }]}>
-                        {this.props.newsDay}
-                    </Text>
-                </View>
             </TouchableOpacity>
         );
     }
@@ -214,21 +197,21 @@ const styles = StyleSheet.create({
         color: '#A9A9A9',
     },
     newsCard: {
-        height: 340,
+        height: Dimensions.get('screen').height * 0.4,
         width: Dimensions.get('screen').width * 0.96,
-        borderRadius: 35,
+        borderRadius: 25,
         backgroundColor: '#FFFFFF',
-        padding: 10,
         margin: Dimensions.get('screen').width * 0.02,
+        alignItems: 'center'
     },
     newsImage: {
-        height: 200,
-        width: Dimensions.get('screen').width * 0.91,
-        borderRadius: 20,
-        margin: 10,
+        height: Dimensions.get('screen').height * 0.28,
+        width: Dimensions.get('screen').width * 0.96,
+        borderTopLeftRadius: 25,
+        borderTopRightRadius: 25,
     },
     newsTitleText: {
-        height: 45,
+        width: Dimensions.get('screen').width * 0.9,
         fontSize: 16,
         fontWeight: 'bold',
         color: '#000000',
@@ -237,14 +220,9 @@ const styles = StyleSheet.create({
         fontSize: 18,
         color: '#A9A9A9',
     },
-    detailAndDay: {
-        width: Dimensions.get('screen').width * 0.91,
+    newsDay: {
+        width: Dimensions.get('screen').width * 0.9,
+        color: '#A9A9A9',
+        fontSize: 16,
     },
-    horizontal: {
-        flexDirection: 'row'
-    },
-    center: {
-        alignItems: 'center',
-        justifyContent: 'center',
-    }
 });
