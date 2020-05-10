@@ -197,7 +197,7 @@ const styles = StyleSheet.create({
         color: '#A9A9A9',
     },
     newsCard: {
-        height: Dimensions.get('screen').height * 0.45,
+        height: Dimensions.get('screen').height * 0.4,
         width: Dimensions.get('screen').width * 0.96,
         borderRadius: 25,
         backgroundColor: '#FFFFFF',
@@ -205,7 +205,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     newsImage: {
-        height: Dimensions.get('screen').height * 0.33,
+        height: Dimensions.get('screen').height * 0.28,
         width: Dimensions.get('screen').width * 0.96,
         borderTopLeftRadius: 25,
         borderTopRightRadius: 25,
