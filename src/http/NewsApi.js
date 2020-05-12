@@ -1,5 +1,6 @@
 import AxiosWrapper from './AxiosWrapper'
 import {newsApiKey as apiKey} from '../../app.json';
+import { translateEnToJa } from './LanguageTranslatorApi'
 
 const axios = new AxiosWrapper('https://newsapi.org')
 
@@ -28,7 +29,17 @@ const axios = new AxiosWrapper('https://newsapi.org')
  * @param updateNews 
  */
 export const updateEverythingNews = async (updateNews) => {
-    fetchEverythingNews('everton').then(articles => updateNews(articles))
+    fetchEverythingNews('everton').then(articles => {
+        let slicedArticles = articles.slice(0, 10)
+        let titles = slicedArticles.map(article => article.title)
+        translateEnToJa(titles, translatedTexts => {
+            let count = 0
+            updateNews(slicedArticles.map(article => {
+                article.title = translatedTexts[count++].translation
+                return article
+            }))
+        })
+    })
 }
 
 /**

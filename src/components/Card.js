@@ -92,24 +92,23 @@ export class MatchesCard extends Component {
 export class NewsCard extends Component {
     /**
      * (Required)
-     * @param props.onPressSeeMore  see moreボタン押下時の動作
-     * @param props.newsDay         ニュースの日付
-     * @param props.newsImage       ニュースの画像
-     * @param props.title           ニュースのタイトル
+     * @param props.onPressSeeMore      see moreボタン押下時の動作
+     * @param props.article.publishedAt ニュースの日付
+     * @param props.article.urlToImage  ニュースの画像
+     * @param props.article.title       ニュースのタイトル
      */
     constructor(props) {
         super(props)
     }
     render() {
+        let newsDay = this.props.article.publishedAt.substring(0, 10)
+        let newsImage = {uri: this.props.article.urlToImage}
+        let title = this.props.article.title
         return (
             <TouchableOpacity style={[styles.newsCard]} onPress={this.props.onPressSeeMore}>
-                <Image style={styles.newsImage} source={this.props.newsImage} />
-                <Text style={[styles.newsDay, {margin: 4}]}>
-                    {this.props.newsDay}
-                </Text>
-                <Text style={[styles.newsTitleText]} numberOfLines={2}>
-                    {this.props.title}
-                </Text>
+                <Image style={styles.newsImage} source={newsImage} />
+                <Text style={[styles.newsDay, {margin: 4}]}>{newsDay}</Text>
+                <Text style={[styles.newsTitleText]} numberOfLines={2}>{title}</Text>
             </TouchableOpacity>
         );
     }

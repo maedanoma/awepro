@@ -15,6 +15,7 @@ import {
 } from '../components/Card'
 import { ProgressBar } from '../components/Progress'
 import { updateAllMatchesInSeason } from '../http/FootballApi'
+import { updateEverythingNews } from '../http/NewsApi'
 
 const gomesImage = { uri: 'https://media.gettyimages.com/photos/kurt-zouma-of-everton-celebrates-after-scoring-his-teams-first-goal-picture-id1081775044?s=2048x2048' }
 
@@ -176,24 +177,22 @@ class News extends Component {
     }
     UNSAFE_componentWillMount() {
         // NewsAPI でニュースを取る
-        // updateNewsList(this._updateFixtures.bind(this))
+        updateEverythingNews(this._updateNews.bind(this))
     }
-    _updateFixtures(newsList) {
-        newsList == null ?
-            this.setState({ isDisplayError: true}) : 
-            this.setState({ fixtures: newsList })
+    _updateNews(allNews) {
+        allNews == null　|| allNews.length == 0 ?
+            this.setState({ isDisplayError: true}) :
+            slicedNews = allNews.slice(0, 10)
+            this.setState({ newsList: slicedNews })
     }
     render() {
         let cardHeight = Dimensions.get('screen').height * 0.422
         let newsList = this.state.newsList
-        const displayNews = newsList.map(news => (
+        const displayNews = newsList.map(article => (
             <NewsCard
-                // key={news.fixture_id}
+                key={article.id}
                 onPressSeeMore={this.props.onPressNews}
-                // news={news}
-                newsImage={gomesImage}
-                title='アンドレ・ゴメスが esports の大会でスターリングに敗退！ああああああああああああああああああああああああああ'
-                newsDay='2019/20/20' />
+                article={article} />
         ))
         return (
             <View>
