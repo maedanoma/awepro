@@ -3,5 +3,7 @@
   "displayName": "AwesomeProject",
   "footballApiKey": "api_key",
   "translatorApiKey": "api_key",
-  "translatorServiceInstance": "instance"
+  "translatorServiceInstance": "instance",
+  "newsApiKey": "api_key",
+  "gNewsApiToken": "apiToken"
 }

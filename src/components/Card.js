@@ -8,52 +8,7 @@ import {
     Dimensions,
     TouchableOpacity,
 } from 'react-native';
-/**
- * {
-api: {
-results: 38
-fixtures: [
-{
-fixture_id: 157019
-league_id: 524
-league: {
-name: "Premier League"
-country: "England"
-logo: "https://media.api-sports.io/football/leagues/39.png"
-flag: "https://media.api-sports.io/flags/gb.svg"
-}
-event_date: "2019-08-10T14:00:00+00:00"
-event_timestamp: 1565445600
-firstHalfStart: 1565445600
-secondHalfStart: 1565449200
-round: "Regular Season - 1"
-status: "Match Finished"
-statusShort: "FT"
-elapsed: 90
-venue: "Selhurst Park"
-referee: "J. Moss"
-homeTeam: {
-team_id: 52
-team_name: "Crystal Palace"
-logo: "https://media.api-sports.io/football/teams/52.png"
-}
-awayTeam: {
-team_id: 45
-team_name: "Everton"
-logo: "https://media.api-sports.io/football/teams/45.png"
-}
-goalsHomeTeam: 0
-goalsAwayTeam: 0
-score: {
-halftime: "0-0"
-fulltime: "0-0"
-extratime: null
-penalty: null
-}
-},
-{...}
-]
- */
+
 const matchTags = [
     {leagueName: "Premier League", tagName: 'PL'},
     {leagueName: "", tagName: ''}
@@ -137,24 +92,23 @@ export class MatchesCard extends Component {
 export class NewsCard extends Component {
     /**
      * (Required)
-     * @param props.onPressSeeMore  see moreボタン押下時の動作
-     * @param props.newsDay         ニュースの日付
-     * @param props.newsImage       ニュースの画像
-     * @param props.title           ニュースのタイトル
+     * @param props.onPressSeeMore      see moreボタン押下時の動作
+     * @param props.article.publishedAt ニュースの日付
+     * @param props.article.image       ニュースの画像
+     * @param props.article.title       ニュースのタイトル
      */
     constructor(props) {
         super(props)
     }
     render() {
+        let newsDay = this.props.article.publishedAt.substring(0, 10)
+        let newsImage = {uri: this.props.article.image}
+        let title = this.props.article.title
         return (
             <TouchableOpacity style={[styles.newsCard]} onPress={this.props.onPressSeeMore}>
-                <Image style={styles.newsImage} source={this.props.newsImage} />
-                <Text style={[styles.newsDay, {margin: 4}]}>
-                    {this.props.newsDay}
-                </Text>
-                <Text style={[styles.newsTitleText]} numberOfLines={2}>
-                    {this.props.title}
-                </Text>
+                <Image style={styles.newsImage} source={newsImage} />
+                <Text style={[styles.newsDay, {margin: 4}]}>{newsDay}</Text>
+                <Text style={[styles.newsTitleText]} numberOfLines={2}>{title}</Text>
             </TouchableOpacity>
         );
     }
