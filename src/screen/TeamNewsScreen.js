@@ -14,7 +14,7 @@ import {
     NewsCard,
 } from '../components/Card'
 import { ProgressBar } from '../components/Progress'
-import { updateAllMatchesInSeason } from '../http/MatchApis'
+import { updateAllMatchesInSeason } from '../http/FootballApis'
 
 const gomesImage = { uri: 'https://media.gettyimages.com/photos/kurt-zouma-of-everton-celebrates-after-scoring-his-teams-first-goal-picture-id1081775044?s=2048x2048' }
 
