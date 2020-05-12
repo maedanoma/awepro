@@ -1,5 +1,7 @@
 {
   "name": "AwesomeProject",
   "displayName": "AwesomeProject",
-  "footballApiKey": "api_key"
+  "footballApiKey": "api_key",
+  "translatorApiKey": "api_key",
+  "translatorServiceInstance": "instance"
 }
