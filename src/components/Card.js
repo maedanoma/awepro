@@ -94,7 +94,7 @@ export class NewsCard extends Component {
      * (Required)
      * @param props.onPressSeeMore      see moreボタン押下時の動作
      * @param props.article.publishedAt ニュースの日付
-     * @param props.article.urlToImage  ニュースの画像
+     * @param props.article.image       ニュースの画像
      * @param props.article.title       ニュースのタイトル
      */
     constructor(props) {
@@ -102,7 +102,7 @@ export class NewsCard extends Component {
     }
     render() {
         let newsDay = this.props.article.publishedAt.substring(0, 10)
-        let newsImage = {uri: this.props.article.urlToImage}
+        let newsImage = {uri: this.props.article.image}
         let title = this.props.article.title
         return (
             <TouchableOpacity style={[styles.newsCard]} onPress={this.props.onPressSeeMore}>

@@ -4,5 +4,6 @@
   "footballApiKey": "api_key",
   "translatorApiKey": "api_key",
   "translatorServiceInstance": "instance",
-  "newsApiKey": "api_key"
+  "newsApiKey": "api_key",
+  "gNewsApiToken": "apiToken"
 }

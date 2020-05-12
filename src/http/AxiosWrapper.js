@@ -13,7 +13,7 @@ export default class AxiosWrapper {
         this.handleError = error => {
             // The request was made and the server responded with a status code
             // that falls out of the range of 2xx
-            console.log('failed to connect.')
+            console.log('failed to connect. hostname: ' + this.hostName)
             if (error.response) {
                 console.log('data: ' + error.response.data);
                 console.log('status: ' + error.response.status + 
@@ -63,7 +63,7 @@ export default class AxiosWrapper {
     async _execute(doAxiosMethod, handleResult) {
         return await doAxiosMethod()
             .then(response => {
-                console.log("succeeded to connect by http. status: " + response.status) 
+                console.log("succeeded to connect by http. hostname: " + this.hostName) 
                 return handleResult(response.data)
             })
             .catch(this.handleError.bind(this))

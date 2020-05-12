@@ -15,7 +15,8 @@ import {
 } from '../components/Card'
 import { ProgressBar } from '../components/Progress'
 import { updateAllMatchesInSeason } from '../http/FootballApi'
-import { updateEverythingNews } from '../http/NewsApi'
+// import { updateEverythingNews } from '../http/NewsApi'
+import { updateNews } from '../http/GoogleNewsApi'
 
 const gomesImage = { uri: 'https://media.gettyimages.com/photos/kurt-zouma-of-everton-celebrates-after-scoring-his-teams-first-goal-picture-id1081775044?s=2048x2048' }
 
@@ -177,7 +178,7 @@ class News extends Component {
     }
     UNSAFE_componentWillMount() {
         // NewsAPI でニュースを取る
-        updateEverythingNews(this._updateNews.bind(this))
+        updateNews(this._updateNews.bind(this))
     }
     _updateNews(allNews) {
         allNews == null　|| allNews.length == 0 ?
