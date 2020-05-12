@@ -111,7 +111,7 @@ class Fixtures extends Component {
         updateAllMatchesInSeason(this._updateFixtures.bind(this))
     }
     _updateFixtures(allMatches) {
-        allMatches == null ?
+        allMatches == null || allMatches.length == 0 ?
             this.setState({ isDisplayError: true}) : 
             initPos = allMatches.filter(match => {
                 return match.status == "Match Postponed"

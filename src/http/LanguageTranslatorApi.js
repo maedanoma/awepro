@@ -1,15 +1,32 @@
-import axios from 'axios'
+// import axios from 'axios'
+import AxiosWrapper from './AxiosWrapper'
 import {
     translatorApiKey as apiKey,
     translatorServiceInstance as instance
 } from '../../app.json';
 
-const endPoint = 'https://api.jp-tok.language-translator.watson.cloud.ibm.com/'
-const instances = 'instances/' + instance + '/'
-const method = 'v3/translate?version=2018-05-01'
+const instances = 'instances/' + instance
+const axios = new AxiosWrapper(
+    'https://api.jp-tok.language-translator.watson.cloud.ibm.com/' + instances)
 
-export const translateEnToJa = async (enTexts) => {
-    translate(enTexts)
+/**
+ * {
+ *  "translations": [{
+ *          "translation": "Hola"
+ *      }
+ *  ],
+ *  "word_count": 1,
+ *  "character_count": 5
+ * }
+ */
+
+/**
+ * 英語から日本語に翻訳します
+ * @param enTexts       翻訳したい文字列の配列
+ * @param translated 
+ */
+export const translateEnToJa = async (enTexts,translated) => {
+    translate(enTexts).then(translatedTexts => translated(translatedTexts))
 }
 
 /**
@@ -18,22 +35,10 @@ export const translateEnToJa = async (enTexts) => {
  *                  (e.g. english to japanese → en-ja)
  */
 async function translate(texts, modelId = "en-ja") {
-    let url = endPoint + instances + method
+    let endPoint = 'v3/translate?version=2018-05-01'
     let body = { text: texts, model_id: modelId } 
     let headers = {
         auth: { username: 'apiKey', password: apiKey }
     }
-    return await axios.post(url, body, headers)
-        .then(response => {
-            console.log("succeeded to connect by http.") 
-            if (response.data == null) {
-                console.log("failed to translate.") 
-                return []
-            }
-            return response.data.translations
-        })
-        .catch(error => {
-            console.log("error: " + error.message)
-            return Promise.reject(error);
-        })
+    return axios.post(endPoint, body, headers, data => data.translations)
 }

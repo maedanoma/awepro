@@ -1,7 +1,7 @@
-import axios from 'axios'
+import AxiosWrapper from './AxiosWrapper'
 import {newsApiKey as apiKey} from '../../app.json';
 
-const endPoint = 'https://newsapi.org/v2/everything?'
+const axios = new AxiosWrapper('https://newsapi.org')
 
 /**
  * {
@@ -22,27 +22,21 @@ const endPoint = 'https://newsapi.org/v2/everything?'
  *  },{...}
  * }
  */
+
+/**
+ * 全ての記事を取得します
+ * @param updateNews 
+ */
 export const updateEverythingNews = async (updateNews) => {
-    fetchEverythingNews('everton')
-        .then(news => updateNews(news))
+    fetchEverythingNews('everton').then(articles => updateNews(articles))
 }
 
 /**
  * @param q 検索文字列
  */
 async function fetchEverythingNews(q) {
-    const url = endPoint + 'q=' + q + '&sortBy=publishedAt&language=en'
+    let endPoint = 'v2/everything'
+    let param = 'q=' + q + '&sortBy=publishedAt&language=en'
     const headers = { 'X-Api-Key': apiKey, }
-    return await axios.get(url, {headers})
-        .then(response => {
-            console.log("succeeded to connect by http: " + response.data.status) 
-            if (response.data.totalResults != null) {
-                console.log("total Results: " + response.data.totalResults)
-            }
-            return response.data.articles
-        })
-        .catch(error => {
-            console.log("error: " + error.message + ', url: ' + endPoint)
-            return Promise.reject(error);
-        })
+    return axios.get(endPoint, param, headers, data => data.articles)
 }
