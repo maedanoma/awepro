@@ -4,6 +4,8 @@ import {
     View,
     Text,
     Alert,
+    StatusBar,
+    Dimensions,
 } from 'react-native';
 import {
     RoundedButton,
@@ -46,6 +48,7 @@ export default class LoginScreen extends Component {
     render() {
         return (
             <View style={styles.container} >
+                <StatusBar translucent backgroundColor="transparent"/>
                 <View style={{marginTop: 170}}>
                     <Icon />
                 </View>
@@ -77,7 +80,8 @@ export default class LoginScreen extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        width: '100%',
+        height: Dimensions.get('screen').height,
+        width: Dimensions.get('screen').width,
     },
     button: {
         alignItems: 'center',

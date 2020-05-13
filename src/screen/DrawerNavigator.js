@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
     StyleSheet,
     View,
+    StatusBar,
     ImageBackground,
     Dimensions,
     Animated,
@@ -126,8 +127,9 @@ export default class DrawerNavigator extends Component {
     render() {
         let opacity = this.state.headerImageOpacity
         let left = this.state.drawerLeft
+        let marginTop = Dimensions.get('screen').height * 0.04
         const HbgButton = () => (
-            <View style={[{margin: 10}]}>
+            <View style={[{margin: 10, marginTop}]}>
                 <HamburgerButton onPressButton={this._onPressDrawer.bind(this)} />
             </View>
         )
@@ -144,6 +146,7 @@ export default class DrawerNavigator extends Component {
         )
         return (
             <View>
+                <StatusBar translucent backgroundColor="transparent"/>
                 <View style={styles.header}>
                     <Animated.View style={[styles.headerImage, { opacity }]}>
                         <ImageBackground style={styles.headerImage} source={header} >
@@ -175,7 +178,7 @@ const styles = StyleSheet.create({
     },
     container: {
         position: 'absolute',
-        top: Dimensions.get('screen').height * 0.06,
+        top: Dimensions.get('screen').height * 0.092,
         height: Dimensions.get('screen').height * 0.94,
         width: Dimensions.get('screen').width,
         backgroundColor: '#F4F4F4',
