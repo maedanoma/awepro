@@ -107,9 +107,9 @@ export class NewsCard extends Component {
         return (
             <TouchableOpacity style={[styles.newsCard]} onPress={this.props.onPressSeeMore}>
                 <Image style={styles.newsImage} source={newsImage} />
-                <Text style={[styles.newsDay, {margin: 4}]}>{newsDay}</Text>
-                <Text style={[styles.newsTitleText]} numberOfLines={2}>{title}</Text>
-            </TouchableOpacity>
+                    <Text style={[styles.newsDay, { margin: 4 }]}>{newsDay}</Text>
+                    <Text style={[styles.newsTitleText]} numberOfLines={2}>{title}</Text>
+                </TouchableOpacity>
         );
     }
 }
