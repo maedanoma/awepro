@@ -12,7 +12,7 @@ import {
 import {
     HamburgerButton,
     LinkButton,
-} from '../components/Button'
+} from '../components/button/Button'
 import TeamNews from './TeamNewsScreen'
 import Members from './MembersScreen'
 

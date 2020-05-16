@@ -8,9 +8,11 @@ import {
     Dimensions,
 } from 'react-native';
 import {
-    RoundedButton,
-    LinkButton
-} from '../components/Button'
+    
+} from '../components/button/Button'
+import RoundedButton, { ColorPattern } from '../components/button/RoundedButton'
+import LinkButton from '../components/button/LinkButton'
+import { FadeExpand } from '../components/animation/Expand'
 import Icon from '../components/Icon'
 
 /**
@@ -53,25 +55,28 @@ export default class LoginScreen extends Component {
                     <Icon />
                 </View>
                 <View style={[styles.button, { marginTop: 70}]}>
-                    <RoundedButton
-                        onPressButton={this._login.bind(this)}
-                        buttonName='Login'
-                        buttonNameColor='#FFFFFF'
-                        buttonColor='#004095'
-                        buttonBorderColor='#004095'
-                        buttonExpandInitialWidth={40} />
+                    <FadeExpand width={{from:50, to:250}} height={50} >  
+                        <RoundedButton
+                            onPress={this._login.bind(this)}
+                            name='Login'
+                            colorPattern={ColorPattern.normal} />
+                    </FadeExpand>  
                 </View>
                 <View style={[styles.button, { marginTop: 10}]}>
-                    <RoundedButton
-                        onPressButton={this._loginAsGuest.bind(this)}
-                        buttonName='Guest'
-                        buttonExpandInitialWidth={40} />
+                    <FadeExpand width={{from:50, to:250}} height={50} >  
+                        <RoundedButton
+                            onPress={this._loginAsGuest.bind(this)}
+                            name='Guest'
+                            colorPattern={ColorPattern.reverse} />
+                    </FadeExpand>
                 </View>
                 <View style={[styles.button, { marginTop: 30 }]}>
                     <Text>アカウントを持っていませんか？</Text>
                     <LinkButton
-                        onPressButton={this._signUp.bind(this)}
-                        buttonName='Sign Up' />
+                        onPress={this._signUp.bind(this)}
+                        name='Sign Up'
+                        width={100}
+                        height={20} />
                 </View>
             </View>
         );
