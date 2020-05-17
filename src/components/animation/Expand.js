@@ -4,8 +4,9 @@ import {
 } from 'react-native';
 import PropTypes from 'prop-types'
 import {
-    StartTimingAnimation,
-    StopAnimation
+    initializeAnimation,
+    startTimingAnimation,
+    stopAnimation,
 } from './Animation'
 
 export class FadeExpand extends Component {
@@ -19,9 +20,9 @@ export class FadeExpand extends Component {
         let height = props.height instanceof Object? props.height.from: props.height
         let width = props.width instanceof Object? props.width.from: props.width
         this.state = {
-            height: new Animated.Value(height),
-            width: new Animated.Value(width),
-            opacity: new Animated.Value(0),
+            height: initializeAnimation(height),
+            width: initializeAnimation(width),
+            opacity: initializeAnimation(0),
         }
     }
     static propTypes = {
@@ -35,7 +36,7 @@ export class FadeExpand extends Component {
     componentDidMount() {
         let height = this.props.height
         let width = this.props.width
-        StartTimingAnimation([{
+        startTimingAnimation([{
             value: this.state.height,
             toValue: height instanceof Object? height.to : height,
             duration: 400,
@@ -50,17 +51,7 @@ export class FadeExpand extends Component {
     }
 
     componentWillUnmount() {
-        StartTimingAnimation([{
-            value: this.state.height,
-            toValue: this.props.height.from,
-        }, {
-            value: this.state.width,
-            toValue: this.props.width.from,
-        }, {
-            value: this.state.opacity,
-            toValue: 0,
-        }])
-        StopAnimation([this.state.height, this.state.width, this.state.opacity])
+        stopAnimation([this.state.height, this.state.width, this.state.opacity])
     }
 
     render() {

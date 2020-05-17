@@ -4,7 +4,9 @@ import {
 } from 'react-native';
 import PropTypes from 'prop-types'
 
-export const StartTimingAnimation = propsArray => {
+export const initializeAnimation = value => new Animated.Value(value)
+
+export const startTimingAnimation = propsArray => {
     propsArray.forEach(props => {
         Animated.timing(props.value, {
             toValue: props.toValue,
@@ -16,7 +18,7 @@ export const StartTimingAnimation = propsArray => {
     })
 }
 
-StartTimingAnimation.propTypes = {
+startTimingAnimation.propTypes = {
     value: PropTypes.object.isRequired,
     toValue: PropTypes.number.isRequired,
     duration: PropTypes.number,
@@ -24,15 +26,13 @@ StartTimingAnimation.propTypes = {
     delay: PropTypes.number,
     postAction: PropTypes.object,
 }
-StartTimingAnimation.defaultProps = {
+startTimingAnimation.defaultProps = {
     duration: 500,
     easing: Easing.quad,
     delay: 0,
     postAction: () => {}
 }
 
-export const StopAnimation = (values) => {
-    values.forEach(value => {
-        Animated.timing(value).stop()    
-    })
-}
+export const stopAnimation = (values) => 
+    values.forEach(value =>
+        Animated.timing(value).stop())

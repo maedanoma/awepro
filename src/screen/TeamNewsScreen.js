@@ -10,11 +10,13 @@ import {
 import { CardScrollViewWrapper } from '../components/ScrollView'
 import {
     MatchesCard,
-    NewsCard,
 } from '../components/Card'
 import { updateAllMatchesInSeason } from '../http/FootballApi'
 // import { updateEverythingNews } from '../http/NewsApi'
 import { updateNews } from '../http/GoogleNewsApi'
+import NewsCard from './teamNews/NewsCard'
+import CardList from '../components/card/CardList'
+import { TitleLabel } from '../components/text/Text';
 
 export default class TeamNewsScreen extends Component {
     /**
@@ -128,7 +130,7 @@ class Fixtures extends Component {
                 fixture={fixture} />
         ))
         return (
-            <CardScrollViewWrapper
+            <CardList
                 title='FIXTURES'
                 initCardPos={this.state.initCardPos}
                 horizontal={true}
@@ -137,7 +139,7 @@ class Fixtures extends Component {
                 contents={fixtures}
                 isDisplayError={this.state.isDisplayError}>
                 { displayMatches }
-            </CardScrollViewWrapper>
+            </CardList>
         )
     }
 }
@@ -154,6 +156,28 @@ class News extends Component {
             isDisplayError: false,
             // newsList: []
             newsList: [
+                    {
+                        "title":"Everton target quizzed about future \u2013 \u201cI like English football a lot\u201d",
+                        "description":"For the past couple of weeks, one of the strongest rumours in the Argentine media has been about the River Plate midfielder Nicolas de la Cruz. Reports from Europe and South America have been claiming ...",
+                        "url":"https:\/\/sportwitness.co.uk\/everton-target-quizzed-future-i-like-english-football-lot\/",
+                        "image":"https:\/\/images.gnews.io\/65bce391fc91d65d73d75370115563b8",
+                        "publishedAt":"2020-05-12 04:36:00 UTC",
+                        "source":{
+                            "name":"sportwitness.co.uk",
+                            "url":"https:\/\/sportwitness.co.uk"
+                        }
+                    },
+                    {
+                        "title":"Everton target quizzed about future \u2013 \u201cI like English football a lot\u201d",
+                        "description":"For the past couple of weeks, one of the strongest rumours in the Argentine media has been about the River Plate midfielder Nicolas de la Cruz. Reports from Europe and South America have been claiming ...",
+                        "url":"https:\/\/sportwitness.co.uk\/everton-target-quizzed-future-i-like-english-football-lot\/",
+                        "image":"https:\/\/images.gnews.io\/65bce391fc91d65d73d75370115563b8",
+                        "publishedAt":"2020-05-12 04:36:00 UTC",
+                        "source":{
+                            "name":"sportwitness.co.uk",
+                            "url":"https:\/\/sportwitness.co.uk"
+                        }
+                    },
                     {
                         "title":"Everton target quizzed about future \u2013 \u201cI like English football a lot\u201d",
                         "description":"For the past couple of weeks, one of the strongest rumours in the Argentine media has been about the River Plate midfielder Nicolas de la Cruz. Reports from Europe and South America have been claiming ...",
@@ -196,17 +220,19 @@ class News extends Component {
         const displayNews = newsList.map(article => (
             <NewsCard
                 key={count++}
-                onPressSeeMore={this.props.onPressNews}
+                onPress={this.props.onPressNews}
                 article={article} />
         ))
         return (
-            <CardScrollViewWrapper
-                title='NEWS'
+            <View>
+            <TitleLabel>NEWS</TitleLabel>
+            <CardList
                 cardHeight={cardHeight}
                 contents={newsList}
                 isDisplayError={this.state.isDisplayError}>
                 { displayNews }
-            </CardScrollViewWrapper>
+            </CardList>
+            </View>
         )
     }
 }

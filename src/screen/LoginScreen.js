@@ -7,9 +7,6 @@ import {
     StatusBar,
     Dimensions,
 } from 'react-native';
-import {
-    
-} from '../components/button/Button'
 import RoundedButton, { ColorPattern } from '../components/button/RoundedButton'
 import LinkButton from '../components/button/LinkButton'
 import { FadeExpand } from '../components/animation/Expand'

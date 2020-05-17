@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
 import {
     View,
-    Text,
     ActivityIndicator,
 } from 'react-native';
+import { SmallMessage } from './text/Text'
 
 /**
  * 下にメッセージがついたプログレスバー
  */
 export class ProgressBar extends Component {
     /**
-     * @param props.message     メッセージ
      * @param state.animating   プログレスバーのアニメーションするかどうか
      */
     constructor(props) {
@@ -19,11 +18,9 @@ export class ProgressBar extends Component {
             animating: true
         }
     }
-
     componentWillUnmount() {
         this.setState({animating: false})
     }
-
     render() {
         return (
             <View>
@@ -31,14 +28,8 @@ export class ProgressBar extends Component {
                     animating = {this.state.animating}
                     color = '#CCCCCC'
                     size = "large"
-                    style={[{
-                        justifyContent: 'center',
-                        alignItems: 'center',}]}/> 
-                <Text style={[{
-                    textAlign: 'center',
-                    color: '#AAAAAA'}]}>
-                        {this.props.message}
-                </Text>
+                    style={[{ justifyContent: 'center', alignItems: 'center',}]}/> 
+                <SmallMessage>{this.props.children}</SmallMessage>
             </View>
         )
     }
