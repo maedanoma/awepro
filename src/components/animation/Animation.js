@@ -33,6 +33,5 @@ startTimingAnimation.defaultProps = {
     postAction: () => {}
 }
 
-export const stopAnimation = (values) => 
-    values.forEach(value =>
-        Animated.timing(value).stop())
+export const stopAnimation = valueArray => 
+    valueArray.forEach(value => Animated.timing(value).stop())

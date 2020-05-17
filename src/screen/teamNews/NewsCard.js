@@ -17,7 +17,7 @@ export default class NewsCard extends Component {
         super(props)
     }
     static propTypes = {
-        // see moreボタン押下時の動作
+        // NewsCard押下時の動作
         onPress: PropTypes.func.isRequired,
         // ニュース情報
         article: {
@@ -54,10 +54,9 @@ const styles = StyleSheet.create({
     newsCard: {
         height: Dimensions.get('screen').height * 0.4,
         width: Dimensions.get('screen').width * 0.96,
-        borderRadius: 25,
+        // borderRadius: 25,
         backgroundColor: '#FFFFFF',
         margin: Dimensions.get('screen').width * 0.02,
-        alignItems: 'center'
     },
     newsImage: {
         height: Dimensions.get('screen').height * 0.28,

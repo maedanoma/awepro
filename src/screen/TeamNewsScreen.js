@@ -7,14 +7,11 @@ import {
     Animated,
     Dimensions,
 } from 'react-native'
-import { CardScrollViewWrapper } from '../components/ScrollView'
-import {
-    MatchesCard,
-} from '../components/Card'
 import { updateAllMatchesInSeason } from '../http/FootballApi'
 // import { updateEverythingNews } from '../http/NewsApi'
 import { updateNews } from '../http/GoogleNewsApi'
 import NewsCard from './teamNews/NewsCard'
+import FixtureCard from './teamNews/FixtureCard'
 import CardList from '../components/card/CardList'
 import { TitleLabel } from '../components/text/Text';
 
@@ -124,22 +121,24 @@ class Fixtures extends Component {
     render() {
         let fixtures = this.state.fixtures
         const displayMatches = fixtures.map(fixture => (
-            <MatchesCard
+            <FixtureCard
                 key={fixture.fixture_id}
-                onPressMatch={this.props.onPressMatch}
+                onPress={this.props.onPressMatch}
                 fixture={fixture} />
         ))
         return (
+            <View>
+            <TitleLabel>FIXTURES</TitleLabel>
             <CardList
-                title='FIXTURES'
                 initCardPos={this.state.initCardPos}
                 horizontal={true}
                 cardWidth={240}
                 cardAlign='left'
                 contents={fixtures}
-                isDisplayError={this.state.isDisplayError}>
+                isFailed={this.state.isDisplayError}>
                 { displayMatches }
             </CardList>
+            </View>
         )
     }
 }
@@ -229,7 +228,7 @@ class News extends Component {
             <CardList
                 cardHeight={cardHeight}
                 contents={newsList}
-                isDisplayError={this.state.isDisplayError}>
+                isFailed={this.state.isDisplayError}>
                 { displayNews }
             </CardList>
             </View>

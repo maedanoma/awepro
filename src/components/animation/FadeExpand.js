@@ -9,7 +9,7 @@ import {
     stopAnimation,
 } from './Animation'
 
-export class FadeExpand extends Component {
+export default class FadeExpand extends Component {
     /**
      * @param state.width
      * @param state.height
