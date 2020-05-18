@@ -6,9 +6,8 @@ import {
     StatusBar,
 } from 'react-native';
 import PropTypes from 'prop-types'
-import RoundedButton, { ColorPattern } from '../components/button/RoundedButton'
-import LinkButton from '../components/button/LinkButton'
-import FadeExpand from '../components/animation/FadeExpand'
+import Button from '../components/button/Button'
+import { FadeExpand } from '../components/animation/Motions'
 import Icon from '../components/Icon'
 import { DimHeight, DimWidth, Div } from '../components/Layout'
 
@@ -22,25 +21,24 @@ const LoginScreen = props => (
             <Icon />
             <Div div={70}/>
             <FadeExpand width={{ from: 50, to: 250 }} height={50} >
-                <RoundedButton
-                    onPress={() => {}}
-                    name='Login'
-                    colorPattern={ColorPattern.normal} />
+                <Button style={styles.login}
+                    onPress={() => {}} 
+                    name='Login' />
             </FadeExpand>
             <Div div={10} />
             <FadeExpand width={{ from: 50, to: 250 }} height={50} >
-                <RoundedButton
+                <Button style={styles.guest}
                     onPress={() => props.navigation.navigate('Home')}
                     name='Guest'
-                    colorPattern={ColorPattern.reverse} />
+                    nameColor='#004095' />
             </FadeExpand>
             <Div div={30}/>
             <Text>アカウントを持っていませんか？</Text>
-            <LinkButton
+            <Button style={styles.link}
                 onPress={() => {}}
                 name='Sign Up'
-                width={100}
-                height={20} />
+                nameColor='#004095'
+                fontSize={17} />
         </View>
     </View>
 )
@@ -60,4 +58,24 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center'
     },
+    login: {
+        height: '100%',
+        width: '100%',
+        borderRadius: 30,
+        backgroundColor: '#004095',
+        borderColor: '#004095',
+        borderWidth: 1,
+    },
+    guest: {
+        height: '100%',
+        width: '100%',
+        borderRadius: 30,
+        backgroundColor: '#FFFFFF',
+        borderColor: '#004095',
+        borderWidth: 1,
+    },
+    link: {
+        width: 100,
+        height: 20
+    }
 });

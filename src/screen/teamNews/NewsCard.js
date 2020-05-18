@@ -20,11 +20,12 @@ export default class NewsCard extends Component {
         // NewsCard押下時の動作
         onPress: PropTypes.func.isRequired,
         // ニュース情報
-        article: {
-            publishedAt: PropTypes.string.isRequired, // ニュースの日付
-            image: PropTypes.string.isRequired, // ニュースの画像
-            title: PropTypes.string.isRequired, // ニュースのタイトル
-        }
+        article: PropTypes.object.isRequired
+        // article: {
+        //     publishedAt: PropTypes.string.isRequired, // ニュースの日付
+        //     image: PropTypes.string.isRequired, // ニュースの画像
+        //     title: PropTypes.string.isRequired, // ニュースのタイトル
+        // }
     }
 
     // ニュースが押されたときに動く
@@ -39,13 +40,11 @@ export default class NewsCard extends Component {
         let newsImage = { uri: this.props.article.image }
         let title = this.props.article.title
         return (
-            <View style={[styles.newsCard]}>
-                <Card onPress={this.props.onPress}>
-                    <Image style={styles.newsImage} source={newsImage} />
-                    <Text style={[styles.newsDay, { margin: 4 }]}>{newsDay}</Text>
-                    <Text style={[styles.newsTitleText]} numberOfLines={2}>{title}</Text>
-                </Card>
-            </View>
+            <Card style={styles.newsCard} onPress={this.props.onPress}>
+                <Image style={styles.newsImage} source={newsImage} />
+                <Text style={[styles.newsDay, { margin: 4 }]}>{newsDay}</Text>
+                <Text style={[styles.newsTitleText]} numberOfLines={2}>{title}</Text>
+            </Card>
         );
     }
 }
@@ -54,7 +53,7 @@ const styles = StyleSheet.create({
     newsCard: {
         height: Dimensions.get('screen').height * 0.4,
         width: Dimensions.get('screen').width * 0.96,
-        // borderRadius: 25,
+        borderRadius: 25,
         backgroundColor: '#FFFFFF',
         margin: Dimensions.get('screen').width * 0.02,
     },

@@ -36,22 +36,23 @@ export default class FixtureCard extends Component {
         // FixtureCard押下時の動作
         onPress: PropTypes.func.isRequired,
         // ニュース情報
-        fixture: {
-            event_date: PropTypes.string, // 試合日(e.g. "2019-08-10T14:00:00+00:00")
-            league: {
-                name: PropTypes.string, // 試合の大会(e.g. "Premier League")
-            },
-            homeTeam: {
-                team_name: PropTypes.string, // ホームチーム名(e.g. "Crystal Palace")
-                logo: PropTypes.string, // ホームチームのロゴ(e.g. "https://media.api-sports.io/football/teams/52.png")
-            },
-            goalsHomeTeam: PropTypes.number, // ホームチームのゴール数(e.g. 0)
-            awayTeam: {
-                team_name: PropTypes.string, // アウェイチーム名(e.g. "Everton")
-                logo: PropTypes.string, // アウェイチームのロゴ(e.g. "https://media.api-sports.io/football/teams/45.png")
-            },
-            goalsAwayTeam: PropTypes.number // アウェイチームのゴール数(e.g. 0)
-        }
+        fixture: PropTypes.object,
+        // fixture: {
+        //     event_date: PropTypes.string, // 試合日(e.g. "2019-08-10T14:00:00+00:00")
+        //     league: {
+        //         name: PropTypes.string, // 試合の大会(e.g. "Premier League")
+        //     },
+        //     homeTeam: {
+        //         team_name: PropTypes.string, // ホームチーム名(e.g. "Crystal Palace")
+        //         logo: PropTypes.string, // ホームチームのロゴ(e.g. "https://media.api-sports.io/football/teams/52.png")
+        //     },
+        //     goalsHomeTeam: PropTypes.number, // ホームチームのゴール数(e.g. 0)
+        //     awayTeam: {
+        //         team_name: PropTypes.string, // アウェイチーム名(e.g. "Everton")
+        //         logo: PropTypes.string, // アウェイチームのロゴ(e.g. "https://media.api-sports.io/football/teams/45.png")
+        //     },
+        //     goalsAwayTeam: PropTypes.number // アウェイチームのゴール数(e.g. 0)
+        // }
     }
 
     componentDidMount() {
@@ -83,8 +84,8 @@ export default class FixtureCard extends Component {
                 </View>
         )
         return (
-            <Animated.View style={[styles.matchCard, { opacity }]}>
-                <Card onPress={this.props.onPressMatch} >
+            <Animated.View style={[{ opacity }]}>
+                <Card style={styles.matchCard} onPress={this.props.onPress} >
                     <TeamInfo image={homeTeamLogo} name={homeTeamName} goal={homeTeamGoals} />
                     <View style={[{ marginTop: 5 }]} />
                     <TeamInfo image={awayTeamLogo} name={awayTeamName} goal={awayTeamGoals} />

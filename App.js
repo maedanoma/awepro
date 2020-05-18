@@ -11,7 +11,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import LoginScreen from './src/screen/LoginScreen';
-import DrawerNavigator from './src/screen/DrawerNavigator';
+import DrawerNavigator from './src/screen/navigator/DrawerNavigator';
 
 const App: () => React$Node = () => {
   const Stack = createStackNavigator();

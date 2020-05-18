@@ -7,13 +7,12 @@ import {
     Animated,
     Dimensions,
 } from 'react-native'
-import { updateAllMatchesInSeason } from '../http/FootballApi'
-// import { updateEverythingNews } from '../http/NewsApi'
-import { updateNews } from '../http/GoogleNewsApi'
-import NewsCard from './teamNews/NewsCard'
-import FixtureCard from './teamNews/FixtureCard'
-import CardList from '../components/card/CardList'
-import { TitleLabel } from '../components/text/Text';
+import { updateAllMatchesInSeason } from '../../http/FootballApi'
+import { updateNews } from '../../http/GoogleNewsApi'
+import NewsCard from './NewsCard'
+import FixtureCard from './FixtureCard'
+import CardList from '../../components/card/CardList'
+import { TitleLabel } from '../../components/text/Text'
 
 export default class TeamNewsScreen extends Component {
     /**
@@ -60,10 +59,10 @@ export default class TeamNewsScreen extends Component {
         return (
             <Animated.View style={[{ opacity }]}>
                 <View style={styles.matches}>
-                    <Fixtures onPressMatch={this._onPressMatch.bind(this)} />
+                    <Fixtures onPress={this._onPressMatch.bind(this)} />
                 </View>
                 <View style={styles.news}>
-                    <News onPressSeeMore={this._onPressSeeMore.bind(this)} />
+                    <News onPress={this._onPressSeeMore.bind(this)} />
                 </View>
             </Animated.View>
         );
@@ -72,7 +71,7 @@ export default class TeamNewsScreen extends Component {
 
 class Fixtures extends Component {
     /**
-     * @param props.onPressMatch    MatchCardが押下された時の動作
+     * @param props.onPress    MatchCardが押下された時の動作
      * @param state.fixtures        MatchCardに表示する試合結果
      * @param state.initCardPos     Matchesで表示するデフォルトのMatchCardの位置
      * @param state.isDisplayError  エラーを表示するかどうか
@@ -123,7 +122,7 @@ class Fixtures extends Component {
         const displayMatches = fixtures.map(fixture => (
             <FixtureCard
                 key={fixture.fixture_id}
-                onPress={this.props.onPressMatch}
+                onPress={this.props.onPress}
                 fixture={fixture} />
         ))
         return (
@@ -145,7 +144,7 @@ class Fixtures extends Component {
 
 class News extends Component {
     /**
-     * @param props.onPressNews     NewsCardが押下された時の動作
+     * @param props.onPress     NewsCardが押下された時の動作
      * @param state.newsList        NewsCardに表示するニュース
      * @param state.isDisplayError  エラーを表示するかどうか
      */
@@ -219,7 +218,7 @@ class News extends Component {
         const displayNews = newsList.map(article => (
             <NewsCard
                 key={count++}
-                onPress={this.props.onPressNews}
+                onPress={this.props.onPress}
                 article={article} />
         ))
         return (

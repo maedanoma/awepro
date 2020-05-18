@@ -9,12 +9,7 @@ import {
     stopAnimation,
 } from './Animation'
 
-export default class FadeExpand extends Component {
-    /**
-     * @param state.width
-     * @param state.height
-     * @param state.opacity
-     */
+export default class Expand extends Component {
     constructor(props) {
         super(props)
         let height = props.height instanceof Object? props.height.from: props.height
@@ -22,7 +17,6 @@ export default class FadeExpand extends Component {
         this.state = {
             height: initializeAnimation(height),
             width: initializeAnimation(width),
-            opacity: initializeAnimation(0),
         }
     }
     static propTypes = {
@@ -44,22 +38,18 @@ export default class FadeExpand extends Component {
             value: this.state.width,
             toValue: width instanceof Object? width.to : width,
             duration: 400,
-        }, {
-            value: this.state.opacity,
-            toValue: 1,
         }])
     }
 
     componentWillUnmount() {
-        stopAnimation([this.state.height, this.state.width, this.state.opacity])
+        stopAnimation([this.state.height, this.state.width])
     }
 
     render() {
         let width = this.state.width
         let height = this.state.height
-        let opacity = this.state.opacity
         return (
-            <Animated.View style={[styles.container, { width, height, opacity }]} >
+            <Animated.View style={[styles.container, { width, height }]} >
                 {this.props.children}
             </Animated.View>
         );
