@@ -84,8 +84,7 @@ export default class FixtureCard extends Component {
                 </View>
         )
         return (
-            <Animated.View style={[{ opacity }]}>
-                <Card style={styles.matchCard} onPress={this.props.onPress} >
+                <Card style={[styles.matchCard, {opacity}]} onPress={() => {}} >
                     <TeamInfo image={homeTeamLogo} name={homeTeamName} goal={homeTeamGoals} />
                     <View style={[{ marginTop: 5 }]} />
                     <TeamInfo image={awayTeamLogo} name={awayTeamName} goal={awayTeamGoals} />
@@ -97,7 +96,6 @@ export default class FixtureCard extends Component {
                         </View>
                     </View>
                 </Card>
-            </Animated.View>
         );
     }
 }
@@ -107,7 +105,7 @@ const styles = StyleSheet.create({
         width: 220,
         height: 115,
         borderRadius: 20,
-        backgroundColor: '#FFFFFF',
+        backgroundColor: '#3F3F3F',
         padding: 7,
         margin: 10,
         justifyContent: 'center'
@@ -120,20 +118,22 @@ const styles = StyleSheet.create({
     teamName: {
         width: 140,
         fontSize: 15,
+        color: '#CCCCCC'
     },
     teamGoal: {
         width: 20,
         fontSize: 25,
+        color: '#CCCCCC'
     },
     matchTag: {
         height: 22,
         width: 30,
         borderRadius: 10,
         borderWidth: 1,
-        borderColor: '#4B0082',
+        borderColor: '#9057FF',
         fontSize: 15,
         textAlign: 'center',
-        color: '#4B0082',
+        color: '#9057FF',
     },
     day: {
         fontSize: 18,

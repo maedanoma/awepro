@@ -31,7 +31,7 @@ Button.propTypes = {
 }
 Button.defaultProps = {
     fontSize: 23,
-    nameColor: '#FFFFFF',
+    nameColor: '#CCCCCC',
     bold: false
 }
 

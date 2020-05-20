@@ -2,30 +2,36 @@ import React from 'react';
 import {
     StyleSheet,
     View,
+    Text,
     TouchableOpacity,
+    Easing
 } from 'react-native';
 import PropTypes from 'prop-types'
 import { observer } from 'mobx-react-lite'
 import ToggleMenuContext from './store/ToggleMenuStore'
 import MenuContext from './store/MenusStore'
-import { DimHeight, DimWidth } from '../../components/Layout'
-import MoveHorizontal from '../../components/animation/MoveHorizontal'
+import { DimHeight, DimWidth, Div } from '../../components/Layout'
+import SlideHorizontal from '../../components/animation/slide/SlideHorizontal'
 import BackgroundMenu from './BackgroundMenu'
+import MenuButton from '../../components/button/MenuButton'
 
 /**
  * ログイン後に表示されるDrawerMenuをもつComponent
  */
 const DrawerNavigator = observer(() => {
-    let { closeMenu, leftPosition } = React.useContext(ToggleMenuContext)
+    let { closeMenu, leftPosition, toggleMenu } = React.useContext(ToggleMenuContext)
     let { menu } = React.useContext(MenuContext)
     return (
         <View>
             <BackgroundMenu />
-            <MoveHorizontal style={styles.view} x={leftPosition}>
+            <SlideHorizontal style={styles.view} x={leftPosition} easing={Easing.bounce}>
                 <TouchableOpacity  style={styles.container} onPress={closeMenu} >
+                    <Div div={DimHeight * 0.035} />
+                    <Text style={styles.title}>{menu.name}</Text>
+                    <MenuButton style={[styles.menu]} onPress={toggleMenu} />
                     {menu.component}
                 </TouchableOpacity>
-            </MoveHorizontal>
+            </SlideHorizontal>
         </View>
     );
 })
@@ -45,12 +51,20 @@ const styles = StyleSheet.create({
         width: '100%'
     },
     view: {
-        position: 'absolute',
-        top: DimHeight* 0.085,
-        height: DimHeight * 0.94,
+        height: DimHeight,
         width: DimWidth,
-        backgroundColor: '#F4F4F4',
-        borderTopLeftRadius: 20,
-        borderTopRightRadius: 20,
+        backgroundColor: '#333333',
     },
+    menu: {
+        top: DimHeight * 0.035,
+        left: 8,
+        position: 'absolute'
+    },
+    title: {
+        width: DimWidth,
+        fontSize: 24,
+        fontWeight: 'bold',
+        color: '#4689FF',
+        textAlign: 'center',
+    }
 });

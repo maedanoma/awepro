@@ -1,20 +1,32 @@
 import React, { Component } from 'react';
 import {
-    Animated, StyleSheet,
+    Animated, StyleSheet, Easing
 } from 'react-native';
 import PropTypes from 'prop-types'
 import {
     initializeAnimation,
     startTimingAnimation,
     stopAnimation,
-} from './Animation'
+} from '../Animation'
 
-export default class MoveHorizontal extends Component {
+export default class SlideHorizontal extends Component {
     state = {
         left: initializeAnimation(this.props.x)
     }
     static propTypes = {
         x: PropTypes.number.isRequired,
+        startWhen: PropTypes.bool,
+        easing: PropTypes.object,
+        duration: PropTypes.number,
+    }
+    static defaultProps = {
+        startWhen: false,
+        easing: Easing.exp,
+        duration: 250,
+    }
+    componentDidMount() {
+        if (!this.props.startWhen) return
+        this._start() 
     }
     componentDidUpdate(prevProps, prevState) {
         this._start()
@@ -23,7 +35,8 @@ export default class MoveHorizontal extends Component {
         startTimingAnimation([{
             value: this.state.left,
             toValue: this.props.x,
-            duration:250,
+            easing: this.props.easing,
+            duration: this.props.duration,
         }])
     }
     componentWillUnmount() {

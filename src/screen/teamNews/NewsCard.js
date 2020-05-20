@@ -40,7 +40,7 @@ export default class NewsCard extends Component {
         let newsImage = { uri: this.props.article.image }
         let title = this.props.article.title
         return (
-            <Card style={styles.newsCard} onPress={this.props.onPress}>
+            <Card style={[styles.newsCard]} onPress={this.props.onPress}>
                 <Image style={styles.newsImage} source={newsImage} />
                 <Text style={[styles.newsDay, { margin: 4 }]}>{newsDay}</Text>
                 <Text style={[styles.newsTitleText]} numberOfLines={2}>{title}</Text>
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
         height: Dimensions.get('screen').height * 0.4,
         width: Dimensions.get('screen').width * 0.96,
         borderRadius: 25,
-        backgroundColor: '#FFFFFF',
+        backgroundColor: '#3F3F3F',
         margin: Dimensions.get('screen').width * 0.02,
     },
     newsImage: {
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
         width: Dimensions.get('screen').width * 0.9,
         fontSize: 16,
         fontWeight: 'bold',
-        color: '#000000',
+        color: '#CCCCCC',
     },
     newsDay: {
         width: Dimensions.get('screen').width * 0.9,

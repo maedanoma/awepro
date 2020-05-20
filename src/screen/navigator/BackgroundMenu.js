@@ -27,6 +27,7 @@ const BackgroundMenu = observer(props => {
                 <Div div={14} />
                 <Button style={styles.menu}
                     name={menu.name}
+                    nameColor='#4689FF'
                     onPress={() => setMenu(menu)}
                     bold={true} />
             </View>
@@ -37,10 +38,7 @@ const BackgroundMenu = observer(props => {
             <StatusBar translucent backgroundColor="transparent" />
             <FadeIn>
                 <ImageBackground style={styles.container} source={header}>
-                    <Div div={DimHeight * 0.03} />
-                    <View style={[{ margin: 10 }]}>
-                        <MenuButton onPress={toggleMenu} />
-                    </View>
+                    <Div div={DimHeight * 0.05} />
                     {menus()}
                 </ImageBackground>
             </FadeIn>
@@ -53,7 +51,8 @@ export default BackgroundMenu
 const styles = StyleSheet.create({
     container: {
         height: DimHeight,
-        width: DimWidth
+        width: DimWidth,
+        backgroundColor: '#333333'
     },
     menu: {
         width: 200,

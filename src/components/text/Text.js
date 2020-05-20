@@ -1,5 +1,6 @@
 import React from 'react';
 import { Text } from 'react-native';
+import { DimHeight } from '../Layout';
 
 export const SmallMessage = props => (
     <Text style={[{ textAlign: 'center', color: '#AAAAAA' }]}>
@@ -9,10 +10,10 @@ export const SmallMessage = props => (
 
 export const TitleLabel = props => (
     <Text style={[{
-        height: 25,
+        height: DimHeight * 0.035,
         fontSize: 20,
         fontWeight: 'bold',
-        color: '#004095',
+        color: '#CCCCCC',
         textAlign: 'center'}]}>
         {props.children}
     </Text>

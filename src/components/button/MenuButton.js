@@ -9,7 +9,7 @@ import PropTypes from 'prop-types'
 const MenuButton = props => {
     let backgroundColor = props.color
     return (
-        <TouchableOpacity style={styles.hamburgerArea} onPress={props.onPress}>
+        <TouchableOpacity style={[styles.hamburgerArea, ...props.style]} onPress={props.onPress}>
             <View style={[styles.hamburgerLine, { backgroundColor }]} />
             <View style={[styles.hamburgerLine, { backgroundColor }]} />
             <View style={[styles.hamburgerLine, { backgroundColor }]} />
@@ -21,7 +21,7 @@ MenuButton.propTypes = {
     color: PropTypes.string,
 }
 MenuButton.defaultProps = {
-    color: '#FFFFFF'
+    color: '#CCCCCC'
 }
 
 export default MenuButton

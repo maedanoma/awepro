@@ -40,6 +40,7 @@ export default class CardList extends Component {
                         <LoadingBar isFailed={this.props.isFailed} />
                     </View> :
                     <ScrollView
+                        style={[{backgroundColor: '#333333'}]}
                         {...this.props.props}
                         horizontal={false}
                         showsHorizontalScrollIndicator={false}
@@ -61,12 +62,5 @@ const styles = StyleSheet.create({
         width: DimWidth,
         justifyContent: 'center',
         alignItems: 'center',
-    },
-    titleText: {
-        height: 25,
-        fontSize: 20,
-        fontWeight: 'bold',
-        color: '#004095',
-        textAlign: 'center'
     },
 })
