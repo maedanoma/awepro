@@ -13,7 +13,7 @@ class ToggleMenuStore {
     }
 
     @action.bound closeMenu() {
-        this.isDisplayMenu = close
+        this.leftPosition = close
     }
 
     @action.bound toggleMenu() {

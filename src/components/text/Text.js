@@ -11,7 +11,7 @@ export const SmallMessage = props => (
 export const TitleLabel = props => (
     <Text style={[{
         height: DimHeight * 0.035,
-        fontSize: 20,
+        fontSize: 18,
         fontWeight: 'bold',
         color: '#CCCCCC',
         textAlign: 'center'}]}>

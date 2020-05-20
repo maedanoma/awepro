@@ -20,7 +20,7 @@ const header = { uri: 'https://media.gettyimages.com/photos/dominic-calvertlewin
 
 const BackgroundMenu = observer(props => {
     let { setMenu } = React.useContext(MenuContext)
-    let { toggleMenu } = React.useContext(ToggleMenuContext)
+    let { closeMenu } = React.useContext(ToggleMenuContext)
     const menus = () => (
         Menus.map(menu => 
             <View key={menu.id}>
@@ -28,7 +28,10 @@ const BackgroundMenu = observer(props => {
                 <Button style={styles.menu}
                     name={menu.name}
                     nameColor='#4689FF'
-                    onPress={() => setMenu(menu)}
+                    onPress={() => {
+                        setMenu(menu)
+                        closeMenu()
+                    }}
                     bold={true} />
             </View>
         )

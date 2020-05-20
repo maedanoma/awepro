@@ -46,8 +46,6 @@ export default class FadeIn extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        alignItems: 'center',
-        justifyContent: 'center',
         backgroundColor: 'rgba(0, 0, 0, 0)'
     }
 })

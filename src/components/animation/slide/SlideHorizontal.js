@@ -18,11 +18,13 @@ export default class SlideHorizontal extends Component {
         startWhen: PropTypes.bool,
         easing: PropTypes.object,
         duration: PropTypes.number,
+        delay: PropTypes.number
     }
     static defaultProps = {
         startWhen: false,
         easing: Easing.exp,
-        duration: 250,
+        duration: 300,
+        delay: 0
     }
     componentDidMount() {
         if (!this.props.startWhen) return
@@ -37,6 +39,7 @@ export default class SlideHorizontal extends Component {
             toValue: this.props.x,
             easing: this.props.easing,
             duration: this.props.duration,
+            delay: this.props.delay
         }])
     }
     componentWillUnmount() {
@@ -45,9 +48,8 @@ export default class SlideHorizontal extends Component {
     render() {
         let left = this.state.left
         return (
-            <Animated.View {...this.props.props}
-                style={[styles.container,
-                    { left, ...this.props.style }]} >
+            <Animated.View style={[styles.container, ...this.props.style, 
+                { transform:[{ translateX: left }]}]} >
                 {this.props.children}
             </Animated.View>
         );
@@ -56,7 +58,6 @@ export default class SlideHorizontal extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        position: 'absolute',
         backgroundColor: 'rgba(0, 0, 0, 0)'
     }
 })

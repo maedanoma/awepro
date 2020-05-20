@@ -3,25 +3,69 @@ import { observable, action } from 'mobx'
 import { DimHeight, DimWidth } from '../../../components/Layout';
 
 const standard = {
-    height: DimHeight * 0.4,
-    width: DimWidth * 0.96,
-    borderRadius: 25,
-    margin: DimWidth * 0.02,
-    top: DimHeight * 0.365
+    fixture: {
+        x: {
+            value: 0,
+            delay: 600
+        }
+    },
+    card: {
+        height: {
+            value: DimHeight * 0.4,
+            delay: 0
+        },
+        width: DimWidth * 0.96,
+        margin: DimWidth * 0.02,
+    },
+    list: {
+        height: {
+            value: DimHeight * 0.62,
+            delay: 600
+        },
+        scrollEnabled: true,
+        y: {
+            value: 0,
+            delay: 300
+        }
+    },
+    pop: false,
 }
 const popUp = {
-    height: DimHeight,
-    width: DimWidth,
-    borderRadius: 0,
-    marign: 0,
-    top: 0
+    fixture: {
+        x: {
+            value: DimWidth,
+            delay: 0,
+        }
+    },
+    card: {
+        height: {
+            value: DimHeight * 0.7, // 0.82がぴったり
+            delay: 600
+        },
+        width: DimWidth,
+        marign: 0,
+    },
+    list: {
+        height: {
+            value: DimHeight * 0.84,
+            delay: 0
+        },
+        scrollEnabled: false,
+        y: {
+            value: -(DimHeight * 0.25),
+            delay: 300
+        }
+    },
+    pop: true
 }
 
 class CardAnimationStore { 
     @observable status = standard
     
     @action.bound popUp() {
-        this.status = this.status == popUp? standard: popUp 
+        console.log('before = ' + this.status == popUp)
+        this.status = this.status.pop? standard: popUp
+        console.log('after = ' + this.status == popUp)
     }
 
     @action.bound popDown() {

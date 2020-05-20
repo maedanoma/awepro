@@ -14,10 +14,14 @@ export default class ExpandHorizontal extends Component {
         width: initializeAnimation(this.props.sets.from),
     }
     static propTypes = {
-        // PropTypes.numebrを指定した場合、縦方向にアニメーションしません
         // from, to
         sets: PropTypes.objectOf(PropTypes.number).isRequired,
-        startWhen: PropTypes.bool
+        startWhen: PropTypes.bool,
+        delay: PropTypes.number
+    }
+    static defaultProps = {
+        startWhen: false,
+        delay: 0
     }
     componentDidMount() {
         if (!this.props.startWhen) return
@@ -36,7 +40,8 @@ export default class ExpandHorizontal extends Component {
         startTimingAnimation([{
             value: this.state.width,
             toValue: this.props.sets.to,
-            duration: 400,
+            duration: 300,
+            delay: this.props.delay
         }])
     }
 

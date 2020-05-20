@@ -24,7 +24,7 @@ const DrawerNavigator = observer(() => {
     return (
         <View>
             <BackgroundMenu />
-            <SlideHorizontal style={styles.view} x={leftPosition} easing={Easing.bounce}>
+            <SlideHorizontal style={[styles.view]} x={leftPosition} easing={Easing.bounce}>
                 <TouchableOpacity  style={styles.container} onPress={closeMenu} >
                     <Div div={DimHeight * 0.035} />
                     <Text style={styles.title}>{menu.name}</Text>
@@ -54,6 +54,8 @@ const styles = StyleSheet.create({
         height: DimHeight,
         width: DimWidth,
         backgroundColor: '#333333',
+        top: 0,
+        position: 'absolute'
     },
     menu: {
         top: DimHeight * 0.035,
