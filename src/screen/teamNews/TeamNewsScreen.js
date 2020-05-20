@@ -129,7 +129,7 @@ class Fixtures extends Component {
             <View>
             <TitleLabel>FIXTURES</TitleLabel>
             <CardList
-                initCardPos={this.state.initCardPos}
+                initialCardPosition={this.state.initCardPos}
                 horizontal={true}
                 cardWidth={240}
                 cardAlign='left'

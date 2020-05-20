@@ -1,17 +1,11 @@
 import React from 'react';
-import { TouchableOpacity, Animated } from 'react-native';
+import { StyleSheet, TouchableOpacity, Animated } from 'react-native';
 import PropTypes from 'prop-types'
 
 const Card = props => {
-    // default value
-    let backgroundColor = '#FFFFFF'
-    let borderRadius = 20
-    let borderWidth = 0
-    let borderColor = 'rgba(0, 0, 0, 0)' // 透明
     return (
         <TouchableOpacity
-            style={[{ backgroundColor, borderRadius, borderWidth, 
-                borderColor, alignItems: 'center', ...props.style }]}
+            style={[styles.default, { ...props.style }]}
             onPress={props.onPress}
             activeOpacity={1}>
             {props.children}
@@ -24,3 +18,13 @@ Card.propTypes = {
 }
 
 export default Card;
+
+const styles = StyleSheet.create({
+    default: {
+        backgroundColor: '#FFFFFF',
+        borderRadius: 20,
+        borderWidth: 0,
+        borderColor: 'rgba(0, 0, 0, 0)', // 透明
+        alignItems: 'center'
+    }
+})

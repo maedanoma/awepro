@@ -15,17 +15,9 @@ export default class MoveHorizontal extends Component {
     }
     static propTypes = {
         x: PropTypes.number.isRequired,
-        startWhen: PropTypes.bool
-    }
-    componentDidMount() {
-        if (!this.props.hasOwnProperty('startWhen')) {
-            this._start()
-        }
     }
     componentDidUpdate(prevProps, prevState) {
-        if (this.props.x != prevProps.x) {
-            this._start()
-        }
+        this._start()
     }
     _start() {
         startTimingAnimation([{
