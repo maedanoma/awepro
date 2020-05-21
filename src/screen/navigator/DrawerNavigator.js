@@ -48,7 +48,8 @@ export default DrawerNavigator
 const styles = StyleSheet.create({
     container: {
         height: '100%',
-        width: '100%'
+        width: '100%',
+        backgroundColor: '#333333',
     },
     view: {
         height: DimHeight,

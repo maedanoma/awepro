@@ -9,14 +9,6 @@ const standard = {
             delay: 600
         }
     },
-    card: {
-        height: {
-            value: DimHeight * 0.4,
-            delay: 0
-        },
-        width: DimWidth * 0.96,
-        margin: DimWidth * 0.02,
-    },
     list: {
         height: {
             value: DimHeight * 0.62,
@@ -37,14 +29,6 @@ const popUp = {
             delay: 0,
         }
     },
-    card: {
-        height: {
-            value: DimHeight * 0.7, // 0.82がぴったり
-            delay: 600
-        },
-        width: DimWidth,
-        marign: 0,
-    },
     list: {
         height: {
             value: DimHeight * 0.84,
@@ -59,17 +43,61 @@ const popUp = {
     pop: true
 }
 
+const cardStandard = {
+    height: {
+        value: DimHeight * 0.4, // 0.82がぴったり
+        delay: 0
+    },
+    imageHeight: {
+        value: DimHeight * 0.28,
+        delay: 0
+    },
+    width: DimWidth,
+    marign: 0,
+    pop: false,
+}
+
+const cardPopUp = {
+    height: {
+        value: DimHeight * 0.7, // 0.82がぴったり
+        delay: 700
+    },
+    imageHeight: {
+        value: DimHeight * 0.35,
+        delay: 700
+    },
+    width: DimWidth,
+    marign: 0,
+    pop: true
+}
+
 class CardAnimationStore { 
     @observable status = standard
+    @observable cardStatus = [
+        cardStandard, cardStandard, cardStandard, cardStandard, cardStandard,
+        cardStandard, cardStandard, cardStandard, cardStandard, cardStandard,
+    ]
+    @observable topPosition = 0
     
-    @action.bound popUp() {
-        console.log('before = ' + this.status == popUp)
-        this.status = this.status.pop? standard: popUp
-        console.log('after = ' + this.status == popUp)
+    @action.bound popUp(position) {
+        if (this.cardStatus.every(status => !status.pop)) {
+            this.topPosition = position
+            this.status = popUp
+            this.cardStatus[position] = cardPopUp
+            return
+        }
+        if (this.cardStatus[position].pop) {
+            this.status = standard
+            this.cardStatus[position] = cardStandard
+            return
+        }
+        this.status = standard
+        this.cardStatus.fill(cardStandard)
     }
 
     @action.bound popDown() {
         this.status = standard
+        this.cardStatus.fill(cardStandard)
     }
 }
 

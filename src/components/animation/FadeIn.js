@@ -17,15 +17,18 @@ export default class FadeIn extends Component {
         }
     }
     static propTypes = {
-        duration: PropTypes.number
+        duration: PropTypes.number,
+        delay: PropTypes.number
     }
     static defaultProps = {
-        duration: 500
+        duration: 500,
+        delay: 0
     }
     componentDidMount() {
         startTimingAnimation([{
             value: this.state.opacity,
             duration: this.props.duration,
+            delay: this.props.delay,
             toValue: 1,
         }])
     }

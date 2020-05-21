@@ -60,10 +60,6 @@ export default class CardList extends Component {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        height: '100%',
-        width: '100%',
-    },
     loadingArea: {
         height: DimHeight * 0.23 - 25,
         width: DimWidth,

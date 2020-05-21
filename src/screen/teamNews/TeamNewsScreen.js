@@ -59,11 +59,11 @@ export default class TeamNewsScreen extends Component {
     render() {
         let opacity = this.state.viewOpacity
         return (
-            <Animated.View style={[{ opacity }]}>
+            <Animated.View style={[{ opacity, backgroundColor: '#333333' }]}>
                 <View >
                     <FixtureCardList />
                 </View>
-                <View >
+                <View styles={[{backgroundColor: '#333333'}]} >
                     <NewsCardList />
                 </View>
             </Animated.View>

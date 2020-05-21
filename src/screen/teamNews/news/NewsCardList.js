@@ -16,15 +16,16 @@ import ExpandVertical from '../../../components/animation/expand/ExpandVertical'
 import SlideHorizontal from '../../../components/animation/slide/SlideHorizontal';
 
 const NewsCardList = observer(props => {
-    let cardHeight = DimHeight * 0.422
     let { newsList } = React.useContext(NewsContext)
-    let { status } = React.useContext(CardAnimationContext)
+    let { status, topPosition } = React.useContext(CardAnimationContext)
     let x = status.fixture.x
     let y = status.list.y
+    let cardHeight = DimHeight * 0.422
     let height = status.list.height
     let count = 0
     const displayNews = newsList.map(article => (
         <NewsCard
+            id={count}
             key={count++}
             article={article} />
     ))
@@ -37,6 +38,7 @@ const NewsCardList = observer(props => {
                 <ExpandVertical style={[{}]}
                     sets={{ from: DimHeight * 0.62, to: height.value}} delay={height.delay}>
                     <CardList
+                        initialCardPosition={topPosition}
                         cardHeight={cardHeight}
                         contents={newsList}
                         scrollEnabled={status.list.scrollEnabled} >
