@@ -6,7 +6,7 @@ const standard = {
     fixture: {
         x: {
             value: 0,
-            delay: 600
+            delay: 400
         }
     },
     list: {
@@ -45,13 +45,14 @@ const popUp = {
 
 const cardStandard = {
     height: {
-        value: DimHeight * 0.4, // 0.82がぴったり
+        value: DimHeight * 0.4,
         delay: 0
     },
     imageHeight: {
         value: DimHeight * 0.28,
         delay: 0
     },
+    titleLines: 2,
     width: DimWidth,
     marign: 0,
     pop: false,
@@ -59,19 +60,20 @@ const cardStandard = {
 
 const cardPopUp = {
     height: {
-        value: DimHeight * 0.7, // 0.82がぴったり
-        delay: 700
+        value: DimHeight * 0.77, // 0.82がぴったり
+        delay: 0
     },
     imageHeight: {
-        value: DimHeight * 0.35,
-        delay: 700
+        value: DimHeight * 0.37,
+        delay: 0
     },
+    titleLines: 3,
     width: DimWidth,
     marign: 0,
     pop: true
 }
 
-class CardAnimationStore { 
+class NewsAnimationStore { 
     @observable status = standard
     @observable cardStatus = [
         cardStandard, cardStandard, cardStandard, cardStandard, cardStandard,
@@ -101,6 +103,6 @@ class CardAnimationStore {
     }
 }
 
-const cardAnimationStore = new CardAnimationStore()
-const CardAnimationContext = React.createContext(cardAnimationStore)
-export default CardAnimationContext
+const newsAnimationStore = new NewsAnimationStore()
+const NewsAnimationContext = React.createContext(newsAnimationStore)
+export default NewsAnimationContext

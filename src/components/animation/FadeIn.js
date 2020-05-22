@@ -40,7 +40,7 @@ export default class FadeIn extends Component {
     render() {
         let opacity = this.state.opacity
         return (
-            <Animated.View style={[styles.container, { opacity }]} >
+            <Animated.View style={[styles.container, { opacity, ...this.props.style }]} >
                 {this.props.children}
             </Animated.View>
         );

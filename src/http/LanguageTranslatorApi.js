@@ -25,9 +25,7 @@ const axios = new AxiosWrapper(
  * @param enTexts       翻訳したい文字列の配列
  * @param translated 
  */
-export const translateEnToJa = async (enTexts,translated) => {
-    translate(enTexts).then(translatedTexts => translated(translatedTexts))
-}
+export const translateEnToJa = async (enTexts) => translate(enTexts)
 
 /**
  * @param texts     翻訳したい文字列の配列 

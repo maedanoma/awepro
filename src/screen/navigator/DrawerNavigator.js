@@ -14,13 +14,19 @@ import { DimHeight, DimWidth, Div } from '../../components/Layout'
 import SlideHorizontal from '../../components/animation/slide/SlideHorizontal'
 import BackgroundMenu from './BackgroundMenu'
 import MenuButton from '../../components/button/MenuButton'
+import NewsAnimationContext from '../teamNews/store/NewsAnimationStore'
 
 /**
  * ログイン後に表示されるDrawerMenuをもつComponent
  */
 const DrawerNavigator = observer(() => {
     let { closeMenu, leftPosition, toggleMenu } = React.useContext(ToggleMenuContext)
+    let { popDown } = React.useContext(NewsAnimationContext)
     let { menu } = React.useContext(MenuContext)
+    const onPress = () => {
+        toggleMenu()
+        popDown()
+    }
     return (
         <View>
             <BackgroundMenu />
@@ -28,7 +34,7 @@ const DrawerNavigator = observer(() => {
                 <TouchableOpacity  style={styles.container} onPress={closeMenu} >
                     <Div div={DimHeight * 0.035} />
                     <Text style={styles.title}>{menu.name}</Text>
-                    <MenuButton style={[styles.menu]} onPress={toggleMenu} />
+                    <MenuButton style={[styles.menu]} onPress={onPress} />
                     {menu.component}
                 </TouchableOpacity>
             </SlideHorizontal>

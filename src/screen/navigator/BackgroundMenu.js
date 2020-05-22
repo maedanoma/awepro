@@ -26,13 +26,14 @@ const BackgroundMenu = observer(props => {
             <View key={menu.id}>
                 <Div div={14} />
                 <Button style={styles.menu}
-                    name={menu.name}
                     nameColor='#4689FF'
                     onPress={() => {
                         setMenu(menu)
                         closeMenu()
                     }}
-                    bold={true} />
+                    bold={true}>
+                    {menu.name}
+                </Button>
             </View>
         )
     )

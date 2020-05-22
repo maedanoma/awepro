@@ -5,7 +5,7 @@ import { updateNews } from '../../../http/GoogleNewsApi'
 const defaultNews = [
     {
         "title":"Everton target quizzed about future \u2013 \u201cI like English football a lot\u201d",
-        "description":"For the past couple of weeks, one of the strongest rumours in the Argentine media has been about the River Plate midfielder Nicolas de la Cruz. Reports from Europe and South America have been claiming ...",
+        "description":"For the past couple of weeks, one of the strongest rumours in the Argentine media has been about the River Plate midfielder Nicolas de la Cruz. Reports from Europe and South America have been claiming aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
         "url":"https:\/\/sportwitness.co.uk\/everton-target-quizzed-future-i-like-english-football-lot\/",
         "image":"https://media.gettyimages.com/photos/richarlison-of-everton-celebrates-with-teammates-after-scoring-his-picture-id1208180963?s=2048x2048",
         "publishedAt":"2020-05-12 04:36:00 UTC",
@@ -54,7 +54,7 @@ class NewsStore {
     
     @action.bound updateNewsList() {
         this.newsList = defaultNews
-        // updateNews(allNews => {
+        // updateNews().then(allNews => {
         //     this.newsList = allNews == null || allNews.length == 0?
         //         null: allNews.slice(0, 10)
         // })

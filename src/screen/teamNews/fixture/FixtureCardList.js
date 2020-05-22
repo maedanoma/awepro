@@ -9,12 +9,12 @@ import CardList from '../../../components/card/CardList'
 import { TitleLabel } from '../../../components/text/Text'
 import { observer } from 'mobx-react-lite'
 import FixturesContext from '../store/FixturesStore'
-import CardAnimationContext from '../store/CardAnimationStore'
+import NewsAnimationContext from '../store/NewsAnimationStore'
 import SlideHorizontal from '../../../components/animation/slide/SlideHorizontal';
 
 const FixtureCardList = observer(props => {
     let { fixtures, initCardPosition } = React.useContext(FixturesContext)
-    let { status } = React.useContext(CardAnimationContext)
+    let { status } = React.useContext(NewsAnimationContext)
     let fxt = status.fixture.x
     const displayMatches = fixtures.map(fixture => (
         <FixtureCard

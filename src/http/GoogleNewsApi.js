@@ -29,17 +29,28 @@ const axios = new AxiosWrapper('https://gnews.io/api')
  * 全てのニュースを取得します
  * @param updateNews 
  */
-export const updateNews = async (updateNews) => {
-    fetchSearchNews('everton').then(articles => {
-        let titles = articles.map(article => article.title)
-        translateEnToJa(titles, translatedTexts => {
-            let count = 0
-            updateNews(articles.map(article => {
-                article.title = translatedTexts[count++].translation
-                return article
-            }))
+export const updateNews = async () => {
+    return fetchSearchNews('everton')
+        .then(articles  => {
+            let titles = articles.map(article => article.title)
+            return translateEnToJa(titles)
+                .then(translatedTitles => {
+                    let count = 0
+                    articles.map(article => {
+                        article.title = translatedTitles[count++].translation
+                        return article
+                    })
+                    let descriptions = articles.map(article => article.description)
+                    return translateEnToJa(descriptions)
+                }).then(translatedDescriptions => {
+                    let count = 0
+                    articles.map(article => {
+                        article.description = translatedDescriptions[count++].translation
+                        return article
+                    })
+                    return new Promise(resolve => {resolve(articles)})
+                })
         })
-    })
 }
 
 /**
