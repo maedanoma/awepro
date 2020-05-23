@@ -19,7 +19,7 @@ export default class SlideVertical extends Component {
     static propTypes = {
         y: PropTypes.number.isRequired,
         startWhen: PropTypes.bool,
-        easing: PropTypes.object,
+        easing: PropTypes.func,
         duration: PropTypes.number,
         delay: PropTypes.number
     }

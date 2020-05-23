@@ -9,7 +9,8 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-
+// importするとmobxのwarningが消える
+import 'mobx-react-lite/batchingForReactNative'
 import LoginScreen from './src/screen/login/LoginScreen';
 import DrawerNavigator from './src/screen/navigator/DrawerNavigator';
 

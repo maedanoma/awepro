@@ -72,8 +72,6 @@ const FixtureCard = observer(props => {
 
 
 FixtureCard.propTypes = {
-    // FixtureCard押下時の動作
-    onPress: PropTypes.func.isRequired,
     // ニュース情報
     fixture: PropTypes.object,
     // fixture: {

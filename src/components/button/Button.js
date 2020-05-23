@@ -24,7 +24,6 @@ const Button = props => {
 
 Button.propTypes = {
     onPress: PropTypes.func.isRequired,
-    name: PropTypes.string.isRequired,
     fontSize: PropTypes.number,
     nameColor: PropTypes.string,
     bold: PropTypes.bool

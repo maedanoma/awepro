@@ -16,7 +16,7 @@ export default class SlideHorizontal extends Component {
     static propTypes = {
         x: PropTypes.number.isRequired,
         startWhen: PropTypes.bool,
-        easing: PropTypes.object,
+        easing: PropTypes.func,
         duration: PropTypes.number,
         delay: PropTypes.number
     }

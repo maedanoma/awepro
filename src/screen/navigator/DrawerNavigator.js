@@ -41,7 +41,8 @@ DrawerNavigator.propTypes = {
     // ログイン画面とメイン画面の遷移オブジェクト
     //  - 'Login':  ログイン画面
     //  - 'Home':   ホーム画面
-    navigation: PropTypes.object.isRequired,
+    // navigation: PropTypes.object.isRequired,
+    // ログインなしにしている
 }
 
 export default DrawerNavigator

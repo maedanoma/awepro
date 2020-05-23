@@ -24,7 +24,7 @@ const FixtureCardList = observer(props => {
     let count=0
     const displayMatches = fixtures.map(fixture => (
         <FixtureCard
-            key={fixture.fixture_id}
+            key={count}
             id={count++}
             fixture={fixture} />
     ))
