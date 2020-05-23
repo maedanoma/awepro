@@ -6,7 +6,7 @@ import {
     Image,
 } from 'react-native'
 import { observer } from 'mobx-react-lite'
-import NewsAnimationContext from '../store/NewsAnimationStore'
+import NewsContext from '../store/NewsStore'
 import Card from '../../../components/card/Card'
 import ExpandVertical from '../../../components/animation/expand/ExpandVertical'
 import FadeIn from '../../../components/animation/FadeIn'
@@ -19,7 +19,7 @@ import NewsDetail from './NewsDetail'
  */
 const NewsCard = observer(props => {
     let newsDay = props.article.publishedAt.substring(0, 10)
-    let { popUp, cardStatus } = React.useContext(NewsAnimationContext)
+    let { popUp, cardStatus } = React.useContext(NewsContext)
     let height = cardStatus[props.id].height
     let imageHeight = cardStatus[props.id].imageHeight
     let titleLines = cardStatus[props.id].titleLines

@@ -10,14 +10,12 @@ import { TitleLabel } from '../../../components/text/Text'
 import NewsContext from '../store/NewsStore'
 import { observer } from 'mobx-react-lite';
 import { DimHeight } from '../../../components/Layout';
-import NewsAnimationContext from '../store/NewsAnimationStore'
 import SlideVertical from '../../../components/animation/slide/SlideVertical';
 import ExpandVertical from '../../../components/animation/expand/ExpandVertical';
 import SlideHorizontal from '../../../components/animation/slide/SlideHorizontal';
 
 const NewsCardList = observer(props => {
-    let { newsList } = React.useContext(NewsContext)
-    let { status, topPosition } = React.useContext(NewsAnimationContext)
+    let { newsList, status, topPosition } = React.useContext(NewsContext)
     let x = status.fixture.x
     let y = status.list.y
     let cardHeight = DimHeight * 0.422

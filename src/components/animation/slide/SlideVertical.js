@@ -61,7 +61,6 @@ export default class SlideVertical extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        // backgroundColor: 'rgba(0, 0, 0, 0)',
-        backgroundColor: '#000000'
+        backgroundColor: 'rgba(0, 0, 0, 0)',
     }
 })

@@ -1,5 +1,6 @@
 import React from 'react';
 import { observable, action } from 'mobx'
+import { DimHeight, DimWidth } from '../../../components/Layout';
 import { updateNews } from '../../../http/GoogleNewsApi'
 
 const defaultNews = [
@@ -48,16 +49,82 @@ const defaultNews = [
         }
     },
 ]
+// 
+const standard = {
+    fixture: {
+        x: { value: 0, delay: 400 }
+    },
+    list: {
+        height: { value: DimHeight * 0.62, delay: 600 },
+        scrollEnabled: true,
+        y: { value: 0, delay: 300 }
+    },
+    pop: false,
+}
+const popUp = {
+    fixture: {
+        x: { value: DimWidth, delay: 0, }
+    },
+    list: {
+        height: { value: DimHeight * 0.84, delay: 0 },
+        scrollEnabled: false,
+        y: { value: -(DimHeight * 0.25), delay: 300 }
+    },
+    pop: true
+}
+// カード用
+const cardStandard = {
+    height: { value: DimHeight * 0.4, delay: 0 },
+    imageHeight: { value: DimHeight * 0.28, delay: 0 },
+    titleLines: 2,
+    width: DimWidth,
+    marign: 0,
+    pop: false,
+}
+const cardPopUp = {
+    height: { value: DimHeight * 0.77, delay: 0 },
+    imageHeight: { value: DimHeight * 0.37, delay: 0 },
+    titleLines: 3,
+    width: DimWidth,
+    marign: 0,
+    pop: true
+}
 
 class NewsStore { 
     @observable newsList = []
+    @observable status = standard
+    @observable cardStatus = []
+    @observable topPosition = 0
     
     @action.bound updateNewsList() {
         this.newsList = defaultNews
+        this.cardStatus =
+            new Array(this.newsList.length).fill(cardStandard)
         // updateNews().then(allNews => {
         //     this.newsList = allNews == null || allNews.length == 0?
         //         null: allNews.slice(0, 10)
         // })
+    }
+
+    @action.bound popUp(position) {
+        if (this.cardStatus.every(status => !status.pop)) {
+            this.topPosition = position
+            this.status = popUp
+            this.cardStatus[position] = cardPopUp
+            return
+        }
+        if (this.cardStatus[position].pop) {
+            this.status = standard
+            this.cardStatus[position] = cardStandard
+            return
+        }
+        this.status = standard
+        this.cardStatus.fill(cardStandard)
+    }
+
+    @action.bound popDown() {
+        this.status = standard
+        this.cardStatus.fill(cardStandard)
     }
 }
 

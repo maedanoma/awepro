@@ -57,8 +57,8 @@ export default class ExpandHorizontal extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        alignItems: 'center',
-        justifyContent: 'center',
+        // alignItems: 'center',
+        // justifyContent: 'center',
         backgroundColor: 'rgba(0, 0, 0, 0)'
     }
 })

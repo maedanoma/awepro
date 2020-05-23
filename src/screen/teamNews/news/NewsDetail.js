@@ -6,7 +6,7 @@ import {
     Linking
 } from 'react-native'
 import { observer } from 'mobx-react-lite'
-import NewsAnimationContext from '../store/NewsAnimationStore'
+import NewsContext from '../store/NewsStore'
 import ExpandHorizontal from '../../../components/animation/expand/ExpandHorizontal'
 import FadeIn from '../../../components/animation/FadeIn'
 import PropTypes from 'prop-types'
@@ -17,7 +17,7 @@ import Button from '../../../components/button/Button'
  * ニュース概要を表示するカード
  */
 const NewsDetail = observer(props => {
-    let { cardStatus } = React.useContext(NewsAnimationContext)
+    let { cardStatus } = React.useContext(NewsContext)
     const opneUrl = () => {
         Linking.openURL(props.article.url)
             .catch(err => console.error('URLを開けませんでした。', err));
