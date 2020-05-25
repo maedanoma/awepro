@@ -8,16 +8,16 @@ import {
 import PropTypes from 'prop-types'
 import Button from '../../components/button/Button'
 import Icon from '../../components/Icon'
-import FadeIn from '../../components/animation/FadeIn'
+import Fade from '../../components/animation/Fade'
 import ExpandHorizontal from '../../components/animation/expand/ExpandHorizontal'
 import { DimHeight, DimWidth, Div } from '../../components/Layout'
 
 const FadeExpand = props => (
-    <FadeIn>
+    <Fade>
         <ExpandHorizontal style={[{}]} sets={{ from: 50, to: 250 }} startWhen={true} >
             {props.children}
         </ExpandHorizontal>
-    </FadeIn>
+    </Fade>
 )
 
 /**

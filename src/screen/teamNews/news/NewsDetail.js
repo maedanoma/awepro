@@ -8,7 +8,7 @@ import {
 import { observer } from 'mobx-react-lite'
 import NewsContext from '../store/NewsStore'
 import ExpandHorizontal from '../../../components/animation/expand/ExpandHorizontal'
-import FadeIn from '../../../components/animation/FadeIn'
+import Fade from '../../../components/animation/Fade'
 import PropTypes from 'prop-types'
 import { DimHeight, DimWidth, Div } from '../../../components/Layout'
 import Button from '../../../components/button/Button'
@@ -24,7 +24,7 @@ const NewsDetail = observer(props => {
     }
     return (
         !cardStatus[props.id].pop ? <View /> :
-            <FadeIn duration={1000} delay={700}>
+            <Fade duration={1000} delay={700}>
                 <Div div={6} />
                 <Text style={[styles.newsDetailText]} numberOfLines={5}>{props.article.description}</Text>
                 <Div div={8} />
@@ -36,15 +36,16 @@ const NewsDetail = observer(props => {
                         </Button>
                     </ExpandHorizontal>
                 </View>
-            </FadeIn>
+            </Fade>
     )
 })
 
 NewsDetail.propTypes = {
     // ニュース情報
-    article: PropTypes.object.isRequired
+    article: PropTypes.object.isRequired,
     //     description: PropTypes.string.isRequired, // ニュースの詳細
     //     url: PropTypes.string.isRequired, // ニュースのソース
+    id: PropTypes.number.isRequired
 }
 
 export default NewsDetail

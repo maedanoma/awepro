@@ -7,9 +7,8 @@ import {
 } from 'react-native';
 import { observer } from 'mobx-react-lite'
 import { DimHeight, DimWidth, Div } from '../../components/Layout'
-import MenuButton from '../../components/button/MenuButton'
 import Button from '../../components/button/Button'
-import FadeIn from '../../components/animation/FadeIn'
+import Fade from '../../components/animation/Fade'
 import MenuContext, {Menus} from './store/MenusStore'
 import ToggleMenuContext from './store/ToggleMenuStore'
 import NewsContext from '../teamNews/store/NewsStore'
@@ -49,12 +48,12 @@ const BackgroundMenu = observer(props => {
     return (
         <View>
             <StatusBar translucent backgroundColor="transparent" />
-            <FadeIn>
+            <Fade>
                 <ImageBackground style={styles.container} source={header}>
                     <Div div={DimHeight * 0.05} />
                     {menus()}
                 </ImageBackground>
-            </FadeIn>
+            </Fade>
         </View>
     )
 })

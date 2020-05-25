@@ -9,32 +9,42 @@ import {
     stopAnimation,
 } from './Animation'
 
-export default class FadeIn extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            opacity: initializeAnimation(0),
-        }
+export default class Fade extends Component {
+    state = {
+        opacity: initializeAnimation(this.props.sets.from),
     }
     static propTypes = {
+        sets: PropTypes.object,
         duration: PropTypes.number,
-        delay: PropTypes.number
+        delay: PropTypes.number,
+        startWhen: PropTypes.bool
     }
     static defaultProps = {
+        sets: {from: 0, to: 1},
         duration: 500,
-        delay: 0
+        delay: 0,
+        startWhen: true,
     }
     componentDidMount() {
-        startTimingAnimation([{
-            value: this.state.opacity,
-            duration: this.props.duration,
-            delay: this.props.delay,
-            toValue: 1,
-        }])
+        if (!this.props.startWhen) return
+        this._start()
+    }
+
+    componentDidUpdate() {
+        this._start()
     }
 
     componentWillUnmount() {
         stopAnimation([this.state.opacity])
+    }
+
+    _start() {
+        startTimingAnimation([{
+            value: this.state.opacity,
+            duration: this.props.duration,
+            delay: this.props.delay,
+            toValue: this.props.sets.to,
+        }])
     }
 
     render() {
