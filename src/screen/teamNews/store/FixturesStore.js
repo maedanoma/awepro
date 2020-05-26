@@ -1,7 +1,153 @@
 import React from 'react';
 import { observable, action } from 'mobx'
 import { DimHeight, DimWidth } from '../../../components/Layout';
-import { updateAllMatchesInSeason } from '../../../http/FootballApi'
+import { updateAllMatchesInSeason, getEvents } from '../../../http/FootballApi'
+
+const defaultEvent = [
+    {
+        "elapsed": 25,
+        "elapsed_plus": null,
+        "team_id": 463,
+        "teamName": "Aldosivi",
+        "player_id": 6126,
+        "player": "F. Andrada",
+        "assist_id": null,
+        "assist": null,
+        "type": "Goal",
+        "detail": "Normal Goal",
+        "comments": null
+    },
+    {
+        "elapsed": 25,
+        "elapsed_plus": null,
+        "team_id": 463,
+        "teamName": "Aldosivi",
+        "player_id": 6126,
+        "player": "F. Andrada",
+        "assist_id": null,
+        "assist": null,
+        "type": "Goal",
+        "detail": "Normal Goal",
+        "comments": null
+    },
+    {
+        "elapsed": 25,
+        "elapsed_plus": null,
+        "team_id": 463,
+        "teamName": "Aldosivi",
+        "player_id": 6126,
+        "player": "F. Andrada",
+        "assist_id": null,
+        "assist": null,
+        "type": "Goal",
+        "detail": "Normal Goal",
+        "comments": null
+    },
+    {
+        "elapsed": 25,
+        "elapsed_plus": null,
+        "team_id": 463,
+        "teamName": "Aldosivi",
+        "player_id": 6126,
+        "player": "F. Andrada",
+        "assist_id": null,
+        "assist": null,
+        "type": "Goal",
+        "detail": "Normal Goal",
+        "comments": null
+    },
+    {
+        "elapsed": 25,
+        "elapsed_plus": null,
+        "team_id": 463,
+        "teamName": "Aldosivi",
+        "player_id": 6126,
+        "player": "F. Andrada",
+        "assist_id": null,
+        "assist": null,
+        "type": "Goal",
+        "detail": "Normal Goal",
+        "comments": null
+    },
+    {
+        "elapsed": 25,
+        "elapsed_plus": null,
+        "team_id": 463,
+        "teamName": "Aldosivi",
+        "player_id": 6126,
+        "player": "F. Andrada",
+        "assist_id": null,
+        "assist": null,
+        "type": "Goal",
+        "detail": "Normal Goal",
+        "comments": null
+    },
+    {
+        "elapsed": 25,
+        "elapsed_plus": null,
+        "team_id": 463,
+        "teamName": "Aldosivi",
+        "player_id": 6126,
+        "player": "F. Andrada",
+        "assist_id": null,
+        "assist": null,
+        "type": "Goal",
+        "detail": "Normal Goal",
+        "comments": null
+    },
+    {
+        "elapsed": 25,
+        "elapsed_plus": null,
+        "team_id": 463,
+        "teamName": "Aldosivi",
+        "player_id": 6126,
+        "player": "F. Andrada",
+        "assist_id": null,
+        "assist": null,
+        "type": "Goal",
+        "detail": "Normal Goal",
+        "comments": null
+    },
+    {
+        "elapsed": 25,
+        "elapsed_plus": null,
+        "team_id": 463,
+        "teamName": "Aldosivi",
+        "player_id": 6126,
+        "player": "F. Andrada",
+        "assist_id": null,
+        "assist": null,
+        "type": "Goal",
+        "detail": "Normal Goal",
+        "comments": null
+    },
+    {
+        "elapsed": 44,
+        "elapsed_plus": null,
+        "team_id": 463,
+        "teamName": "Aldosivi",
+        "player_id": 6262,
+        "player": "E. Iniguez",
+        "assist_id": null,
+        "assist": null,
+        "type": "Card",
+        "detail": "Yellow Card",
+        "comments": null
+    },
+    {
+        "elapsed": 46,
+        "elapsed_plus": null,
+        "team_id": 442,
+        "teamName": "Defensa Y Justicia",
+        "player_id": 5947,
+        "player": "B. Merlini",
+        "assist_id": 35695,
+        "assist": "D. Rodriguez",
+        "type": "subst",
+        "detail": "D. Rodriguez",
+        "comments": null
+    }
+]
 
 const defaultFixtures = [
     {
@@ -28,7 +174,7 @@ const defaultFixtures = [
             name: "Premier League"
         },
         homeTeam: {
-            team_name: "Crystal Palace",
+            team_name: "Crystal Palace Crystal Palace",
             logo: "https://media.api-sports.io/football/teams/52.png"
         },
         goalsHomeTeam: 0,
@@ -79,7 +225,7 @@ const cardStandard = {
     pop: false,
 }
 const cardPopUp = {
-    height: { value: DimHeight * 0.9, delay: 500 },
+    height: { value: DimHeight * 0.93, delay: 500 },
     width: { value: DimWidth * 0.96, delay: 500 },
     summaryFade: { value: 0, delay: 100 },
     detailFade: { value: 1, delay: 650, duration: 500 },
@@ -90,6 +236,7 @@ class FixturesStore {
     @observable fixtures = []
     @observable initCardPosition = 0
     @observable fixtureCardStatus = []
+    @observable events = []
     @observable labelStatus = standard
     
     @action.bound updateFixtures() {
@@ -115,8 +262,12 @@ class FixturesStore {
         this.labelStatus =
             this.labelStatus.pop? standard: popUp
         this.initCardPosition = position
-        // TODO
-        // statisticsを取得する
+        if (this.labelStatus.pop) {
+            this.events = defaultEvent
+            // let fixtureId = this.fixtures[position].fixture_id
+            // getEvents(fixtureId)
+            //     .then(events => this.events = events)
+        }
     }
 
     @action.bound popDownFixture() {

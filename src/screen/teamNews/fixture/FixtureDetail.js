@@ -7,10 +7,10 @@ import {
 } from 'react-native'
 import { observer } from 'mobx-react-lite'
 import FixturesContext from '../store/FixturesStore'
-import ExpandHorizontal from '../../../components/animation/expand/ExpandHorizontal'
 import Fade from '../../../components/animation/Fade'
 import PropTypes from 'prop-types'
-import { DimHeight, DimWidth, Div } from '../../../components/Layout'
+import { DimWidth, Div, DimHeight } from '../../../components/Layout'
+import FixtureEvents from './FixtureEvents'
 
 /**
  * 試合詳細を表示するカード
@@ -51,56 +51,15 @@ const FixtureDetail = observer(props => {
                 <Text style={styles.competition}>{competition}</Text>
             </View>
             <Text style={styles.stadium}>{stadium}</Text>
-            <Div div={10} />
+            <Div div={DimHeight * 0.01} />
             <View style={styles.gameResult}>
                 <TeamInfo home={true} /> 
                 <TeamInfo home={false} />
             </View>
-            {/* <Div div={8} />
-            <View style={[{ alignItems: 'center' }]}>
-                <ExpandHorizontal style={[{}]} startWhen={true} delay={800}
-                    sets={{ from: DimWidth * 0.5, to: DimWidth * 0.9 }} >
-                    <Button style={styles.jumpToSite} fontSize={17} onPress={opneUrl}>
-                        JUMP TO SOURCE SITE
-                    </Button>
-                </ExpandHorizontal>
-            </View> */}
+            <FixtureEvents homeTeamId={props.fixture.homeTeam.team_id} />
         </Fade>
     )
 })
-
-// let matchDay = props.fixture.event_date.substring(0, 10)
-//     let matchTag = matchTags.find(tag =>
-//         props.fixture.league.name.includes(tag.leagueName)).tagName
-//     let homeTeamName = props.fixture.homeTeam.team_name
-//     let homeTeamLogo = { uri: props.fixture.homeTeam.logo }
-//     let homeTeamGoals = props.fixture.goalsHomeTeam
-//     let awayTeamName = props.fixture.awayTeam.team_name
-//     let awayTeamLogo = { uri: props.fixture.awayTeam.logo }
-//     let awayTeamGoals = props.fixture.goalsAwayTeam
-//     let { fixtureCardStatus } = React.useContext(FixturesContext)
-//     let summaryFade = fixtureCardStatus[props.id].summaryFade
-//     const TeamInfo = props => (
-//         <View style={[{ flexheight: 30, alignItems: 'center', flexDirection: 'row' }]}>
-//             <Image source={props.image} style={styles.teamLogo} />
-//             <Text style={[styles.teamName, { marginLeft: 5 }]}>{props.name}</Text>
-//             <Text style={styles.teamGoal}>{props.goal}</Text>
-//         </View>
-//     )
-//     return (
-//         <Fade sets={{ from: 0, to: summaryFade.value }} delay={summaryFade.delay}>
-//             <TeamInfo image={homeTeamLogo} name={homeTeamName} goal={homeTeamGoals} />
-//             <View style={[{ marginTop: 5 }]} />
-//             <TeamInfo image={awayTeamLogo} name={awayTeamName} goal={awayTeamGoals} />
-//             <View style={[{ marginTop: 5, alignItems: 'center' }]}>
-//                 <View style={[{ flexDirection: 'row' }]}>
-//                     <Text style={[styles.matchTag]}>{matchTag}</Text>
-//                     <View style={[{ marginLeft: 10 }]} />
-//                     <Text style={styles.day}>{matchDay}</Text>
-//                 </View>
-//             </View>
-//         </Fade>
-//     )
 
 FixtureDetail.propTypes = {
     // ニュース情報
@@ -122,7 +81,6 @@ const styles = StyleSheet.create({
     gameResult: {
         alignItems: 'center',
         flexDirection: 'row', 
-        // backgroundColor: '#330000',
     }, 
     teamLogo: {
         width: DimWidth * 0.12,
@@ -172,4 +130,4 @@ const styles = StyleSheet.create({
         color: '#A9A9A9',
         textAlign: 'right'
     },
-});
+})

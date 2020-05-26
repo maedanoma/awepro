@@ -62,12 +62,21 @@ export const updateAllMatchesInSeason = async () => {
 }
 
 /**
- * 今シーズンの試合結果、試合予定を取得します
+ * 試合結果を取得します
  * @param fixtureId
  */
 export const getStatistics = async fixtureId => {
     return fetchStatisticsById(fixtureId)
         .then(statistics => new Promise(resolve => resolve(statistics)))
+}
+
+/**
+ * 試合の経過を取得します
+ * @param fixtureId
+ */
+export const getEvents = async fixtureId => {
+    return fetchEventById(fixtureId)
+        .then(events => new Promise(resolve => resolve(events)))
 }
 
 /**
@@ -90,6 +99,16 @@ async function fetchStatisticsById(fixtureId) {
     let endPoint = 'statistics/fixture/' + fixtureId
     const headers = { 'X-RapidAPI-Key': apiKey }
     return axios.get(endPoint, '', headers, data => data.api.statistics)
+}
+
+/**
+ * FixtureIDを元に試合結果を取得します。
+ * @param fixtureId  試合ID
+ */
+async function fetchEventById(fixtureId) {
+    let endPoint = 'events/' + fixtureId
+    const headers = { 'X-RapidAPI-Key': apiKey }
+    return axios.get(endPoint, '', headers, data => data.api.events)
 }
 
 /**
