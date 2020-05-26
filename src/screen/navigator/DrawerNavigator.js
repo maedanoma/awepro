@@ -66,6 +66,7 @@ const styles = StyleSheet.create({
         position: 'absolute'
     },
     title: {
+        height: DimHeight * 0.04,
         width: DimWidth,
         fontSize: 24,
         fontWeight: 'bold',

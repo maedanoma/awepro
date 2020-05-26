@@ -31,7 +31,7 @@ const FixtureSummary = observer(props => {
     let { fixtureCardStatus } = React.useContext(FixturesContext)
     let summaryFade = fixtureCardStatus[props.id].summaryFade
     const TeamInfo = props => (
-        <View style={[{ flexheight: 30, alignItems: 'center', flexDirection: 'row' }]}>
+        <View style={[{ alignItems: 'center', flexDirection: 'row' }]}>
             <Image source={props.image} style={styles.teamLogo} />
             <Text style={[styles.teamName, { marginLeft: 5 }]}>{props.name}</Text>
             <Text style={styles.teamGoal}>{props.goal}</Text>

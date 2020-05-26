@@ -70,10 +70,3 @@ export default class TeamNewsScreen extends Component {
         );
     }
 }
-
-const styles = StyleSheet.create({
-    matches: {
-        height: Dimensions.get('window').height * 0.23,
-        marginTop: Dimensions.get('window').height * 0.015
-    },
-});

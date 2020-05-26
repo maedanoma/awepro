@@ -55,11 +55,19 @@ const axios = new AxiosWrapper('https://v2.api-football.com')
 
 /**
  * 今シーズンの試合結果、試合予定を取得します
- * @param updateFixtures 
  */
-export const updateAllMatchesInSeason = async (updateFixtures) => {
-    fetchMatchesByTeam(evertonTeamId, plNinteenTwenty)
-        .then(fixtures => updateFixtures(fixtures))
+export const updateAllMatchesInSeason = async () => {
+    return fetchMatchesByTeam(evertonTeamId, plNinteenTwenty)
+        .then(fixtures => new Promise(resolve => resolve(fixtures)))
+}
+
+/**
+ * 今シーズンの試合結果、試合予定を取得します
+ * @param fixtureId
+ */
+export const getStatistics = async fixtureId => {
+    return fetchStatisticsById(fixtureId)
+        .then(statistics => new Promise(resolve => resolve(statistics)))
 }
 
 /**
@@ -72,6 +80,16 @@ async function fetchMatchesByTeam(teamId, leagueId = '') {
     let endPoint = 'fixtures/team/' + teamId + league
     const headers = { 'X-RapidAPI-Key': apiKey, }
     return axios.get(endPoint, '', headers, data => data.api.fixtures)
+}
+
+/**
+ * FixtureIDを元に試合結果を取得します。
+ * @param fixtureId  試合ID
+ */
+async function fetchStatisticsById(fixtureId) {
+    let endPoint = 'statistics/fixture/' + fixtureId
+    const headers = { 'X-RapidAPI-Key': apiKey }
+    return axios.get(endPoint, '', headers, data => data.api.statistics)
 }
 
 /**

@@ -55,7 +55,7 @@ const standard = {
         x: { value: 0, delay: 400 }
     },
     list: {
-        height: { value: DimHeight * 0.62, delay: 600 },
+        height: { value: DimHeight * 0.675, delay: 600 },
         scrollEnabled: true,
         y: { value: 0, delay: 300 }
     },
@@ -66,7 +66,7 @@ const popUp = {
         x: { value: DimWidth, delay: 0, }
     },
     list: {
-        height: { value: DimHeight * 0.84, delay: 0 },
+        height: { value: DimHeight * 0.922, delay: 0 },
         scrollEnabled: false,
         y: { value: -(DimHeight * 0.25), delay: 300 }
     },
@@ -98,11 +98,13 @@ class NewsStore {
     
     @action.bound updateNewsList() {
         this.newsList = defaultNews
-        this.cardStatus =
-            new Array(this.newsList.length).fill(cardStandard)
+        this.cardStatus = 
+            new Array(10).fill(cardStandard)
         // updateNews().then(allNews => {
-        //     this.newsList = allNews == null || allNews.length == 0?
-        //         null: allNews.slice(0, 10)
+        //     this.newsList = allNews == null || allNews.length == 0? null:
+        //         // this.cardStatus =
+        //         //     Array(allNews.length).fill(cardStandard)
+        //         allNews.slice(0, 10)
         // })
     }
 

@@ -22,7 +22,7 @@ const FixtureCard = observer(props => {
     }
     return (
         <Fade>
-            <ExpandHorizontal style={[{ margin: 10 }]}
+            <ExpandHorizontal style={[{ margin: DimHeight * 0.014 }]}
                 sets={{ from: DimWidth * 0.54, to: width.value }} delay={width.delay}>
                 <ExpandVertical style={[{}]}
                     sets={{ from: DimHeight * 0.155, to: height.value }} delay={height.delay}>
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
         height: '100%',
         borderRadius: 20,
         backgroundColor: '#3F3F3F',
-        padding: 7,
+        paddingTop: 7,
         justifyContent: 'center'
     },
 });

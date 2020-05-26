@@ -34,7 +34,7 @@ const NewsCardList = observer(props => {
             </SlideHorizontal>
             <SlideVertical style={[{}]} y={y.value} delay={y.delay}>
                 <ExpandVertical style={[{}]}
-                    sets={{ from: DimHeight * 0.62, to: height.value}} delay={height.delay}>
+                    sets={{ from: DimHeight * 0.67, to: height.value}} delay={height.delay}>
                     <CardList
                         initialCardPosition={topPosition}
                         cardHeight={cardHeight}

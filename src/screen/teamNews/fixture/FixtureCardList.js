@@ -38,7 +38,7 @@ const FixtureCardList = observer(props => {
                     <CardList
                         initialCardPosition={initCardPosition}
                         horizontal={true}
-                        cardWidth={DimWidth * 0.59}
+                        cardWidth={DimWidth * 0.589}
                         cardAlign='left'
                         scrollEnabled={scrollEnabled}
                         contents={fixtures}>
@@ -51,10 +51,3 @@ const FixtureCardList = observer(props => {
 })
 
 export default FixtureCardList
-
-const styles = StyleSheet.create({
-    matches: {
-        height: Dimensions.get('window').height * 0.23,
-        marginTop: Dimensions.get('window').height * 0.015
-    },
-});

@@ -6,6 +6,7 @@ import { updateAllMatchesInSeason } from '../../../http/FootballApi'
 const defaultFixtures = [
     {
         event_date: "2019-08-10T14:00:00+00:00",
+        venue: "Old Trafford (Manchester)",
         league: {
             name: "Premier League"
         },
@@ -22,6 +23,7 @@ const defaultFixtures = [
     },
     {
         event_date: "2019-08-10T14:00:00+00:00",
+        venue: "Old Trafford (Manchester)",
         league: {
             name: "Premier League"
         },
@@ -39,6 +41,7 @@ const defaultFixtures = [
     ,
     {
         event_date: "2019-08-10T14:00:00+00:00",
+        venue: "Old Trafford (Manchester)",
         league: {
             name: "Premier League"
         },
@@ -93,15 +96,19 @@ class FixturesStore {
         this.fixtures = defaultFixtures
         this.fixtureCardStatus =
             Array(this.fixtures.length).fill(cardStandard)
-        // updateAllMatchesInSeason(fixtures => {
-        //     fixtures == null || fixtures.length == 0?
-        //         this.fixtures = null:
-        //         this.initCardPosition = fixtures.filter(match => {
-        //                 return match.status == "Match Postponed"
-        //             }).length
-        //         this.fixtures = fixtures.reverse()
-        // })    
+        // updateAllMatchesInSeason()
+        //     .then(fixtures => {
+        //         fixtures == null || fixtures.length == 0?
+        //             this.fixtures = null:
+        //             this.fixtureCardStatus =
+        //                 Array(fixtures.length).fill(cardStandard)
+        //             this.initCardPosition = fixtures.filter(match => {
+        //                     return match.status == "Match Postponed"
+        //                 }).length
+        //             this.fixtures = fixtures.reverse()
+        //     })
     }
+
     @action.bound popUpFixture(position) {
         this.fixtureCardStatus[position] =
             this.fixtureCardStatus[position].pop? cardStandard: cardPopUp
