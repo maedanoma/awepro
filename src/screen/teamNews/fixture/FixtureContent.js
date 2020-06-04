@@ -13,6 +13,109 @@ import FixtureLineUp from './FixtureLineUp'
 import SlideHorizontal from '../../../components/animation/slide/SlideHorizontal'
 import Button from '../../../components/button/Button'
 
+const defaultLineup = {
+        "everton": {
+            "coach_id": 34,
+            "coach": "O. Dall’Oglio",
+            "formation": "4-2-3-1",
+            "startXI": [
+                {
+                    "team_id": 106,
+                    "player_id": 20541,
+                    "player": "G. Larsonneur",
+                    "number": 1,
+                    "pos": "G"
+                },
+                {
+                    "team_id": 106,
+                    "player_id": 20684,
+                    "player": "J. Vestergaard",
+                    "number": 17,
+                    "pos": "D"
+                },
+                {
+                    "team_id": 106,
+                    "player_id": 20684,
+                    "player": "J. Vestergaard",
+                    "number": 17,
+                    "pos": "D"
+                },
+                {
+                    "team_id": 106,
+                    "player_id": 20684,
+                    "player": "J. Vestergaard",
+                    "number": 17,
+                    "pos": "D"
+                },
+                {
+                    "team_id": 106,
+                    "player_id": 20684,
+                    "player": "J. Vestergaard",
+                    "number": 17,
+                    "pos": "D"
+                },
+                {
+                    "team_id": 106,
+                    "player_id": 20684,
+                    "player": "A. Ayew",
+                    "number": 23,
+                    "pos": "M"
+                },
+                {
+                    "team_id": 106,
+                    "player_id": 20684,
+                    "player": "A. Ayew",
+                    "number": 23,
+                    "pos": "M"
+                },
+                {
+                    "team_id": 106,
+                    "player_id": 20684,
+                    "player": "A. Ayew",
+                    "number": 23,
+                    "pos": "M"
+                },
+                {
+                    "team_id": 106,
+                    "player_id": 20684,
+                    "player": "A. Ayew",
+                    "number": 23,
+                    "pos": "M"
+                },
+                {
+                    "team_id": 106,
+                    "player_id": 20684,
+                    "player": "A. Ayew",
+                    "number": 23,
+                    "pos": "M"
+                },
+                {
+                    "team_id": 106,
+                    "player_id": 20684,
+                    "player": "J. Ayew",
+                    "number": 12,
+                    "pos": "F"
+                },
+            ],
+            "substitutes": [
+                {
+                    "team_id": 106,
+                    "player_id": 22266,
+                    "player": "S. Grandsir",
+                    "number": 25,
+                    "pos": "M"
+                },
+                {
+                    "team_id": 106,
+                    "player_id": 21506,
+                    "player": "A. Mendy",
+                    "number": 15,
+                    "pos": "F"
+                },
+            ]
+        },
+}
+
 /**
  * 試合詳細を表示するカード
  */
@@ -41,7 +144,7 @@ const FixtureContent = observer(props => {
                     <FixtureEvents homeTeamId={props.fixture.homeTeam.team_id} />
                 </SlideHorizontal>
                 <SlideHorizontal style={[{}]} x={content.left} easing={Easing.quad}>
-                    <FixtureLineUp />
+                    <FixtureLineUp lineup={defaultLineup} />
                 </SlideHorizontal>
             </View>
         </View>

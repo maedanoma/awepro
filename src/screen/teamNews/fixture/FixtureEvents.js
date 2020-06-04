@@ -77,7 +77,7 @@ const FixtureEvents = observer(props => {
                     <View style={styles.line} />
                     <Text style={styles.elapse}>FT</Text>
                 </View>
-                <Div div={DimHeight * 0.06} />
+                <Div div={DimHeight * 0.08} />
             </TouchableOpacity>
         </ScrollView>
     )
