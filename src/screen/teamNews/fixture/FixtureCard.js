@@ -9,7 +9,8 @@ import { DimHeight, DimWidth } from '../../../components/Layout';
 import ExpandHorizontal from '../../../components/animation/expand/ExpandHorizontal';
 import FixturesContext from '../store/FixturesStore'
 import FixtureDetail from './FixtureDetail'
-import FixtureSummary from './FixtureSummary';
+import FixtureSummary from './FixtureSummary'
+
 /**
  * 試合結果を表示するカード
  */
@@ -17,15 +18,14 @@ const FixtureCard = observer(props => {
     let { fixtureCardStatus, popUpFixture } = React.useContext(FixturesContext)
     let height = fixtureCardStatus[props.id].height
     let width = fixtureCardStatus[props.id].width
-    const onPress = () => {
-        popUpFixture(props.id)
-    }
+    let paddingHorizontal = fixtureCardStatus[props.id].marginX
+    const onPress = () => popUpFixture(props.id)
     return (
         <Fade>
-            <ExpandHorizontal style={[{ margin: DimHeight * 0.014 }]}
+            <ExpandHorizontal style={[styles.cardMargin, { paddingHorizontal }]}
                 sets={{ from: DimWidth * 0.54, to: width.value }} delay={width.delay}>
                 <ExpandVertical style={[{}]}
-                    sets={{ from: DimHeight * 0.155, to: height.value }} delay={height.delay}>
+                    sets={{ from: DimHeight * 0.158, to: height.value }} delay={height.delay}>
                     <Card style={[styles.matchCard]} onPress={onPress} >
                         <FixtureSummary fixture={props.fixture} id={props.id} />
                         <FixtureDetail fixture={props.fixture} id={props.id} />
@@ -69,4 +69,7 @@ const styles = StyleSheet.create({
         paddingTop: 7,
         justifyContent: 'center'
     },
+    cardMargin: {
+        paddingVertical: DimHeight * 0.01
+    }
 });

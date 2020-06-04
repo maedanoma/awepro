@@ -1,9 +1,5 @@
-import React, { Component } from 'react';
-import {
-    StyleSheet,
-    View,
-    Dimensions,
-} from 'react-native'
+import React from 'react'
+import { View } from 'react-native'
 import FixtureCard from './FixtureCard'
 import CardList from '../../../components/card/CardList'
 import { TitleLabel } from '../../../components/text/Text'
@@ -21,12 +17,9 @@ const FixtureCardList = observer(props => {
     let x = labelStatus.x
     let y = labelStatus.y
     let scrollEnabled = labelStatus.scrollEnabled
-    let count=0
+    let count = 0
     const displayMatches = fixtures.map(fixture => (
-        <FixtureCard
-            key={count}
-            id={count++}
-            fixture={fixture} />
+        <FixtureCard key={count} id={count++} fixture={fixture} />
     ))
     return (
         <View>
@@ -38,7 +31,7 @@ const FixtureCardList = observer(props => {
                     <CardList
                         initialCardPosition={initCardPosition}
                         horizontal={true}
-                        cardWidth={DimWidth * 0.589}
+                        cardWidth={DimWidth * 0.58}
                         cardAlign='left'
                         scrollEnabled={scrollEnabled}
                         contents={fixtures}>

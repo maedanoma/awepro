@@ -218,17 +218,19 @@ const popUp = {
 }
 
 const cardStandard = {
-    height: { value: DimHeight * 0.155, delay: 0 },
-    width: { value: DimWidth * 0.54, delay: 0 },
+    height: { value: DimHeight * 0.158, delay: 0 },
+    width: { value: DimWidth * 0.54, delay: 0 }, 
     summaryFade: { value: 1, delay: 100 },
     detailFade: { value: 0, delay: 0, duration: 100 },
+    marginX: DimWidth * 0.02,
     pop: false,
 }
 const cardPopUp = {
     height: { value: DimHeight * 0.93, delay: 500 },
-    width: { value: DimWidth * 0.96, delay: 500 },
+    width: { value: DimWidth, delay: 500 },
     summaryFade: { value: 0, delay: 100 },
     detailFade: { value: 1, delay: 650, duration: 500 },
+    marginX: 0,
     pop: true
 }
 

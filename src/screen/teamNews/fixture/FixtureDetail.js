@@ -10,7 +10,11 @@ import FixturesContext from '../store/FixturesStore'
 import Fade from '../../../components/animation/Fade'
 import PropTypes from 'prop-types'
 import { DimWidth, Div, DimHeight } from '../../../components/Layout'
-import FixtureEvents from './FixtureEvents'
+import FixtureContent from './FixtureContent'
+
+const stadiumIcon = require('../../../res/stadium.jpg')
+const timeIcon = require('../../../res/time.jpg')
+const compeIcon = require('../../../res/compe.jpg')
 
 /**
  * 試合詳細を表示するカード
@@ -46,17 +50,25 @@ const FixtureDetail = observer(props => {
     return (
         <Fade style={styles.container} startWhen={false} 
             sets={{from: 0, to: detailFade.value }} delay={detailFade.delay} duration={detailFade.duration}>
-            <View style={[{ flexDirection: 'row', paddingTop: DimWidth * 0.03, paddingLeft: DimWidth * 0.03}]}>
-                <Text style={styles.day}>{matchDay}</Text>
-                <Text style={styles.competition}>{competition}</Text>
+            <View style={[{ flexDirection: 'row', paddingTop: DimWidth * 0.03, marginLeft: DimWidth * 0.03 }]}>
+                <Image style={[styles.timeIcon]} source={compeIcon} />
+                <Text style={[styles.competition, {marginLeft: DimWidth * 0.01}]}>{competition}</Text>
             </View>
-            <Text style={styles.stadium}>{stadium}</Text>
             <Div div={DimHeight * 0.01} />
+            <View style={[{ flexDirection: 'row', justifyContent: 'center' }]}>
+                <Image style={styles.timeIcon} source={timeIcon} />
+                <Text style={[styles.day, {marginLeft: DimWidth * 0.01}]}>{matchDay}</Text>
+            </View>
             <View style={styles.gameResult}>
                 <TeamInfo home={true} /> 
                 <TeamInfo home={false} />
             </View>
-            <FixtureEvents homeTeamId={props.fixture.homeTeam.team_id} />
+            <View style={[{ flexDirection: 'row', justifyContent: 'center' }]}>
+                <Image style={styles.stadiumIcon} source={stadiumIcon} />
+                <Text style={[styles.stadium, {marginLeft: DimWidth * 0.01}]}>{stadium}</Text>
+            </View>
+            <Div div={DimHeight * 0.01} />
+            <FixtureContent style={styles.contents} fixture={props.fixture} />
         </Fade>
     )
 })
@@ -80,6 +92,7 @@ const styles = StyleSheet.create({
     },
     gameResult: {
         alignItems: 'center',
+        justifyContent: 'center',
         flexDirection: 'row', 
     }, 
     teamLogo: {
@@ -113,21 +126,32 @@ const styles = StyleSheet.create({
         borderLeftColor: '#555555'
     },
     day: {
-        width: DimWidth * 0.35, 
         fontSize: 18,
         color: '#A9A9A9',
         textAlign: 'center'
     },
     competition: {
-        width: DimWidth * 0.55, 
         fontSize: 18,
         color: '#A9A9A9',
-        textAlign: 'right'
     },
     stadium: {
-        width: DimWidth * 0.93,
         fontSize: 18,
         color: '#A9A9A9',
-        textAlign: 'right'
     },
+    stadiumIcon: {
+        height: DimWidth * 0.06,
+        width: DimWidth * 0.06,
+        borderRadius: DimWidth * 0.02,
+        backgroundColor: '#CCCCCC'
+    },
+    timeIcon: {
+        height: DimWidth * 0.06,
+        width: DimWidth * 0.06,
+        borderRadius: DimWidth * 0.03,
+        backgroundColor: '#CCCCCC'
+    },
+    contents: {
+        width: DimWidth,
+        height: DimHeight * 0.65,
+    }
 })
